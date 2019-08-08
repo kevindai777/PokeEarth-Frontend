@@ -23,6 +23,43 @@
   color: #61dafb;
 }
 
+
+.card {
+  width: 20%;
+  display: inline-block;
+  box-shadow: 2px 2px 20px black;
+  border-radius: 5px;
+  margin: 2%;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+  padding: 2px 16px;
+}
+
+.city-card {
+  display: block;
+  float: right;
+  margin-top: 50px;
+  width: 600px;
+  box-shadow: 0px 0px 5px black;
+  border-radius: 5px;
+  margin: 2%;
+}
+
+.kanto-pokemon {
+  margin-top: 1050px;
+}
+
+.johto-pokemon {
+  margin-top: 600px;
+}
+
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
