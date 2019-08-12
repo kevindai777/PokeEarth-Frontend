@@ -10,7 +10,9 @@ class PokemonCard extends React.Component {
     stats: {},
     type1: null,
     type2: 'null',
-    locationUrl: null
+    locationUrl: null,
+    moves: null,
+    items: null
   }
 
   componentDidMount() {
@@ -24,7 +26,7 @@ class PokemonCard extends React.Component {
         if (data.types[1]) {
           this.setState((prevState) => ({
             spriteUrl: data.sprites['front_default'],
-            abilities: [...prevState.abilities, data.abilities[0].ability.name],
+            abilities: [...prevState.abilities, data.abilities],
             stats: {
               speed: data.stats[0].base_stat,
               specialDefense: data.stats[1].base_stat,
@@ -35,23 +37,29 @@ class PokemonCard extends React.Component {
             },
             type1: data.types[0].type.name,
             type2: data.types[1].type.name,
-            locationUrl: data.location_area_encounters
+            locationUrl: data.location_area_encounters,
+            moves: data.moves,
+            items: data.held_items
+          }))
+        } else {
+          this.setState((prevState) => ({
+            spriteUrl: data.sprites['front_default'],
+            abilities: [...prevState.abilities, data.abilities],
+            stats: {
+              speed: data.stats[0].base_stat,
+              specialDefense: data.stats[1].base_stat,
+              specialAttack: data.stats[2].base_stat,
+              defense: data.stats[3].base_stat,
+              attack: data.stats[4].base_stat,
+              hp: data.stats[5].base_stat
+            },
+            type1: data.types[0].type.name,
+            locationUrl: data.location_area_encounters,
+            moves: data.moves,
+            items: data.held_items
           }))
         }
-        this.setState((prevState) => ({
-          spriteUrl: data.sprites['front_default'],
-          abilities: [...prevState.abilities, data.abilities[0].ability.name],
-          stats: {
-            speed: data.stats[0].base_stat,
-            specialDefense: data.stats[1].base_stat,
-            specialAttack: data.stats[2].base_stat,
-            defense: data.stats[3].base_stat,
-            attack: data.stats[4].base_stat,
-            hp: data.stats[5].base_stat
-          },
-          type1: data.types[0].type.name,
-          locationUrl: data.location_area_encounters
-        }))
+
       })
   }
 
@@ -72,7 +80,9 @@ class PokemonCard extends React.Component {
               hp: this.state.stats.hp,
               type1: this.state.type1,
               type2: this.state.type2,
-              locationUrl: this.state.locationUrl
+              locationUrl: this.state.locationUrl,
+              moves: this.state.moves,
+              items: this.state.items
             }
           }}
         >

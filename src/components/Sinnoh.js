@@ -29,7 +29,7 @@ class Sinnoh extends React.Component {
       const image = new Image()
       image.src = './images/sinnoh.png'
       image.onload = () => {
-        ctx.drawImage(image, 0, 0, 1036, 800);
+        ctx.drawImage(image, 0, 0, 800, 650);
       }
     }
 
@@ -67,10 +67,11 @@ class Sinnoh extends React.Component {
         Sinnoh
         <br></br>
           <canvas
+            style={{float: 'left'}}
             className="map"
             ref="canvas"
-            width={1036}
-            height={800}
+            width={800}
+            height={650}
             onClick={(event) => this.getInfo(event)}
           />
         {

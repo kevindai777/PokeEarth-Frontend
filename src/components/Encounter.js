@@ -25,7 +25,7 @@ class Encounter extends React.Component {
     if (this.state.encounters !== null) {
       return this.state.encounters.map(location => <Location name={location.location_area.name}/>)
     } else {
-      return null
+      return (<h1>None to be found!</h1>)
     }
   }
 
@@ -33,10 +33,8 @@ class Encounter extends React.Component {
     return (
       <div>
         <h1>Encounters: </h1>
-        <div>
-          <h1>
-            {this.renderEncounters()}
-          </h1>
+        <div className="location-container">
+          {this.renderEncounters()}
         </div>
       </div>
     )

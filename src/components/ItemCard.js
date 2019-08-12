@@ -30,7 +30,8 @@ class ItemCard extends React.Component {
           <Link to={{
               pathname: '/items' + '/' + this.props.item.id,
               state: {
-                name: this.props.item.name
+                name: this.props.item.name,
+                description: this.state.item.effect_entries[0].effect
               }
             }}
           >

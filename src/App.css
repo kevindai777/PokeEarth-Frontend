@@ -51,13 +51,31 @@
 }
 
 .kanto-pokemon {
-  margin-top: 1050px;
+  margin-top: 600px;
 }
 
 .johto-pokemon {
   margin-top: 600px;
+  margin-left: 20px;
 }
 
+.hoenn-pokemon {
+  margin-top: 700px;
+}
+
+.css-1jv1kel {
+  margin-right: 20px;
+}
+
+ul.css-1b3lipl {
+  margin-left: 60px;
+}
+
+.location-container {
+  width: 90%;
+  margin: auto;
+  overflow: hidden;
+}
 
 
 @keyframes App-logo-spin {

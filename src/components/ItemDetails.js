@@ -32,6 +32,7 @@ class ItemDetails extends React.Component {
     return (
       <div>
         <h1>{this.props.location.state.name}</h1>
+        <h2><i>{this.props.location.state.description}</i></h2>
         Pokemon Holding this Item:
         <br></br>
         {

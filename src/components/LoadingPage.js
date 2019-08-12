@@ -13,7 +13,7 @@ class LoadingPage extends React.Component {
   render() {
     return (
       <div>
-        <img src='./images/giphy.webp' height={this.state.height} width={this.state.width} />
+        <img src='./images/loading.gif' height={this.state.height} width={this.state.width} />
       </div>
     )
   }

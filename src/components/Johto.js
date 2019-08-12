@@ -9,8 +9,10 @@ class Johto extends React.Component {
     data: null,
     johtoPokemon: null,
     locations: null,
-    area: 'Johto',
-    pokemonLocations: null
+    area: 'johto-map',
+    pokemonLocations: null,
+    query: null,
+    locationQuery: null
   }
 
   componentWillMount() {
@@ -29,6 +31,7 @@ class Johto extends React.Component {
   }
 
   renderThisData = () => {
+
     fetch('https://pokeapi.co/api/v2/pokedex/3/')
       .then(res => res.json())
       .then(pokemons => {
@@ -36,6 +39,7 @@ class Johto extends React.Component {
           data: pokemons.pokemon_entries
         })
       })
+
     fetch('https://pokeapi.co/api/v2/pokemon/?offset=151&limit=100')
       .then(res => res.json())
       .then(pokemons => {
@@ -43,6 +47,7 @@ class Johto extends React.Component {
           johtoPokemon: pokemons.results
         })
       })
+
     fetch('https://pokeapi.co/api/v2/region/2/')
       .then(res => res.json())
       .then(region =>
@@ -268,37 +273,79 @@ class Johto extends React.Component {
   }
 
   determineImage = () => {
-    if (this.state.area === "new-bark-town-area") {
-      return <img src="images/johto/new-bark-town-area.png"/>
-    } else if (this.state.area === "johto-route-29-area") {
-      return <img src="images/johto/johto-route-29-area.png"/>
-    } else if (this.state.area === "cherrygrove-city-area") {
-      return <img src="images/johto/cherrygrove-city-area.png"/>
-    } else if (this.state.area === "johto-route-30-area") {
-      return <img src="images/johto/johto-route-30-area.png"/>
-    } else if (this.state.area === "johto-route-31-area") {
-      return <img src="images/johto/johto-route-31-area.png"/>
-    } else if (this.state.area === "dark-cave") {
-      return <img src="images/johto/dark-cave.png"/>
-    } else if (this.state.area === "violet-city-area") {
-      return <img src="images/johto/violet-city-area.png"/>
-    } else if (this.state.area === "Johto") {
-      return <img src="images/johto/johto-map.png"/>
-    }
+    return <img src={`/images/johto/${this.state.area}.png`}/>
   }
 
   getNativePokemonLocations = () => {
     let foundPokemonLocations =  this.state.pokemonLocations.filter(instance => instance.location.name === this.state.area)
-    let johtoPokemonNames = this.state.data.map(pokemon => pokemon.pokemon_species.name)
-    let nativePokemonLocations = foundPokemonLocations.filter(instance => johtoPokemonNames.includes(instance.pokemon.name))
+    let hoennPokemonNames = this.state.data.map(pokemon => pokemon.pokemon_species.name)
+    let nativePokemonLocations = foundPokemonLocations.filter(instance => hoennPokemonNames.includes(instance.pokemon.name))
     return nativePokemonLocations.map((instance, index) => <PokemonCard key={index + 1} name={instance.pokemon.name} url={instance.pokemon.url} id={index + 1}/>)
   }
 
   getNonNativePokemonLocations = () => {
     let foundPokemonLocations =  this.state.pokemonLocations.filter(instance => instance.location.name === this.state.area)
-    let johtoPokemonNames = this.state.data.map(pokemon => pokemon.pokemon_species.name)
-    let nonNativePokemonLocations = foundPokemonLocations.filter(instance => !johtoPokemonNames.includes(instance.pokemon.name))
+    let hoennPokemonNames = this.state.data.map(pokemon => pokemon.pokemon_species.name)
+    let nonNativePokemonLocations = foundPokemonLocations.filter(instance => !hoennPokemonNames.includes(instance.pokemon.name))
     return nonNativePokemonLocations.map((instance, index) => <PokemonCard key={index + 1} name={instance.pokemon.name} url={instance.pokemon.url} id={index + 1}/>)
+  }
+
+  startQuery = (event) => {
+    this.setState({
+      query: event.target.value
+    })
+  }
+
+  startLocationQuery = (event) => {
+    this.setState({
+      locationQuery: event.target.value
+    })
+  }
+
+  checkQuery = () => {
+    if (this.state.query && !this.state.locationQuery) {
+      return this.filterByName()
+    } else if (!this.state.query && this.state.locationQuery) {
+      return this.filterByLocation()
+    } else if (!this.state.query && !this.state.locationQuery) {
+      if (this.state.johtoPokemon) {
+        return this.state.johtoPokemon.map((pokemon, index) =>
+            <PokemonCard
+              key={index + 1}
+              name={pokemon.name}
+              url={pokemon.url}
+              id={index + 1}
+            />)
+      } else {
+        return <LoadingPage/>
+      }
+    }
+  }
+
+  filterByName = () => {
+    if (this.state.data) {
+      let filteredPokemon = this.state.johtoPokemon.filter(pokemon => pokemon.name.includes(this.state.query))
+      return filteredPokemon.map((pokemon, index) =>
+          <PokemonCard
+            name={pokemon.name}
+            url={pokemon.url}
+            id={index + 1}
+          />
+      )
+    }
+  }
+
+  filterByLocation = () => {
+    if (this.state.pokemonLocations) {
+      let superFilteredPokemon = this.state.pokemonLocations.filter(instance => instance.location.name.includes(this.state.locationQuery))
+      return superFilteredPokemon.map((instance, index) =>
+          <PokemonCard
+            name={instance.pokemon.name}
+            url={instance.pokemon.url}
+            id={index + 1}
+          />
+      )
+    }
   }
 
   render () {
@@ -335,19 +382,19 @@ class Johto extends React.Component {
 
         <div className="johto-pokemon">
           <h1>Johto Pokemon: </h1>
-          {
-            this.state.johtoPokemon ?
-            this.state.johtoPokemon.map((pokemon, index) =>
-                <PokemonCard
-                  key={index + 1}
-                  name={pokemon.name}
-                  url={pokemon.url}
-                  id={index + 1}
-                />
-            )
-             :
-             <LoadingPage/>
-          }
+          <br></br>
+
+          <h3>Search By Name:</h3>
+          <input onChange={(event) => this.startQuery(event)}></input>
+
+          <br></br>
+
+          <h3>Search By Location:</h3>
+          <input onChange={(event) => this.startLocationQuery(event)}></input>
+
+          <br></br>
+
+          {this.state.johtoPokemon && this.state.pokemonLocations ? this.checkQuery() : <LoadingPage/>}
         </div>
       </div>
     )

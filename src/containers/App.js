@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import { Fragment } from 'react'
 import PokemonPage from '../components/PokemonPage'
 import PokemonDetails from '../components/PokemonDetails.js'
 import ItemDetails from '../components/ItemDetails.js'
@@ -11,10 +12,10 @@ import Sinnoh from '../components/Sinnoh'
 import Unova from '../components/Unova'
 import Kalos from '../components/Kalos'
 import { BrowserRouter, Router, Route, Link, Switch, Redirect } from "react-router-dom"
-
 import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee, faHome, faClipboardList, faCrow, faMap } from '@fortawesome/free-solid-svg-icons'
 import '../App.css'
 
 class App extends React.Component {
@@ -42,56 +43,6 @@ class App extends React.Component {
     return (
       <div className="App">
 
-        <SideNav
-          onSelect={(selected) => {
-            this.setState({
-              link: selected
-            })
-          }}
-        >
-          <SideNav.Toggle />
-          <SideNav.Nav defaultSelected="/">
-
-            <NavItem eventKey="/">
-              <NavIcon>
-                <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
-              </NavIcon>
-              <NavText>
-                Home
-              </NavText>
-            </NavItem>
-
-            <NavItem eventKey="pokemons">
-              <NavIcon>
-                <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
-              </NavIcon>
-              <NavText>
-                Pokemon
-              </NavText>
-            </NavItem>
-
-            <NavItem eventKey="items">
-              <NavIcon>
-                <i className="fa fa-fw fa-line-chart" style={{ fontSize: '1.75em' }} />
-              </NavIcon>
-              <NavText>
-                Items
-              </NavText>
-            </NavItem>
-
-          </SideNav.Nav>
-        </SideNav>
-
-        {
-          this.state.link ?
-            <Redirect to={{
-                pathname: '/' + this.state.link
-              }}
-            />
-            :
-            null
-        }
-
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={PokemonMap}/>
@@ -107,6 +58,78 @@ class App extends React.Component {
             <Route exact path="/items/:id" component={ItemDetails} />
           </Switch>
         </BrowserRouter>
+
+        <SideNav
+          onSelect={(selected) => {
+            console.log(selected)
+          }}
+        >
+        <SideNav.Toggle />
+          <SideNav.Nav defaultSelected="home">
+            <NavItem eventKey="home">
+              <NavIcon>
+                <FontAwesomeIcon icon={faHome} />
+              </NavIcon>
+              <NavText>
+                Home
+              </NavText>
+            </NavItem>
+            <NavItem eventKey="pokemon">
+              <NavIcon>
+                <FontAwesomeIcon icon={faCrow} />
+              </NavIcon>
+              <NavText>
+                Pokemon
+              </NavText>
+            </NavItem>
+            <NavItem eventKey="items">
+              <NavIcon>
+                <FontAwesomeIcon icon={faClipboardList} />
+              </NavIcon>
+              <NavText>
+                Items
+              </NavText>
+            </NavItem>
+            <NavItem eventKey="regions">
+              <NavIcon>
+                <FontAwesomeIcon icon={faMap} />
+              </NavIcon>
+              <NavText>
+                Regions
+              </NavText>
+              <NavItem eventKey="kanto">
+                <NavText>
+                  Kanto
+                </NavText>
+              </NavItem>
+              <NavItem eventKey="johto">
+                <NavText>
+                  Johto
+                </NavText>
+              </NavItem>
+              <NavItem eventKey="hoenn">
+                <NavText>
+                  Hoenn
+                </NavText>
+              </NavItem>
+              <NavItem eventKey="sinnoh">
+                <NavText>
+                  Sinnoh
+                </NavText>
+              </NavItem>
+              <NavItem eventKey="unova">
+                <NavText>
+                  Unova
+                </NavText>
+              </NavItem>
+              <NavItem eventKey="kalos">
+                <NavText>
+                  Kalos
+                </NavText>
+              </NavItem>
+            </NavItem>
+          </SideNav.Nav>
+        </SideNav>
 
       </div>
     )
