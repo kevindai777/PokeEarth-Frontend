@@ -1,6 +1,6 @@
 import React from 'react'
 import FadeIn from 'react-fade-in'
-import { Link, Redirect } from 'react-router-dom'
+import { Link, Redirect, withRouter } from 'react-router-dom'
 
 class PokemonMap extends React.Component {
 
@@ -77,13 +77,13 @@ class PokemonMap extends React.Component {
     return (
       <div>
 
-        Pokemon Earth
+        <h1>Pokemon Earth</h1>
         <br></br>
 
         <FadeIn>
           {
             this.state.region ?
-            <Redirect to={'/' + this.state.region}/>
+            this.props.history.push("/" + this.state.region)
             :
             <canvas
               className="map"
@@ -108,4 +108,4 @@ class PokemonMap extends React.Component {
 
 }
 
-export default PokemonMap
+export default withRouter(PokemonMap)

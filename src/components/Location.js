@@ -49,13 +49,30 @@ class Location extends React.Component {
           unova: region.locations
         })
       )
-    fetch('https://pokeapi.co/api/v2/region/1/')
+    fetch('https://pokeapi.co/api/v2/region/6/')
       .then(res => res.json())
       .then(region =>
         this.setState({
           kalos: region.locations
         })
       )
+    fetch('http://localhost:3000/locations')
+      .then(res => res.json())
+      .then(data => {
+        let foundLocationId = data.filter(location => location.name === this.props.name)[0].id
+        let foundRegionId = data.filter(location => location.name === this.props.name)[0].region_id
+        this.setState({
+          foundId: foundLocationId,
+          regionId: foundRegionId
+        })
+      })
+    fetch('http://localhost:3000/favorite_locations')
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          favoriteLocations: data
+        })
+      })
   }
 
   getLocation = () => {
@@ -63,27 +80,41 @@ class Location extends React.Component {
   }
 
   getImage = () => {
-    let foundKantoImage = this.state.kanto.filter(location => this.props.name.includes(location.name))
-    let foundJohtoImage = this.state.johto.filter(location => this.props.name.includes(location.name))
-    let foundHoennImage = this.state.hoenn.filter(location => this.props.name.includes(location.name))
-    let foundSinnohImage = this.state.sinnoh.filter(location => this.props.name.includes(location.name))
-    let foundUnovaImage = this.state.unova.filter(location => this.props.name.includes(location.name))
-    let foundKalosImage = this.state.kalos.filter(location => this.props.name.includes(location.name))
+    let foundKantoImage = this.state.kanto.filter(location => this.props.name === location.name)
+    let foundJohtoImage = this.state.johto.filter(location => this.props.name === location.name)
+    let foundHoennImage = this.state.hoenn.filter(location => this.props.name === location.name)
+    let foundSinnohImage = this.state.sinnoh.filter(location => this.props.name === location.name)
+    let foundUnovaImage = this.state.unova.filter(location => this.props.name === location.name)
+    let foundKalosImage = this.state.kalos.filter(location => this.props.name === location.name)
 
-    if (this.props.name.includes('kanto') || foundKantoImage.length > 0) {
-      return <img src={`/images/kanto/${this.props.name}.png`} style={{width: '211px', height: '143px'}}/>
-    } else if (this.props.name.includes('johto') || foundJohtoImage.length > 0) {
-      return <img src={`/images/johto/${this.props.name}.png`} style={{width: '211px', height: '143px'}}/>
-    } else if (this.props.name.includes('hoenn' || foundHoennImage.length > 0)) {
-      return <img src={`/images/hoenn/${this.props.name}.png`} style={{width: '211px', height: '143px'}}/>
-    } else if (this.props.name.includes('sinnoh') || foundSinnohImage.length > 0) {
-      return <img src={`/images/sinnoh/${this.props.name}.png`} style={{width: '211px', height: '143px'}}/>
-    } else if (this.props.name.includes('unova') || foundUnovaImage.length > 0) {
-      return <img src={`/images/unova/${this.props.name}.png`} style={{width: '211px', height: '143px'}}/>
-    } else if (this.props.name.includes('kalos') || foundKalosImage.length > 0) {
-      return <img src={`/images/kalos/${this.props.name}.png`} style={{width: '211px', height: '143px'}}/>
+    if (this.props.name.includes('kanto') || foundKantoImage.length > 0 || this.state.regionId === 1) {
+      return <div>
+        <img src={`/images/kanto/${this.props.name}.png`} style={{width: '211px', height: '143px'}}/>
+      </div>
+    } else if (this.props.name.includes('johto') || foundJohtoImage.length > 0 || this.state.regionId === 2) {
+      return <div>
+        <img src={`/images/johto/${this.props.name}.png`} style={{width: '211px', height: '143px'}}/>
+      </div>
+    } else if (this.props.name.includes('hoenn') || foundHoennImage.length > 0 || this.state.regionId === 3) {
+      return <div>
+        <img src={`/images/hoenn/${this.props.name}.png`} style={{width: '211px', height: '143px'}}/>
+      </div>
+    } else if (this.props.name.includes('sinnoh') || foundSinnohImage.length > 0 || this.state.regionId === 4) {
+      return <div>
+        <img src={`/images/sinnoh/${this.props.name}.png`} style={{width: '211px', height: '143px'}}/>
+      </div>
+    } else if (this.props.name.includes('unova') || foundUnovaImage.length > 0 || this.state.regionId === 5) {
+      return <div>
+        <img src={`/images/unova/${this.props.name}.png`} style={{width: '211px', height: '143px'}}/>
+      </div>
+    } else if (this.props.name.includes('kalos') || foundKalosImage.length > 0 || this.state.regionId === 6) {
+      return <div>
+        <img src={`/images/kalos/${this.props.name}.png`} style={{width: '211px', height: '143px'}}/>
+      </div>
     } else {
-      return <img src={`/images/${this.props.name}.png`}/>
+      return <div>
+        <img src={`/images/unknown/${this.props.name}.png`} style={{width: '211px', height: '143px'}}/>
+      </div>
     }
   }
 
@@ -112,6 +143,37 @@ class Location extends React.Component {
     }
   }
 
+  post = () => {
+    if (!localStorage.user_id) {
+      alert("Login first!")
+    } else {
+      fetch('http://localhost:3000/favorite_locations', {
+        method: 'POST',
+        headers: {
+          "Content-Type": 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          user_id: localStorage.user_id,
+          location_id: this.state.foundId
+        })
+      })
+        .then(res => res.json())
+        .then(console.log)
+    }
+  }
+
+  determineButton = () => {
+    if (this.state.favoriteLocations) {
+      let ids = this.state.favoriteLocations.map(location => location.location.id)
+      if (ids.includes(this.state.foundId)) {
+        return <p>Favorited!</p>
+      } else if (!ids.includes(this.state.foundId)) {
+        return <button onClick={this.state.foundId ? this.post : null}>Favorite!</button>
+      }
+    }
+  }
+
   render() {
     return(
       <div className="card">
@@ -136,6 +198,9 @@ class Location extends React.Component {
             }
           </div>
         </Link>
+        <div>
+          {this.determineButton()}
+        </div>
       </div>
     )
   }

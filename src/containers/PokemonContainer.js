@@ -4,6 +4,20 @@ import { Link } from 'react-router-dom'
 
 class PokemonContainer extends React.Component {
 
+  state = {
+    moves: null
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3000/moves')
+      .then(res => res.json())
+      .then(moves =>
+        this.setState({
+          moves: moves
+        })
+      )
+  }
+
   renderCards = () => {
     let pokemons = [...this.props.pokemons]
 
@@ -11,80 +25,88 @@ class PokemonContainer extends React.Component {
       case 'all':
         return pokemons.map((pokemon, index) => {
           return <PokemonCard
-                    key={index + 1}
+                    key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
                     name={pokemon.name}
                     url={pokemon.url}
-                    id={index + 1}
+                    id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                    allMoves={this.state.moves}
                   />
         })
       case '1':
         pokemons = pokemons.slice(0, 151)
         return pokemons.map((pokemon, index) => {
           return <PokemonCard
-                    key={index + 1}
+                    key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
                     name={pokemon.name}
                     url={pokemon.url}
-                    id={index + 1}
+                    id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                    allMoves={this.state.moves}
                   />
         })
       case '2':
         pokemons = pokemons.slice(151, 251)
         return pokemons.map((pokemon, index) => {
           return <PokemonCard
-                    key={index + 151}
+                    key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
                     name={pokemon.name}
                     url={pokemon.url}
-                    id={index + 151}
+                    id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                    allMoves={this.state.moves}
                   />
         })
       case '3':
         pokemons = pokemons.slice(251, 386)
         return pokemons.map((pokemon, index) => {
           return <PokemonCard
-                    key={index + 251}
+                    key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
                     name={pokemon.name}
                     url={pokemon.url}
-                    id={index + 251}
+                    id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                    allMoves={this.state.moves}
                   />
         })
       case '4':
         pokemons = pokemons.slice(386, 493)
         return pokemons.map((pokemon, index) => {
           return <PokemonCard
-                    key={index + 386}
+                    key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
                     name={pokemon.name}
                     url={pokemon.url}
-                    id={index + 386}
+                    id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                    allMoves={this.state.moves}
                   />
         })
       case '5':
         pokemons = pokemons.slice(493, 649)
         return pokemons.map((pokemon, index) => {
           return <PokemonCard
-                    key={index + 493}
+                    key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
                     name={pokemon.name}
                     url={pokemon.url}
-                    id={index + 493}
+                    id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                    allMoves={this.state.moves}
                   />
         })
       case '6':
         pokemons = pokemons.slice(649, 721)
         return pokemons.map((pokemon, index) => {
           return <PokemonCard
-                    key={index + 649}
+                    key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
                     name={pokemon.name}
                     url={pokemon.url}
-                    id={index + 649}
+                    id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                    allMoves={this.state.moves}
                   />
         })
       case '7':
         pokemons = pokemons.slice(721, 807)
         return pokemons.map((pokemon, index) => {
           return <PokemonCard
-                    key={index + 721}
+                    key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
                     name={pokemon.name}
                     url={pokemon.url}
-                    id={index + 721}
+                    id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                    allMoves={this.state.moves}
                   />
         })
       default:
@@ -94,20 +116,20 @@ class PokemonContainer extends React.Component {
       pokemons = pokemons.filter(pokemon => pokemon.name.includes(this.props.query))
       return pokemons.map((pokemon, index) => {
         return <PokemonCard
-                  key={index + 1}
+                  key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
                   name={pokemon.name}
                   url={pokemon.url}
-                  id={index + 1}
+                  id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
                />
       })
     } else {
       return this.props.pokemons.results.map(
         (pokemon, index) =>
           <PokemonCard
-            key={index + 1}
+            key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
             name={pokemon.name}
             url={pokemon.url}
-            id={index + 1}
+            id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
           />
       )
     }
@@ -115,10 +137,10 @@ class PokemonContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props.query)
+    console.log(this.props.pokemons)
     return (
       <div>
-        {this.renderCards()}
+        {this.state.moves ? this.renderCards() : null}
       </div>
     )
   }

@@ -35,12 +35,22 @@ class MoveDetails extends React.Component {
     })
   }
 
+  getDescription = () => {
+    if (this.state.data.effect_entries[0].short_effect.includes("$effect_chance")) {
+      let newDescription = this.state.data.effect_entries[0].short_effect.replace("$effect_chance", this.state.data.effect_chance)
+      return newDescription
+    } else {
+      return this.state.data.effect_entries[0].short_effect
+    }
+  }
+
   showMoreDetails = () => {
     return (
       <div>
-        <h1><i>{this.state.data.effect_entries[0].short_effect}</i></h1>
+        <h1><i>{this.getDescription()}</i></h1>
         <br></br>
         <h1>Accuracy: {this.state.data.accuracy ? this.state.data.accuracy : "---"}</h1>
+        <h1>Class: {this.state.data.damage_class.name}</h1>
         <h1>Power: {this.state.data.power ? this.state.data.power : "---"}</h1>
         <h1>PP: {this.state.data.pp ? this.state.data.pp : "---"}</h1>
       </div>

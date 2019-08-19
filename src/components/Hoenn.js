@@ -2,6 +2,8 @@ import React from 'react'
 import FadeIn from 'react-fade-in'
 import PokemonCard from './PokemonCard.js'
 import LoadingPage from './LoadingPage.js'
+import { BarChart, PieChart } from 'react-chartkick'
+import 'chart.js'
 
 class Hoenn extends React.Component {
 
@@ -13,7 +15,7 @@ class Hoenn extends React.Component {
   }
 
   componentWillMount() {
-    fetch('http://localhost:3000/pokemon_locations')
+    fetch('http://localhost:3000/pokemon_locations/hoenn')
       .then(res => res.json())
       .then(locations =>
         this.setState({
@@ -40,6 +42,13 @@ class Hoenn extends React.Component {
       .then(pokemons =>
         this.setState({
           hoennPokemon: pokemons.results
+        })
+      )
+    fetch('http://localhost:3000/moves')
+      .then(res => res.json())
+      .then(moves =>
+        this.setState({
+          moves: moves
         })
       )
   }
@@ -96,7 +105,7 @@ class Hoenn extends React.Component {
           })
         } else if ((event.pageX - curleft) < 44 && (event.pageX - curleft) > 26 && (event.pageY - curtop) < 301 && (event.pageY - curtop) > 281) {
           this.setState({
-            area: 'petalburg-woods'
+            area: 'petalburg-woods-area'
           })
         } else if ((event.pageX - curleft) < 44 && (event.pageX - curleft) > 26 && (event.pageY - curtop) < 513 && (event.pageY - curtop) > 378) {
           this.setState({
@@ -128,7 +137,7 @@ class Hoenn extends React.Component {
           })
         } else if ((event.pageX - curleft) < 229 && (event.pageX - curleft) > 195 && (event.pageY - curtop) < 448 && (event.pageY - curtop) > 408) {
           this.setState({
-            area: 'slateport-city'
+            area: 'slateport-city-area'
           })
         } else if ((event.pageX - curleft) < 285 && (event.pageX - curleft) > 229 && (event.pageY - curtop) < 451 && (event.pageY - curtop) > 430) {
           this.setState({
@@ -144,7 +153,7 @@ class Hoenn extends React.Component {
           })
         } else if ((event.pageX - curleft) < 412 && (event.pageX - curleft) > 395 && (event.pageY - curtop) < 451 && (event.pageY - curtop) > 430) {
           this.setState({
-            area: 'pacifidlog-town'
+            area: 'pacifidlog-town-area'
           })
         } else if ((event.pageX - curleft) < 470 && (event.pageX - curleft) > 412 && (event.pageY - curtop) < 451 && (event.pageY - curtop) > 430) {
           this.setState({
@@ -164,7 +173,7 @@ class Hoenn extends React.Component {
           })
         } else if ((event.pageX - curleft) < 631 && (event.pageX - curleft) > 615 && (event.pageY - curtop) < 417 && (event.pageY - curtop) > 405) {
           this.setState({
-            area: 'ever-grande-city'
+            area: 'ever-grande-city-area'
           })
         } else if ((event.pageX - curleft) < 631 && (event.pageX - curleft) > 615 && (event.pageY - curtop) < 399 && (event.pageY - curtop) > 380) {
           this.setState({
@@ -200,15 +209,15 @@ class Hoenn extends React.Component {
           })
         } else if ((event.pageX - curleft) < 554 && (event.pageX - curleft) > 522 && (event.pageY - curtop) < 251 && (event.pageY - curtop) > 232) {
           this.setState({
-            area: 'mossdeep-city'
+            area: 'mossdeep-city-area'
           })
         } else if ((event.pageX - curleft) < 473 && (event.pageX - curleft) > 458 && (event.pageY - curtop) < 339 && (event.pageY - curtop) > 321) {
           this.setState({
-            area: 'sootopolis-city'
+            area: 'sootopolis-city-area'
           })
         } else if ((event.pageX - curleft) < 420 && (event.pageX - curleft) > 359 && (event.pageY - curtop) < 219 && (event.pageY - curtop) > 179) {
           this.setState({
-            area: 'lilycove-city'
+            area: 'lilycove-city-area'
           })
         } else if ((event.pageX - curleft) < 359 && (event.pageX - curleft) > 289 && (event.pageY - curtop) < 204 && (event.pageY - curtop) > 181) {
           this.setState({
@@ -328,14 +337,81 @@ class Hoenn extends React.Component {
     let foundPokemonLocations =  this.state.pokemonLocations.filter(instance => instance.location.name === this.state.area)
     let johtoPokemonNames = this.state.data.map(pokemon => pokemon.pokemon_species.name)
     let nativePokemonLocations = foundPokemonLocations.filter(instance => johtoPokemonNames.includes(instance.pokemon.name))
-    return nativePokemonLocations.map((instance, index) => <PokemonCard key={index + 1} name={instance.pokemon.name} url={instance.pokemon.url} id={index + 1}/>)
+    return nativePokemonLocations.map((instance, index) => <PokemonCard
+      key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]} name={instance.pokemon.name}
+      url={instance.pokemon.url} id={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
+      allMoves={this.state.moves}
+    />)
   }
 
   getNonNativePokemonLocations = () => {
     let foundPokemonLocations =  this.state.pokemonLocations.filter(instance => instance.location.name === this.state.area)
     let johtoPokemonNames = this.state.data.map(pokemon => pokemon.pokemon_species.name)
     let nonNativePokemonLocations = foundPokemonLocations.filter(instance => !johtoPokemonNames.includes(instance.pokemon.name))
-    return nonNativePokemonLocations.map((instance, index) => <PokemonCard key={index + 1} name={instance.pokemon.name} url={instance.pokemon.url} id={index + 1}/>)
+    return nonNativePokemonLocations.map((instance, index) =>
+    <PokemonCard
+      key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]} name={instance.pokemon.name} url={instance.pokemon.url} id={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
+      allMoves={this.state.moves}
+    />)
+  }
+
+  fetchMe = (number) => {
+    if (number !== 10000) {
+      fetch(`https://pokeapi.co/api/v2/location-area/${number}/`)
+        .then(res => res.json())
+        .then(place =>
+          this.setState({
+            strangeArray: place.pokemon_encounters.map(pokemon =>
+              [pokemon.pokemon.name, pokemon.version_details[0].encounter_details[0].chance, pokemon.version_details[0].encounter_details[0].method.name]
+              ).sort((a, b) => (a[2] > b[2]) ? 1: -1)
+          })
+        )
+    } else if (number === 10000) {
+      this.setState({
+        strangeArray: null
+      })
+    }
+  }
+
+  createBars = () => {
+    if (this.state.strangeArray) {
+      let array = []
+      let wholeArray = []
+      let method = this.state.strangeArray[0][2]
+      let i=0
+
+      while (i<this.state.strangeArray.length) {
+          if (this.state.strangeArray[i][2] === method) {
+              array.push(this.state.strangeArray.filter(array => array[2] === method))
+              i += this.state.strangeArray.filter(array => array[2] === method).length
+          } else if (this.state.strangeArray[i][2] !== method) {
+              method = this.state.strangeArray[i][2]
+              let newArray = []
+              newArray.push(this.state.strangeArray.filter(array => array[2] === method))
+              i += this.state.strangeArray.filter(array => array[2] === method).length
+              wholeArray.push(newArray)
+          }
+      }
+      wholeArray.push(array)
+
+      console.log(wholeArray.flat())
+
+      return wholeArray.flat().map(arrayOfArrays =>
+        <div className={arrayOfArrays[0][2]}>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <PieChart
+            data={arrayOfArrays.map(array =>
+              array.slice(0,2)
+            )}
+            title={arrayOfArrays[0][2]}
+          />
+        </div>
+      )
+    }
   }
 
   render () {
@@ -361,25 +437,29 @@ class Hoenn extends React.Component {
 
             <h1>Native to Hoenn: </h1>
             <br></br>
-            {this.state.pokemonLocations && this.state.data ? this.getNativePokemonLocations() : <LoadingPage/>}
+            {this.state.pokemonLocations && this.state.data && this.state.moves ? this.getNativePokemonLocations() : <LoadingPage/>}
 
             <h1>Other Regions: </h1>
             <br></br>
-            {this.state.pokemonLocations && this.state.data ? this.getNonNativePokemonLocations() : <LoadingPage/>}
-
+            {this.state.pokemonLocations && this.state.data && this.state.moves ? this.getNonNativePokemonLocations() : <LoadingPage/>}
           </div>
         </FadeIn>
+
+        <div className="graph">
+          {this.state.strangeArray ? this.createBars() : null}
+        </div>
 
         <div className="hoenn-pokemon">
           <h1>Hoenn Pokemon: </h1>
           {
-            this.state.hoennPokemon ?
+            this.state.hoennPokemon && this.state.moves ?
             this.state.hoennPokemon.map((pokemon, index) =>
                 <PokemonCard
-                  key={index + 1}
+                  key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
                   name={pokemon.name}
                   url={pokemon.url}
-                  id={index + 1}
+                  id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                  allMoves={this.state.moves}
                 />
             )
              :

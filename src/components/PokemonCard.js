@@ -69,6 +69,7 @@ class PokemonCard extends React.Component {
         <Link to={{
             pathname: '/pokemons' + '/' + this.props.id,
             state: {
+              id: this.props.id,
               name: this.props.name,
               spriteUrl: this.state.spriteUrl,
               abilities: this.state.abilities,
@@ -82,7 +83,9 @@ class PokemonCard extends React.Component {
               type2: this.state.type2,
               locationUrl: this.state.locationUrl,
               moves: this.state.moves,
-              items: this.state.items
+              items: this.state.items,
+              allMoves: this.props.allMoves,
+              actualUrl: this.props.url
             }
           }}
         >

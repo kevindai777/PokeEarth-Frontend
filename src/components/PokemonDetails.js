@@ -7,14 +7,150 @@ import { Timeline, Event } from "react-timeline-scribble"
 import MoveDetails from './MoveDetails'
 import AbilityDetails from './AbilityDetails'
 import FadeIn from 'react-fade-in'
+import { ButtonToolbar, Button } from 'react-bootstrap'
+import PokemonCard from './PokemonCard'
 
 class PokemonDetails extends React.Component {
+
+  componentWillMount() {
+    if (!this.props.location.state) {
+      this.props.location.state = {}
+    }
+
+    if (!this.props.location.state.id) {
+      this.props.location.state.id = localStorage.id
+    }
+    if (!localStorage.id || localStorage.getItem("id") !== this.props.location.state.id) {
+      localStorage.setItem("id", this.props.location.state.id)
+    }
+
+    if (!this.props.location.state.actualUrl) {
+      this.props.location.state.actualUrl = localStorage.actualUrl
+    }
+    if (!localStorage.actualUrl || localStorage.getItem("actualUrl") !== this.props.location.state.actualUrl) {
+      localStorage.setItem("actualUrl", this.props.location.state.actualUrl)
+    }
+
+    if (!this.props.location.state.name) {
+      this.props.location.state.name = localStorage.name
+    }
+    if (!localStorage.name || localStorage.getItem("name") !== this.props.location.state.name) {
+      localStorage.setItem("name", this.props.location.state.name)
+    }
+
+    if (!this.props.location.state.spriteUrl) {
+      this.props.location.state.spriteUrl = localStorage.spriteUrl
+    }
+    if (!localStorage.spriteUrl || localStorage.getItem("spriteUrl") !== this.props.location.state.spriteUrl) {
+      localStorage.setItem("spriteUrl", this.props.location.state.spriteUrl)
+    }
+
+    if (!this.props.location.state.abilities) {
+      this.props.location.state.abilities = JSON.parse(localStorage.getItem("abilities"))
+    }
+    if (!localStorage.abilities || localStorage.getItem("abilities") !== this.props.location.state.abilities) {
+      localStorage.setItem("abilities", JSON.stringify(this.props.location.state.abilities))
+    }
+
+    if (!this.props.location.state.speed) {
+      this.props.location.state.speed = localStorage.speed
+    }
+    if (!localStorage.speed || localStorage.speed !== this.props.location.state.speed) {
+      localStorage.setItem("speed", this.props.location.state.speed)
+    }
+
+    if (!this.props.location.state.specialDefense) {
+      this.props.location.state.specialDefense = localStorage.specialDefense
+    }
+    if (!localStorage.specialDefense || localStorage.specialDefense !== this.props.location.state.specialDefense) {
+      localStorage.setItem("specialDefense", this.props.location.state.specialDefense)
+    }
+
+    if (!this.props.location.state.specialAttack) {
+      this.props.location.state.specialAttack = localStorage.specialAttack
+    }
+    if (!localStorage.specialAttack || localStorage.specialAttack !== this.props.location.state.specialAttack) {
+      localStorage.setItem("specialAttack", this.props.location.state.specialAttack)
+    }
+
+    if (!this.props.location.state.defense) {
+      this.props.location.state.defense = localStorage.defense
+    }
+    if (!localStorage.defense || localStorage.defense !== this.props.location.state.defense) {
+      localStorage.setItem("defense", this.props.location.state.defense)
+    }
+
+    if (!this.props.location.state.attack) {
+      this.props.location.state.attack = localStorage.attack
+    }
+    if (!localStorage.attack || localStorage.attack !== this.props.location.state.attack) {
+      localStorage.setItem("attack", this.props.location.state.attack)
+    }
+
+    if (!this.props.location.state.hp) {
+      this.props.location.state.hp = localStorage.hp
+    }
+    if (!localStorage.hp || localStorage.hp !== this.props.location.state.hp) {
+      localStorage.setItem("hp", this.props.location.state.hp)
+    }
+
+    if (!this.props.location.state.type1) {
+      this.props.location.state.type1 = localStorage.type1
+    }
+    if (!localStorage.type1 || localStorage.type1 !== this.props.location.state.type1) {
+      localStorage.setItem("type1", this.props.location.state.type1)
+    }
+
+    if (!this.props.location.state.type2) {
+      this.props.location.state.type2 = localStorage.type2
+    }
+    if (!localStorage.type2 || localStorage.type2 !== this.props.location.state.type2) {
+      localStorage.setItem("type2", this.props.location.state.type2)
+    }
+
+    if (!this.props.location.state.locationUrl) {
+      this.props.location.state.locationUrl = localStorage.locationUrl
+    }
+    if (!localStorage.locationUrl || localStorage.locationUrl !== this.props.location.state.locationUrl) {
+      localStorage.setItem("locationUrl", this.props.location.state.locationUrl)
+    }
+
+    if (!this.props.location.state.moves) {
+      this.props.location.state.moves = JSON.parse(localStorage.getItem("moves"))
+    }
+    if (!localStorage.moves || JSON.parse(localStorage.getItem("moves")) !== this.props.location.state.moves) {
+      localStorage.setItem("moves", JSON.stringify(this.props.location.state.moves))
+    }
+
+    if (!this.props.location.state.items) {
+      this.props.location.state.items = JSON.parse(localStorage.getItem("items"))
+    }
+    if (!localStorage.items || JSON.parse(localStorage.getItem("items")) !== this.props.location.state.items) {
+      localStorage.setItem("items", JSON.stringify(this.props.location.state.items))
+    }
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3000/moves')
+      .then(res => res.json())
+      .then(moves =>
+        this.setState({
+          moves: moves
+        })
+      )
+    this.getEvolutionData()
+    this.getThisUrl()
+  }
 
   state = {
     moves: null,
     abilityDescription: false,
     query: null,
-    typeName: null
+    typeName: null,
+    typeQuery: null,
+    moves: null,
+    evolutionName: null,
+    evolvedUrl: null
   }
 
   getType1Image = () => {
@@ -100,85 +236,144 @@ class PokemonDetails extends React.Component {
   }
 
   createEvents = () => {
+    if (!this.state.query && !this.state.typeQuery) {
+      let sortedMoves = [...this.props.location.state.moves].sort((a, b) => (a.version_group_details[0].level_learned_at > b.version_group_details[0].level_learned_at) ? 1: -1)
 
-    let sortedMoves = this.props.location.state.moves.sort((a, b) => (a.version_group_details[0].level_learned_at > b.version_group_details[0].level_learned_at) ? 1: -1)
-
-    let level = 0
-    let array = []
-    let wholeArray = []
-    for (let i=0; i<sortedMoves.length; i++) {
-      if (level === sortedMoves[i].version_group_details[0].level_learned_at) {
-        array.push(sortedMoves[i])
-      } else {
-        let newArray = []
-        level += sortedMoves[i].version_group_details[0].level_learned_at
-        newArray.push(sortedMoves[i])
-        wholeArray.push(newArray)
+      let level = 0
+      let array = []
+      let wholeArray = []
+      for (let i=0; i<sortedMoves.length; i++) {
+        if (level === sortedMoves[i].version_group_details[0].level_learned_at) {
+          array.push(sortedMoves[i])
+        } else {
+          let newArray = []
+          level += sortedMoves[i].version_group_details[0].level_learned_at
+          newArray.push(sortedMoves[i])
+          wholeArray.push(newArray)
+        }
       }
-    }
-    wholeArray.push(array)
+      wholeArray.push(array)
 
-    let lastElement = wholeArray[wholeArray.length - 1]
-    wholeArray.pop()
-    wholeArray[0] = lastElement
+      let lastElement = wholeArray[wholeArray.length - 1]
+      wholeArray.pop()
+      wholeArray[0] = lastElement
 
-    return wholeArray.map(array =>
-      <Event interval={"Next Level"} title={`Level: ${array[0].version_group_details[0].level_learned_at}`}>
-        {array.map(move =>
-          <div className="card">
-            <h1>
-              Name: {move.move.name}
-            </h1>
-            <h1>
-              Method: {move.version_group_details[0].move_learn_method.name}
-            </h1>
-            <MoveDetails url={move.move.url}/>
-          </div>
-        )}
-      </Event>
-    )
-  }
+      return wholeArray.map(array =>
+        <Event interval={"Next Level"} title={`Level: ${array[0].version_group_details[0].level_learned_at}`}>
+          {array.map(move =>
+            <div className="card">
 
-  createEventsWithQuery = () => {
+              <h1>
+                Name: {move.move.name}
+              </h1>
 
-    let moves = this.props.location.state.moves.filter(move => move.version_group_details[0].move_learn_method.name.includes(this.state.query))
+              <h1>
+                Method: {move.version_group_details[0].move_learn_method.name}
+              </h1>
 
-    let sortedMoves = moves.sort((a, b) => (a.version_group_details[0].level_learned_at > b.version_group_details[0].level_learned_at) ? 1: -1)
+              <MoveDetails
+                url={move.move.url}
+              />
+            </div>
+          )}
+        </Event>
+      )
+    } else if (this.state.query && !this.state.typeQuery) {
+      let moves = this.props.location.state.moves.filter(move => move.version_group_details[0].move_learn_method.name.includes(this.state.query))
 
-    let level = 0
-    let array = []
-    let wholeArray = []
-    for (let i=0; i<sortedMoves.length; i++) {
-      if (level === sortedMoves[i].version_group_details[0].level_learned_at) {
-        array.push(sortedMoves[i])
-      } else {
-        let newArray = []
-        level += sortedMoves[i].version_group_details[0].level_learned_at
-        newArray.push(sortedMoves[i])
-        wholeArray.push(newArray)
+      let sortedMoves = moves.sort((a, b) => (a.version_group_details[0].level_learned_at > b.version_group_details[0].level_learned_at) ? 1: -1)
+
+      let level = 0
+      let array = []
+      let wholeArray = []
+      for (let i=0; i<sortedMoves.length; i++) {
+        if (level === sortedMoves[i].version_group_details[0].level_learned_at) {
+          array.push(sortedMoves[i])
+        } else {
+          let newArray = []
+          level += sortedMoves[i].version_group_details[0].level_learned_at
+          newArray.push(sortedMoves[i])
+          wholeArray.push(newArray)
+        }
       }
+      wholeArray.push(array)
+
+      let lastElement = wholeArray[wholeArray.length - 1]
+      wholeArray.pop()
+      wholeArray[0] = lastElement
+
+      return wholeArray.map(array =>
+        <Event interval={"Next Level"} title={`Level: ${array[0].version_group_details[0].level_learned_at}`}>
+          {array.map(move =>
+            <div className="card">
+
+              <h1>
+                Name: {move.move.name}
+              </h1>
+
+              <h1>
+                Method: {move.version_group_details[0].move_learn_method.name}
+              </h1>
+
+              <MoveDetails
+                url={move.move.url} getFilteredType={this.getFilteredType}
+              />
+            </div>
+          )}
+        </Event>
+      )
+    } else if (!this.state.query && this.state.typeQuery) {
+
+      let moveNames = this.props.location.state.moves.map(move => move.move.name)
+      let filteredMoves = this.props.location.state.allMoves.filter(move => moveNames.includes(move.name))
+      let superFiltered = filteredMoves.filter(move => move.typing.includes(this.state.typeQuery))
+      let superFilteredNames = superFiltered.map(move => move.name)
+      let finalMoves = this.props.location.state.moves.filter(move => superFilteredNames.includes(move.move.name))
+      console.log(finalMoves)
+
+      let sortedMoves = [...finalMoves].sort((a, b) => (a.version_group_details[0].level_learned_at > b.version_group_details[0].level_learned_at) ? 1: -1)
+
+      let level = 0
+      let array = []
+      let wholeArray = []
+      for (let i=0; i<sortedMoves.length; i++) {
+        if (level === sortedMoves[i].version_group_details[0].level_learned_at) {
+          array.push(sortedMoves[i])
+        } else {
+          let newArray = []
+          level += sortedMoves[i].version_group_details[0].level_learned_at
+          newArray.push(sortedMoves[i])
+          wholeArray.push(newArray)
+        }
+      }
+      wholeArray.push(array)
+
+      let lastElement = wholeArray[wholeArray.length - 1]
+      wholeArray.pop()
+      wholeArray[0] = lastElement
+
+      return wholeArray.map(array =>
+        <Event interval={"Next Level"} title={`Level: ${array[0].version_group_details[0].level_learned_at}`}>
+          {array.map(move =>
+            <div className="card">
+
+              <h1>
+                Name: {move.move.name}
+              </h1>
+
+              <h1>
+                Method: {move.version_group_details[0].move_learn_method.name}
+              </h1>
+
+              <MoveDetails
+                key={move.move.url.split('/')[move.move.url.split('/').length - 2]}
+                url={move.move.url}
+              />
+            </div>
+          )}
+        </Event>
+      )
     }
-    wholeArray.push(array)
-
-    let lastElement = wholeArray[wholeArray.length - 1]
-    wholeArray.pop()
-    wholeArray[0] = lastElement
-
-    return wholeArray.map(array =>
-      <Event interval={"Next Level"} title={`Level: ${array[0].version_group_details[0].level_learned_at}`}>
-        {array.map(move =>
-          <div className="card">
-            <h1>
-              Name: {move.move.name}
-            </h1>
-            <h1>
-              Method: {move.version_group_details[0].move_learn_method.name}
-            </h1>
-            <MoveDetails url={move.move.url}/>
-          </div>
-        )}
-      </Event>
-    )
   }
 
   showAbilityDescription = () => {
@@ -201,9 +396,14 @@ class PokemonDetails extends React.Component {
     })
   }
 
+  filterMovesByType = (event) => {
+    this.setState({
+      typeQuery: event.target.value
+    })
+  }
+
   determineColors = () => {
     let array = [this.props.location.state.speed, this.props.location.state.specialDefense, this.props.location.state.specialAttack, this.props.location.state.defense, this.props.location.state.attack, this.props.location.state.hp]
-    console.log(array.length)
     let colorArray = []
     for (let i=0; i<array.length; i++) {
       if (array[i] >= 100) {
@@ -214,16 +414,127 @@ class PokemonDetails extends React.Component {
         colorArray.push('red')
       }
     }
-    console.log(colorArray)
     return [colorArray]
+  }
+
+  scrollToAbilities = () => {
+    var element = document.getElementById("superAbilities");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
+  scrollToTop = () => {
+    var element = document.getElementById("top");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
+  scrollToMoves = () => {
+    var element = document.getElementById("superMoves");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
+  scrollToStats = () => {
+    var element = document.getElementById("superStats");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
+  scrollToEncounters = () => {
+    var element = document.getElementById("superEncounters");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
+  getEvolutionData = () => {
+    fetch(this.props.location.state.actualUrl.replace('pokemon', 'pokemon-species'))
+      .then(res => res.json())
+      .then(response => {
+        if (response.evolves_from_species) {
+          this.setState({
+            evolutionName: response.evolves_from_species.name
+          })
+        } else {
+          this.setState({
+            evolutionName: null
+          })
+        }
+      })
+  }
+
+  getThisUrl = () => {
+    let copy = this.props.location.state.actualUrl.split('/')
+    copy[6] = this.props.location.state.actualUrl.split('/')[6] - 1
+    let joinedCopy = copy.join('/')
+    console.log(joinedCopy)
+    this.setState({
+      evolvedUrl: joinedCopy
+    })
   }
 
   render() {
     return (
       <div>
-        <h1>{this.props.location.state.name}</h1>
+
+        <div style={{position: 'fixed', marginLeft: '80%', zIndex: '1'}}>
+          <ButtonToolbar>
+            <Button
+              style={{width: '80%'}}
+              variant="primary"
+              onClick={this.scrollToTop}
+              block
+            >
+              Scroll to Top
+            </Button>
+            <Button
+              style={{width: '80%'}}
+              variant="success"
+              onClick={this.scrollToAbilities}
+              block
+            >
+              Scroll to Abilities
+            </Button>
+            <Button
+              style={{width: '80%'}}
+              variant="warning"
+              onClick={this.scrollToMoves}
+              block
+            >
+              Scroll to Moves
+            </Button>
+            <Button
+              style={{width: '80%'}}
+              variant="danger"
+              onClick={this.scrollToStats}
+              block
+            >
+              Scroll to Stats
+            </Button>
+            <Button
+              style={{width: '80%'}}
+              variant="info"
+              onClick={this.scrollToEncounters}
+              block
+            >
+              Scroll to Encounters
+            </Button>
+          </ButtonToolbar>
+        </div>
+
+        <h1 id="top">{this.props.location.state.name}</h1>
         <img src={this.props.location.state.spriteUrl}/>
-        <h1>
+        <h1 id="superAbilities">
           Abilities:
         </h1>
 
@@ -249,10 +560,30 @@ class PokemonDetails extends React.Component {
           <img src={this.getType2Image()} />
         </h1>
 
-        <h1>Moves: </h1>
+        <h1>Evolves from:
+          <br></br>
+          {this.state.evolutionName && this.state.evolvedUrl ?
+          <PokemonCard
+            key={this.state.evolvedUrl.split('/')[this.state.evolvedUrl.split('/').length - 2]}
+            name={this.state.evolutionName}
+            url={this.state.evolvedUrl}
+            id={this.state.evolvedUrl.split('/')[this.state.evolvedUrl.split('/').length - 2]}
+            allMoves={this.state.moves}
+          />
+            :
+            null
+          }
+        </h1>
+
+        <h1 id="superMoves">Moves: </h1>
 
         Filter by Method:
         <input onChange={(event) => this.filterMoves(event)}></input>
+
+        <br></br>
+
+        Filter by Type:
+        <input onChange={(event) => this.filterMovesByType(event)}></input>
 
         <br></br>
         <br></br>
@@ -261,13 +592,13 @@ class PokemonDetails extends React.Component {
         <br></br>
 
         <Timeline>
-          {this.state.query ? this.createEventsWithQuery() : this.createEvents()}
+          {this.createEvents()}
         </Timeline>
 
         <h1>Held Items: </h1>
         {this.getItems()}
 
-        <h1>Stats: </h1>
+        <h1 id="superStats">Stats: </h1>
 
         <BarChart
           data={[
@@ -280,8 +611,9 @@ class PokemonDetails extends React.Component {
                ]}
           colors={this.determineColors()}
         />
-
-        <Encounter locationUrl={this.props.location.state.locationUrl}/>
+      <div id="superEncounters">
+          <Encounter locationUrl={this.props.location.state.locationUrl} id={this.props.location.state.id}/>
+        </div>
       </div>
     )
   }
