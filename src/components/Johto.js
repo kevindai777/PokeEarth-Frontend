@@ -324,6 +324,11 @@ class Johto extends React.Component {
             area: 'dark-cave-violet-city-entrance'
           })
           this.fetchMe(253)
+        } else if ((event.pageX - curleft) < 318 && (event.pageX - curleft) > 296 && (event.pageY - curtop) < 208 && (event.pageY - curtop) > 187) {
+          this.setState({
+            area: 'sprout-tower-2f'
+          })
+          this.fetchMe(253)
         } else if ((event.pageX - curleft) < 294 && (event.pageX - curleft) > 270 && (event.pageY - curtop) < 240 && (event.pageY - curtop) > 209) {
           this.setState({
             area: 'violet-city-area'
@@ -343,24 +348,32 @@ class Johto extends React.Component {
     let foundPokemonLocations =  this.state.pokemonLocations.filter(instance => instance.location.name === this.state.area)
     let johtoPokemonNames = this.state.data.map(pokemon => pokemon.pokemon_species.name)
     let nativePokemonLocations = foundPokemonLocations.filter(instance => johtoPokemonNames.includes(instance.pokemon.name))
-    return nativePokemonLocations.map((instance, index) => <PokemonCard
-      key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]} name={instance.pokemon.name} url={instance.pokemon.url} id={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
-      allMoves={this.state.moves}
-    />)
+    if (nativePokemonLocations.length > 0) {
+      return nativePokemonLocations.map((instance, index) => <PokemonCard
+        key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]} name={instance.pokemon.name} url={instance.pokemon.url} id={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
+        allMoves={this.state.moves}
+      />)
+    } else {
+      return <i>None found!</i>
+    }
   }
 
   getNonNativePokemonLocations = () => {
     let foundPokemonLocations =  this.state.pokemonLocations.filter(instance => instance.location.name === this.state.area)
     let johtoPokemonNames = this.state.data.map(pokemon => pokemon.pokemon_species.name)
     let nonNativePokemonLocations = foundPokemonLocations.filter(instance => !johtoPokemonNames.includes(instance.pokemon.name))
-    return nonNativePokemonLocations.map((instance, index) =>
-    <PokemonCard
-      key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
-      name={instance.pokemon.name}
-      url={instance.pokemon.url}
-      id={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
-      allMoves={this.state.moves}
-    />)
+    if (nonNativePokemonLocations.length > 0) {
+      return nonNativePokemonLocations.map((instance, index) =>
+      <PokemonCard
+        key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
+        name={instance.pokemon.name}
+        url={instance.pokemon.url}
+        id={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
+        allMoves={this.state.moves}
+      />)
+    } else {
+      return <i>None found!</i>
+    }
   }
 
   startQuery = (event) => {

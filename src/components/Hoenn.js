@@ -77,252 +77,319 @@ class Hoenn extends React.Component {
         console.log("-----------")
         if ((event.pageX - curleft) < 150 && (event.pageX - curleft) > 132 && (event.pageY - curtop) < 450 && (event.pageY - curtop) > 431) {
           this.setState({
-            area: 'littleroot-town'
+            area: 'littleroot-town-area'
           })
+          this.fetchMe(10000)
         } else if ((event.pageX - curleft) < 150 && (event.pageX - curleft) > 132 && (event.pageY - curtop) < 431 && (event.pageY - curtop) > 378) {
           this.setState({
             area: 'hoenn-route-101-area'
           })
+          this.fetchMe(393)
         } else if ((event.pageX - curleft) < 150 && (event.pageX - curleft) > 132 && (event.pageY - curtop) < 378 && (event.pageY - curtop) > 358) {
           this.setState({
-            area: 'oldale-town'
+            area: 'oldale-town-area'
           })
+          this.fetchMe(10000)
         } else if ((event.pageX - curleft) < 133 && (event.pageX - curleft) > 103 && (event.pageY - curtop) < 380 && (event.pageY - curtop) > 357) {
           this.setState({
             area: 'hoenn-route-102-area'
           })
+          this.fetchMe(394)
         } else if ((event.pageX - curleft) < 103 && (event.pageX - curleft) > 70 && (event.pageY - curtop) < 380 && (event.pageY - curtop) > 357) {
           this.setState({
-            area: 'petalburg-city'
+            area: 'petalburg-city-area'
           })
+          this.fetchMe(350)
         } else if ((event.pageX - curleft) < 195 && (event.pageX - curleft) > 132 && (event.pageY - curtop) < 358 && (event.pageY - curtop) > 337) {
           this.setState({
             area: 'hoenn-route-103-area'
           })
+          this.fetchMe(395)
         } else if ((event.pageX - curleft) < 44 && (event.pageX - curleft) > 26 && (event.pageY - curtop) < 354 && (event.pageY - curtop) > 301) {
           this.setState({
             area: 'hoenn-route-104-area'
           })
+          this.fetchMe(396)
         } else if ((event.pageX - curleft) < 44 && (event.pageX - curleft) > 26 && (event.pageY - curtop) < 301 && (event.pageY - curtop) > 281) {
           this.setState({
             area: 'petalburg-woods-area'
           })
+          this.fetchMe(365)
         } else if ((event.pageX - curleft) < 44 && (event.pageX - curleft) > 26 && (event.pageY - curtop) < 513 && (event.pageY - curtop) > 378) {
           this.setState({
             area: 'hoenn-route-105-area'
           })
+          this.fetchMe(397)
         } else if ((event.pageX - curleft) < 105 && (event.pageX - curleft) > 26 && (event.pageY - curtop) < 539 && (event.pageY - curtop) > 515) {
           this.setState({
             area: 'hoenn-route-106-area'
           })
+          this.fetchMe(398)
         } else if ((event.pageX - curleft) < 105 && (event.pageX - curleft) > 87 && (event.pageY - curtop) < 559 && (event.pageY - curtop) > 539) {
           this.setState({
             area: 'dewford-town-area'
           })
+          this.fetchMe(433)
         } else if ((event.pageX - curleft) < 160 && (event.pageX - curleft) > 105 && (event.pageY - curtop) < 559 && (event.pageY - curtop) > 539) {
           this.setState({
             area: 'hoenn-route-107-area'
           })
+          this.fetchMe(399)
         } else if ((event.pageX - curleft) < 195 && (event.pageX - curleft) > 160 && (event.pageY - curtop) < 559 && (event.pageY - curtop) > 539) {
           this.setState({
             area: 'hoenn-route-108-area'
           })
+          this.fetchMe(400)
         } else if ((event.pageX - curleft) < 213 && (event.pageX - curleft) > 195 && (event.pageY - curtop) < 560 && (event.pageY - curtop) > 450) {
           this.setState({
             area: 'hoenn-route-109-area'
           })
+          this.fetchMe(401)
         } else if ((event.pageX - curleft) < 213 && (event.pageX - curleft) > 195 && (event.pageY - curtop) < 409 && (event.pageY - curtop) > 302) {
           this.setState({
             area: 'hoenn-route-110-area'
           })
+          this.fetchMe(402)
         } else if ((event.pageX - curleft) < 229 && (event.pageX - curleft) > 195 && (event.pageY - curtop) < 448 && (event.pageY - curtop) > 408) {
           this.setState({
             area: 'slateport-city-area'
           })
+          this.fetchMe(351)
         } else if ((event.pageX - curleft) < 285 && (event.pageX - curleft) > 229 && (event.pageY - curtop) < 451 && (event.pageY - curtop) > 430) {
           this.setState({
             area: 'hoenn-route-134-area'
           })
+          this.fetchMe(428)
         } else if ((event.pageX - curleft) < 334 && (event.pageX - curleft) > 285 && (event.pageY - curtop) < 451 && (event.pageY - curtop) > 430) {
           this.setState({
             area: 'hoenn-route-133-area'
           })
+          this.fetchMe(427)
         } else if ((event.pageX - curleft) < 395 && (event.pageX - curleft) > 334 && (event.pageY - curtop) < 451 && (event.pageY - curtop) > 430) {
           this.setState({
             area: 'hoenn-route-132-area'
           })
+          this.fetchMe(426)
         } else if ((event.pageX - curleft) < 412 && (event.pageX - curleft) > 395 && (event.pageY - curtop) < 451 && (event.pageY - curtop) > 430) {
           this.setState({
             area: 'pacifidlog-town-area'
           })
+          this.fetchMe(434)
         } else if ((event.pageX - curleft) < 470 && (event.pageX - curleft) > 412 && (event.pageY - curtop) < 451 && (event.pageY - curtop) > 430) {
           this.setState({
             area: 'hoenn-route-131-area'
           })
+          this.fetchMe(425)
         } else if ((event.pageX - curleft) < 523 && (event.pageX - curleft) > 470 && (event.pageY - curtop) < 451 && (event.pageY - curtop) > 430) {
           this.setState({
             area: 'hoenn-route-130-area'
           })
+          this.fetchMe(424)
         } else if ((event.pageX - curleft) < 554 && (event.pageX - curleft) > 523 && (event.pageY - curtop) < 451 && (event.pageY - curtop) > 430) {
           this.setState({
             area: 'hoenn-route-129-area'
           })
+          this.fetchMe(423)
         } else if ((event.pageX - curleft) < 611 && (event.pageX - curleft) > 512 && (event.pageY - curtop) < 421 && (event.pageY - curtop) > 393) {
           this.setState({
             area: 'hoenn-route-128-area'
           })
+          this.fetchMe(422)
         } else if ((event.pageX - curleft) < 631 && (event.pageX - curleft) > 615 && (event.pageY - curtop) < 417 && (event.pageY - curtop) > 405) {
           this.setState({
             area: 'ever-grande-city-area'
           })
+          this.fetchMe(355)
         } else if ((event.pageX - curleft) < 631 && (event.pageX - curleft) > 615 && (event.pageY - curtop) < 399 && (event.pageY - curtop) > 380) {
           this.setState({
-            area: 'victory-road'
+            area: 'hoenn-victory-road-1f'
           })
+          this.fetchMe(382)
         } else if ((event.pageX - curleft) < 554 && (event.pageX - curleft) > 487 && (event.pageY - curtop) < 389 && (event.pageY - curtop) > 251) {
           this.setState({
             area: 'hoenn-route-127-area'
           })
+          this.fetchMe(421)
         } else if ((event.pageX - curleft) < 458 && (event.pageX - curleft) > 419 && (event.pageY - curtop) < 391 && (event.pageY - curtop) > 319) {
           this.setState({
             area: 'hoenn-route-126-area'
           })
+          this.fetchMe(419)
         } else if ((event.pageX - curleft) < 458 && (event.pageX - curleft) > 419 && (event.pageY - curtop) < 319 && (event.pageY - curtop) > 251) {
           this.setState({
             area: 'hoenn-route-126-area'
           })
+          this.fetchMe(419)
         } else if ((event.pageX - curleft) < 487 && (event.pageX - curleft) > 458 && (event.pageY - curtop) < 390 && (event.pageY - curtop) > 339) {
           this.setState({
             area: 'hoenn-route-126-area'
           })
+          this.fetchMe(419)
         } else if ((event.pageX - curleft) < 487 && (event.pageX - curleft) > 474 && (event.pageY - curtop) < 339 && (event.pageY - curtop) > 253) {
           this.setState({
             area: 'hoenn-route-126-area'
           })
+          this.fetchMe(419)
         } else if ((event.pageX - curleft) < 521 && (event.pageX - curleft) > 420 && (event.pageY - curtop) < 253 && (event.pageY - curtop) > 179) {
           this.setState({
             area: 'hoenn-route-124-area'
           })
+          this.fetchMe(416)
         } else if ((event.pageX - curleft) < 554 && (event.pageX - curleft) > 520 && (event.pageY - curtop) < 232 && (event.pageY - curtop) > 179) {
           this.setState({
             area: 'hoenn-route-125-area'
           })
+          this.fetchMe(418)
         } else if ((event.pageX - curleft) < 554 && (event.pageX - curleft) > 522 && (event.pageY - curtop) < 251 && (event.pageY - curtop) > 232) {
           this.setState({
             area: 'mossdeep-city-area'
           })
+          this.fetchMe(353)
         } else if ((event.pageX - curleft) < 473 && (event.pageX - curleft) > 458 && (event.pageY - curtop) < 339 && (event.pageY - curtop) > 321) {
           this.setState({
             area: 'sootopolis-city-area'
           })
+          this.fetchMe(354)
         } else if ((event.pageX - curleft) < 420 && (event.pageX - curleft) > 359 && (event.pageY - curtop) < 219 && (event.pageY - curtop) > 179) {
           this.setState({
             area: 'lilycove-city-area'
           })
+          this.fetchMe(352)
         } else if ((event.pageX - curleft) < 359 && (event.pageX - curleft) > 289 && (event.pageY - curtop) < 204 && (event.pageY - curtop) > 181) {
           this.setState({
             area: 'hoenn-route-121-area'
           })
+          this.fetchMe(413)
         } else if ((event.pageX - curleft) < 344 && (event.pageX - curleft) > 327 && (event.pageY - curtop) < 230 && (event.pageY - curtop) > 204) {
           this.setState({
             area: 'hoenn-route-122-area'
           })
+          this.fetchMe(414)
         } else if ((event.pageX - curleft) < 344 && (event.pageX - curleft) > 327 && (event.pageY - curtop) < 254 && (event.pageY - curtop) > 230) {
           this.setState({
-            area: 'mt-pyre'
+            area: 'mt-pyre-1f'
           })
+          this.fetchMe(368)
         } else if ((event.pageX - curleft) < 344 && (event.pageX - curleft) > 327 && (event.pageY - curtop) < 261 && (event.pageY - curtop) > 254) {
           this.setState({
             area: 'hoenn-route-122-area'
           })
+          this.fetchMe(414)
         } else if ((event.pageX - curleft) < 344 && (event.pageX - curleft) > 247 && (event.pageY - curtop) < 284 && (event.pageY - curtop) > 260) {
           this.setState({
             area: 'hoenn-route-123-area'
           })
+          this.fetchMe(415)
         } else if ((event.pageX - curleft) < 245 && (event.pageX - curleft) > 228 && (event.pageY - curtop) < 284 && (event.pageY - curtop) > 260) {
           this.setState({
             area: 'hoenn-route-118-area'
           })
+          this.fetchMe(410)
         } else if ((event.pageX - curleft) < 244 && (event.pageX - curleft) > 230 && (event.pageY - curtop) < 260 && (event.pageY - curtop) > 127) {
           this.setState({
             area: 'hoenn-route-119-area'
           })
+          this.fetchMe(411)
         } else if ((event.pageX - curleft) < 271 && (event.pageX - curleft) > 248 && (event.pageY - curtop) < 148 && (event.pageY - curtop) > 128) {
           this.setState({
             area: 'fortree-city'
           })
+          this.fetchMe(10000)
         } else if ((event.pageX - curleft) < 288 && (event.pageX - curleft) > 271 && (event.pageY - curtop) < 204 && (event.pageY - curtop) > 127) {
           this.setState({
             area: 'hoenn-route-120-area'
           })
+          this.fetchMe(412)
+        } else if ((event.pageX - curleft) < 340 && (event.pageX - curleft) > 326 && (event.pageY - curtop) < 180 && (event.pageY - curtop) > 161) {
+          this.setState({
+            area: 'hoenn-safari-zone-expansion-north'
+          })
+          this.fetchMe(436)
         } else if ((event.pageX - curleft) < 228 && (event.pageX - curleft) > 196 && (event.pageY - curtop) < 301 && (event.pageY - curtop) > 262) {
           this.setState({
             area: 'mauville-city'
           })
+          this.fetchMe(10000)
         } else if ((event.pageX - curleft) < 195 && (event.pageX - curleft) > 147 && (event.pageY - curtop) < 282 && (event.pageY - curtop) > 261) {
           this.setState({
             area: 'hoenn-route-117-area'
           })
+          this.fetchMe(409)
         } else if ((event.pageX - curleft) < 147 && (event.pageX - curleft) > 133 && (event.pageY - curtop) < 282 && (event.pageY - curtop) > 261) {
           this.setState({
             area: 'verdanturf-town'
           })
+          this.fetchMe(10000)
         } else if ((event.pageX - curleft) < 105 && (event.pageX - curleft) > 59 && (event.pageY - curtop) < 262 && (event.pageY - curtop) > 240) {
           this.setState({
             area: 'hoenn-route-116-area'
           })
+          this.fetchMe(408)
         } else if ((event.pageX - curleft) < 135 && (event.pageX - curleft) > 107 && (event.pageY - curtop) < 262 && (event.pageY - curtop) > 240) {
           this.setState({
-            area: 'rusturf-tunnel'
+            area: 'rusturf-tunnel-area'
           })
+          this.fetchMe(360)
         } else if ((event.pageX - curleft) < 149 && (event.pageX - curleft) > 135 && (event.pageY - curtop) < 262 && (event.pageY - curtop) > 240) {
           this.setState({
             area: 'hoenn-route-116-area'
           })
+          this.fetchMe(408)
         } else if ((event.pageX - curleft) < 213 && (event.pageX - curleft) > 196 && (event.pageY - curtop) < 259 && (event.pageY - curtop) > 126) {
           this.setState({
             area: 'hoenn-route-111-area'
           })
+          this.fetchMe(403)
         } else if ((event.pageX - curleft) < 195 && (event.pageX - curleft) > 164 && (event.pageY - curtop) < 210 && (event.pageY - curtop) > 189) {
           this.setState({
             area: 'hoenn-route-112-area'
           })
+          this.fetchMe(404)
         } else if ((event.pageX - curleft) < 164 && (event.pageX - curleft) > 149 && (event.pageY - curtop) < 210 && (event.pageY - curtop) > 189) {
           this.setState({
             area: 'lavaridge-town'
           })
+          this.fetchMe(10000)
         } else if ((event.pageX - curleft) < 196 && (event.pageX - curleft) > 135 && (event.pageY - curtop) < 150 && (event.pageY - curtop) > 127) {
           this.setState({
             area: 'hoenn-route-113-area'
           })
+          this.fetchMe(405)
         } else if ((event.pageX - curleft) < 133 && (event.pageX - curleft) > 103 && (event.pageY - curtop) < 150 && (event.pageY - curtop) > 127) {
           this.setState({
             area: 'fallarbor-town'
           })
+          this.fetchMe(10000)
         } else if ((event.pageX - curleft) < 103 && (event.pageX - curleft) > 62 && (event.pageY - curtop) < 150 && (event.pageY - curtop) > 127) {
           this.setState({
             area: 'hoenn-route-114-area'
           })
+          this.fetchMe(406)
         } else if ((event.pageX - curleft) < 80 && (event.pageX - curleft) > 60 && (event.pageY - curtop) < 184 && (event.pageY - curtop) > 148) {
           this.setState({
             area: 'hoenn-route-114-area'
           })
+          this.fetchMe(406)
         } else if ((event.pageX - curleft) < 44 && (event.pageX - curleft) > 26 && (event.pageY - curtop) < 239 && (event.pageY - curtop) > 184) {
           this.setState({
             area: 'hoenn-route-115-area'
           })
+          this.fetchMe(407)
         } else if ((event.pageX - curleft) < 44 && (event.pageX - curleft) > 26 && (event.pageY - curtop) < 184 && (event.pageY - curtop) > 162) {
           this.setState({
-            area: 'meteor-falls'
+            area: 'meteor-falls-area'
           })
+          this.fetchMe(356)
         } else if ((event.pageX - curleft) < 59 && (event.pageX - curleft) > 27 && (event.pageY - curtop) < 281 && (event.pageY - curtop) > 240) {
           this.setState({
             area: 'rustboro-city'
           })
+          this.fetchMe(10000)
         }  else if ((event.pageX - curleft) < 70 && (event.pageX - curleft) > 26 && (event.pageY - curtop) < 377 && (event.pageY - curtop) > 352) {
           this.setState({
             area: 'hoenn-route-104-area'
           })
+          this.fetchMe(396)
         }
       }
     }
@@ -337,22 +404,30 @@ class Hoenn extends React.Component {
     let foundPokemonLocations =  this.state.pokemonLocations.filter(instance => instance.location.name === this.state.area)
     let johtoPokemonNames = this.state.data.map(pokemon => pokemon.pokemon_species.name)
     let nativePokemonLocations = foundPokemonLocations.filter(instance => johtoPokemonNames.includes(instance.pokemon.name))
-    return nativePokemonLocations.map((instance, index) => <PokemonCard
-      key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]} name={instance.pokemon.name}
-      url={instance.pokemon.url} id={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
-      allMoves={this.state.moves}
-    />)
+    if (nativePokemonLocations.length > 0) {
+      return nativePokemonLocations.map((instance, index) => <PokemonCard
+        key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]} name={instance.pokemon.name}
+        url={instance.pokemon.url} id={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
+        allMoves={this.state.moves}
+      />)
+    } else {
+      return <i>None found!</i>
+    }
   }
 
   getNonNativePokemonLocations = () => {
     let foundPokemonLocations =  this.state.pokemonLocations.filter(instance => instance.location.name === this.state.area)
     let johtoPokemonNames = this.state.data.map(pokemon => pokemon.pokemon_species.name)
     let nonNativePokemonLocations = foundPokemonLocations.filter(instance => !johtoPokemonNames.includes(instance.pokemon.name))
-    return nonNativePokemonLocations.map((instance, index) =>
-    <PokemonCard
-      key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]} name={instance.pokemon.name} url={instance.pokemon.url} id={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
-      allMoves={this.state.moves}
-    />)
+    if (nonNativePokemonLocations.length > 0) {
+      return nonNativePokemonLocations.map((instance, index) =>
+      <PokemonCard
+        key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]} name={instance.pokemon.name} url={instance.pokemon.url} id={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
+        allMoves={this.state.moves}
+      />)
+    } else {
+      return <i>None found!</i>
+    }
   }
 
   fetchMe = (number) => {

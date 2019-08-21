@@ -48,7 +48,14 @@ class MainContainer extends React.Component {
           hasMore={true}
           onLoadMore={this.state.next ? this.loadMore : null}
         >
-          {this.state.data ? <PokemonContainer pokemons={this.state.data} query={this.props.query} generation={this.props.generation}/> : <LoadingPage />}
+          {
+          this.state.data ? 
+            <PokemonContainer
+              pokemons={this.state.data} query={this.props.query} generation={this.props.generation}
+            />
+            :
+            <LoadingPage />
+          }
         </InfiniteScroll>
       </div>
     )

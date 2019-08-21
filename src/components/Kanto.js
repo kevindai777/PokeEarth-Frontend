@@ -4,6 +4,8 @@ import PokemonCard from './PokemonCard.js'
 import LoadingPage from './LoadingPage'
 import { BarChart, PieChart } from 'react-chartkick'
 import 'chart.js'
+import { Search } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 
 class Kanto extends React.Component {
 
@@ -103,6 +105,11 @@ class Kanto extends React.Component {
             area: 'cinnabar-island-area'
           })
           this.fetchMe(279)
+        } else if ((event.pageX - curleft) < 140 && (event.pageX - curleft) > 120 && (event.pageY - curtop) < 445 && (event.pageY - curtop) > 436) {
+          this.setState({
+            area: 'pokemon-mansion-1f'
+          })
+          this.fetchMe(285)
         } else if ((event.pageX - curleft) < 136 && (event.pageX - curleft) > 121 && (event.pageY - curtop) < 359 && (event.pageY - curtop) > 337) {
           this.setState({
             area: 'pallet-town-area'
@@ -248,6 +255,11 @@ class Kanto extends React.Component {
             area: 'fuchsia-city-area'
           })
           this.fetchMe(284)
+        } else if ((event.pageX - curleft) < 300 && (event.pageX - curleft) > 280 && (event.pageY - curtop) < 358 && (event.pageY - curtop) > 337) {
+          this.setState({
+            area: 'kanto-safari-zone-middle'
+          })
+          this.fetchMe(345)
         } else if ((event.pageX - curleft) < 339 && (event.pageX - curleft) > 300 && (event.pageY - curtop) < 389 && (event.pageY - curtop) > 358) {
           this.setState({
             area: 'kanto-route-15-area'
@@ -393,7 +405,7 @@ class Kanto extends React.Component {
     let foundPokemonLocations =  this.state.pokemonLocations.filter(instance => instance.location.name === this.state.area)
     let kantoPokemonNames = this.state.data.map(pokemon => pokemon.name)
     let nativePokemonLocations = foundPokemonLocations.filter(instance => kantoPokemonNames.includes(instance.pokemon.name))
-    if (nativePokemonLocations) {
+    if (nativePokemonLocations.length > 0) {
       return nativePokemonLocations.map((instance, index) =>
         <PokemonCard
           key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
@@ -403,7 +415,7 @@ class Kanto extends React.Component {
           allMoves={this.state.moves}
         />)
     } else {
-      return "None!"
+      return <i>None found!</i>
     }
   }
 
@@ -411,7 +423,7 @@ class Kanto extends React.Component {
     let foundPokemonLocations =  this.state.pokemonLocations.filter(instance => instance.location.name === this.state.area)
     let kantoPokemonNames = this.state.data.map(pokemon => pokemon.name)
     let nonNativePokemonLocations = foundPokemonLocations.filter(instance => !kantoPokemonNames.includes(instance.pokemon.name))
-    if (nonNativePokemonLocations) {
+    if (nonNativePokemonLocations.length > 0) {
       return nonNativePokemonLocations.map((instance, index) =>
         <PokemonCard
           key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
@@ -421,7 +433,7 @@ class Kanto extends React.Component {
           allMoves={this.state.moves}
         />)
     } else {
-      return "None!"
+      return <i>None found!</i>
     }
   }
 
@@ -507,6 +519,7 @@ class Kanto extends React.Component {
     return (
       <div className="kanto">
         <h1>Kanto</h1>
+        <Link to="/sevii">Click here to go to the Sevii Islands</Link>
         <br></br>
         <FadeIn>
           <canvas
@@ -549,7 +562,10 @@ class Kanto extends React.Component {
           <br></br>
 
           <h3>Search By Name:</h3>
-          <input onChange={(event) => this.startQuery(event)}></input>
+
+          <label class="search" for="inpt_search">
+  			    <Search onSearchChange={(event) => this.startQuery(event)}/>
+  		    </label>
 
           <br></br>
 

@@ -33,8 +33,9 @@ class Encounter extends React.Component {
   renderEncounters = () => {
     if (this.state.encounters !== null) {
       return this.state.encounters.map(location => <Location name={location.location_area.name} id={this.props.id}/>)
-    } else {
-      return (<h1>None to be found!</h1>)
+    } else if (this.state.encounters === [] || this.state.encounters === null) {
+      console.log('hey')
+      return "None to be found."
     }
   }
 
@@ -65,7 +66,11 @@ class Encounter extends React.Component {
       let superFilteredLocations = filteredLocations.filter(location => this.state.region === location.region_id)
       let superFilteredLocationNames = superFilteredLocations.map(location => location.name)
       let filteredEncounters = this.state.encounters.filter(location => superFilteredLocationNames.includes(location.location_area.name))
-      return filteredEncounters.map(location => <Location name={location.location_area.name} id={this.props.id}/>)
+      if (filteredEncounters.length > 0) {
+        return filteredEncounters.map(location => <Location name={location.location_area.name} id={this.props.id}/>)
+      } else {
+        return "None to be found."
+      }
     }
   }
 

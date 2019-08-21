@@ -18,6 +18,76 @@ class PokemonContainer extends React.Component {
       )
   }
 
+  fetchKanto = () => {
+    fetch('http://localhost:3000/pokemons/kanto')
+      .then(res => res.json())
+      .then(pokemons =>
+        this.setState({
+          kantoPokemon: pokemons
+        })
+      )
+  }
+
+  fetchJohto = () => {
+    fetch('http://localhost:3000/pokemons/johto')
+      .then(res => res.json())
+      .then(pokemons =>
+        this.setState({
+          johtoPokemon: pokemons
+        })
+      )
+  }
+
+  fetchHoenn = () => {
+    fetch('http://localhost:3000/pokemons/hoenn')
+      .then(res => res.json())
+      .then(pokemons =>
+        this.setState({
+          hoennPokemon: pokemons
+        })
+      )
+  }
+
+  fetchSinnoh = () => {
+    fetch('http://localhost:3000/pokemons/sinnoh')
+      .then(res => res.json())
+      .then(pokemons =>
+        this.setState({
+          sinnohPokemon: pokemons
+        })
+      )
+  }
+
+  fetchUnova = () => {
+    fetch('http://localhost:3000/pokemons/unova')
+      .then(res => res.json())
+      .then(pokemons =>
+        this.setState({
+          unovaPokemon: pokemons
+        })
+      )
+  }
+
+  fetchKalos = () => {
+    fetch('http://localhost:3000/pokemons/kalos')
+      .then(res => res.json())
+      .then(pokemons =>
+        this.setState({
+          kalosPokemon: pokemons
+        })
+      )
+  }
+
+  fetchAlola = () => {
+    fetch('http://localhost:3000/pokemons/alola')
+      .then(res => res.json())
+      .then(pokemons =>
+        this.setState({
+          alolaPokemon: pokemons
+        })
+      )
+  }
+
   renderCards = () => {
     let pokemons = [...this.props.pokemons]
 
@@ -33,82 +103,96 @@ class PokemonContainer extends React.Component {
                   />
         })
       case '1':
-        pokemons = pokemons.slice(0, 151)
-        return pokemons.map((pokemon, index) => {
-          return <PokemonCard
-                    key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
-                    name={pokemon.name}
-                    url={pokemon.url}
-                    id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
-                    allMoves={this.state.moves}
-                  />
-        })
+        this.fetchKanto()
+        if (this.state.kantoPokemon) {
+          return this.state.kantoPokemon.map((pokemon, index) => {
+            return <PokemonCard
+                      key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                      name={pokemon.name}
+                      url={pokemon.url}
+                      id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                      allMoves={this.state.moves}
+                    />
+          })
+        }
       case '2':
-        pokemons = pokemons.slice(151, 251)
-        return pokemons.map((pokemon, index) => {
-          return <PokemonCard
-                    key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
-                    name={pokemon.name}
-                    url={pokemon.url}
-                    id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
-                    allMoves={this.state.moves}
-                  />
-        })
+        this.fetchJohto()
+        if (this.state.johtoPokemon) {
+          return this.state.johtoPokemon.map((pokemon, index) => {
+            return <PokemonCard
+                      key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                      name={pokemon.name}
+                      url={pokemon.url}
+                      id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                      allMoves={this.state.moves}
+                    />
+          })
+        }
       case '3':
-        pokemons = pokemons.slice(251, 386)
-        return pokemons.map((pokemon, index) => {
-          return <PokemonCard
-                    key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
-                    name={pokemon.name}
-                    url={pokemon.url}
-                    id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
-                    allMoves={this.state.moves}
-                  />
-        })
+        this.fetchHoenn()
+        if (this.state.hoennPokemon) {
+          return this.state.hoennPokemon.map((pokemon, index) => {
+            return <PokemonCard
+                      key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                      name={pokemon.name}
+                      url={pokemon.url}
+                      id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                      allMoves={this.state.moves}
+                    />
+          })
+        }
       case '4':
-        pokemons = pokemons.slice(386, 493)
-        return pokemons.map((pokemon, index) => {
-          return <PokemonCard
-                    key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
-                    name={pokemon.name}
-                    url={pokemon.url}
-                    id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
-                    allMoves={this.state.moves}
-                  />
-        })
+        this.fetchSinnoh()
+        if (this.state.sinnohPokemon) {
+          return this.state.sinnohPokemon.map((pokemon, index) => {
+            return <PokemonCard
+                      key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                      name={pokemon.name}
+                      url={pokemon.url}
+                      id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                      allMoves={this.state.moves}
+                    />
+          })
+        }
       case '5':
-        pokemons = pokemons.slice(493, 649)
-        return pokemons.map((pokemon, index) => {
-          return <PokemonCard
-                    key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
-                    name={pokemon.name}
-                    url={pokemon.url}
-                    id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
-                    allMoves={this.state.moves}
-                  />
-        })
+        this.fetchUnova()
+        if (this.state.unovaPokemon) {
+          return this.state.unovaPokemon.map((pokemon, index) => {
+            return <PokemonCard
+                      key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                      name={pokemon.name}
+                      url={pokemon.url}
+                      id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                      allMoves={this.state.moves}
+                    />
+          })
+        }
       case '6':
-        pokemons = pokemons.slice(649, 721)
-        return pokemons.map((pokemon, index) => {
-          return <PokemonCard
-                    key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
-                    name={pokemon.name}
-                    url={pokemon.url}
-                    id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
-                    allMoves={this.state.moves}
-                  />
-        })
+        this.fetchKalos()
+        if (this.state.kalosPokemon) {
+          return this.state.kalosPokemon.map((pokemon, index) => {
+            return <PokemonCard
+                      key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                      name={pokemon.name}
+                      url={pokemon.url}
+                      id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                      allMoves={this.state.moves}
+                    />
+          })
+        }
       case '7':
-        pokemons = pokemons.slice(721, 807)
-        return pokemons.map((pokemon, index) => {
-          return <PokemonCard
-                    key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
-                    name={pokemon.name}
-                    url={pokemon.url}
-                    id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
-                    allMoves={this.state.moves}
-                  />
-        })
+        this.fetchAlola()
+        if (this.state.alolaPokemon) {
+          return this.state.alolaPokemon.map((pokemon, index) => {
+            return <PokemonCard
+                      key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                      name={pokemon.name}
+                      url={pokemon.url}
+                      id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+                      allMoves={this.state.moves}
+                    />
+          })
+        }
       default:
     }
 
@@ -123,7 +207,7 @@ class PokemonContainer extends React.Component {
                />
       })
     } else {
-      return this.props.pokemons.results.map(
+      return this.props.pokemons.map(
         (pokemon, index) =>
           <PokemonCard
             key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}

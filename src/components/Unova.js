@@ -298,41 +298,141 @@ class Unova extends React.Component {
             area: 'undella-town-area'
           })
           this.fetchMe(654)
-        } else if ((event.pageX - curleft) < 431 && (event.pageX - curleft) > 384 && (event.pageY - curtop) < 219 && (event.pageY - curtop) > 255) {
+        } else if ((event.pageX - curleft) < 431 && (event.pageX - curleft) > 384 && (event.pageY - curtop) < 255 && (event.pageY - curtop) > 219) {
           this.setState({
             area: 'unova-route-14-area'
           })
           this.fetchMe(648)
-        } else if ((event.pageX - curleft) < 25 && (event.pageX - curleft) > 0 && (event.pageY - curtop) < 386 && (event.pageY - curtop) > 365) {
+        } else if ((event.pageX - curleft) < 381 && (event.pageX - curleft) > 361 && (event.pageY - curtop) < 289 && (event.pageY - curtop) > 257) {
           this.setState({
-            area: 'johto-route-47-area'
+            area: 'black-city-area'
           })
-          this.fetchMe(255)
-        } else if ((event.pageX - curleft) < 16 && (event.pageX - curleft) > 0 && (event.pageY - curtop) < 365 && (event.pageY - curtop) > 351) {
+          this.fetchMe(10000)
+        } else if ((event.pageX - curleft) < 361 && (event.pageX - curleft) > 331 && (event.pageY - curtop) < 285 && (event.pageY - curtop) > 264) {
           this.setState({
-            area: 'johto-route-48-area'
+            area: 'unova-route-15-area'
           })
-          this.fetchMe(286)
-        } else if ((event.pageX - curleft) < 14 && (event.pageX - curleft) > 0 && (event.pageY - curtop) < 351 && (event.pageY - curtop) > 326) {
+          this.fetchMe(650)
+        } else if ((event.pageX - curleft) < 292 && (event.pageX - curleft) > 270 && (event.pageY - curtop) < 285 && (event.pageY - curtop) > 264) {
           this.setState({
-            area: 'safari-zone-area'
+            area: 'unova-route-16-area'
           })
-
-        } else if ((event.pageX - curleft) < 498 && (event.pageX - curleft) > 480 && (event.pageY - curtop) < 304 && (event.pageY - curtop) > 279) {
+          this.fetchMe(651)
+        } else if ((event.pageX - curleft) < 331 && (event.pageX - curleft) > 292 && (event.pageY - curtop) < 285 && (event.pageY - curtop) > 264) {
           this.setState({
-            area: 'mt-silver-outside'
+            area: 'marvelous-bridge-area'
           })
-          this.fetchMe(269)
-        } else if ((event.pageX - curleft) < 409 && (event.pageX - curleft) > 348 && (event.pageY - curtop) < 243 && (event.pageY - curtop) > 216) {
+          this.fetchMe(622)
+        } else if ((event.pageX - curleft) < 292 && (event.pageX - curleft) > 282 && (event.pageY - curtop) < 261 && (event.pageY - curtop) > 245) {
           this.setState({
-            area: 'dark-cave-violet-city-entrance'
+            area: 'lostlorn-forest-area'
           })
-          this.fetchMe(253)
-        } else if ((event.pageX - curleft) < 294 && (event.pageX - curleft) > 270 && (event.pageY - curtop) < 240 && (event.pageY - curtop) > 209) {
+          this.fetchMe(652)
+        } else if ((event.pageX - curleft) < 53 && (event.pageX - curleft) > 18 && (event.pageY - curtop) < 437 && (event.pageY - curtop) > 381) {
           this.setState({
-            area: 'violet-city-area'
+            area: 'unova-route-19-area'
           })
-          this.fetchMe(189)
+          this.fetchMe(703)
+        } else if ((event.pageX - curleft) < 75 && (event.pageX - curleft) > 53 && (event.pageY - curtop) < 398 && (event.pageY - curtop) > 363) {
+          this.setState({
+            area: 'floccesy-town-area'
+          })
+          this.fetchMe(10000)
+        } else if ((event.pageX - curleft) < 124 && (event.pageX - curleft) > 75 && (event.pageY - curtop) < 398 && (event.pageY - curtop) > 363) {
+          this.setState({
+            area: 'unova-route-20-area'
+          })
+          this.fetchMe(704)
+        } else if ((event.pageX - curleft) < 145 && (event.pageX - curleft) > 124 && (event.pageY - curtop) < 398 && (event.pageY - curtop) > 363) {
+          this.setState({
+            area: 'virbank-city-area'
+          })
+          this.fetchMe(658)
+        } else if ((event.pageX - curleft) < 87 && (event.pageX - curleft) > 75 && (event.pageY - curtop) < 361 && (event.pageY - curtop) > 346) {
+          this.setState({
+            area: 'floccesy-ranch-inner'
+          })
+          this.fetchMe(658)
+        } else if ((event.pageX - curleft) < 131 && (event.pageX - curleft) > 121 && (event.pageY - curtop) < 421 && (event.pageY - curtop) > 406) {
+          this.setState({
+            area: 'virbank-complex-inner'
+          })
+          this.fetchMe(676)
+        } else if ((event.pageX - curleft) < 443 && (event.pageX - curleft) > 422 && (event.pageY - curtop) < 490 && (event.pageY - curtop) > 460) {
+          this.setState({
+            area: 'unova-route-17-area'
+          })
+          this.fetchMe(655)
+        } else if ((event.pageX - curleft) < 422 && (event.pageX - curleft) > 397 && (event.pageY - curtop) < 490 && (event.pageY - curtop) > 460) {
+          this.setState({
+            area: 'unova-route-18-area'
+          })
+          this.fetchMe(653)
+        } else if ((event.pageX - curleft) < 460 && (event.pageX - curleft) > 446 && (event.pageY - curtop) < 191 && (event.pageY - curtop) > 172) {
+          this.setState({
+            area: 'undella-bay-area'
+          })
+          this.fetchMe(619)
+        } else if ((event.pageX - curleft) < 467 && (event.pageX - curleft) > 456 && (event.pageY - curtop) < 166 && (event.pageY - curtop) > 153) {
+          this.setState({
+            area: 'seaside-cave-1f'
+          })
+          this.fetchMe(700)
+        } else if ((event.pageX - curleft) < 467 && (event.pageX - curleft) > 456 && (event.pageY - curtop) < 153 && (event.pageY - curtop) > 124) {
+          this.setState({
+            area: 'unova-route-21-area'
+          })
+          this.fetchMe(707)
+        } else if ((event.pageX - curleft) < 470 && (event.pageX - curleft) > 448 && (event.pageY - curtop) < 125 && (event.pageY - curtop) > 93) {
+          this.setState({
+            area: 'humilau-city-area'
+          })
+          this.fetchMe(659)
+        } else if ((event.pageX - curleft) < 448 && (event.pageX - curleft) > 413 && (event.pageY - curtop) < 125 && (event.pageY - curtop) > 93) {
+          this.setState({
+            area: 'unova-route-22-area'
+          })
+          this.fetchMe(705)
+        } else if ((event.pageX - curleft) < 413 && (event.pageX - curleft) > 402 && (event.pageY - curtop) < 125 && (event.pageY - curtop) > 93) {
+          this.setState({
+            area: 'giant-chasm-area'
+          })
+          this.fetchMe(615)
+        } else if ((event.pageX - curleft) < 402 && (event.pageX - curleft) > 368 && (event.pageY - curtop) < 111 && (event.pageY - curtop) > 48) {
+          this.setState({
+            area: 'unova-route-23-area'
+          })
+          this.fetchMe(706)
+        } else if ((event.pageX - curleft) < 366 && (event.pageX - curleft) > 343 && (event.pageY - curtop) < 61 && (event.pageY - curtop) > 39) {
+          this.setState({
+            area: 'unova-victory-road-unknown-area-53'
+          })
+          this.fetchMe(599)
+        } else if ((event.pageX - curleft) < 342 && (event.pageX - curleft) > 322 && (event.pageY - curtop) < 63 && (event.pageY - curtop) > 29) {
+          this.setState({
+            area: 'unova-pokemon-league-area'
+          })
+          this.fetchMe(10000)
+        } else if ((event.pageX - curleft) < 312 && (event.pageX - curleft) > 272 && (event.pageY - curtop) < 98 && (event.pageY - curtop) > 78) {
+          this.setState({
+            area: 'unova-route-10-area'
+          })
+          this.fetchMe(643)
+        } else if ((event.pageX - curleft) < 493 && (event.pageX - curleft) > 470 && (event.pageY - curtop) < 212 && (event.pageY - curtop) > 114) {
+          this.setState({
+            area: 'marine-tube-area'
+          })
+          this.fetchMe(10000)
+        } else if ((event.pageX - curleft) < 133 && (event.pageX - curleft) > 120 && (event.pageY - curtop) < 354 && (event.pageY - curtop) > 335) {
+          this.setState({
+            area: 'pokestar-studios-area'
+          })
+          this.fetchMe(10000)
+        } else if ((event.pageX - curleft) < 474 && (event.pageX - curleft) > 439 && (event.pageY - curtop) < 40 && (event.pageY - curtop) > 18) {
+          this.setState({
+            area: 'aspertia-city-area'
+          })
+          this.fetchMe(657)
         }
       }
     }
@@ -347,24 +447,32 @@ class Unova extends React.Component {
     let foundPokemonLocations =  this.state.pokemonLocations.filter(instance => instance.location.name === this.state.area)
     let unovaPokemonNames = this.state.data.map(pokemon => pokemon.pokemon_species.name)
     let nativePokemonLocations = foundPokemonLocations.filter(instance => unovaPokemonNames.includes(instance.pokemon.name))
-    return nativePokemonLocations.map((instance, index) => <PokemonCard
-      key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]} name={instance.pokemon.name} url={instance.pokemon.url} id={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
-      allMoves={this.state.moves}
-    />)
+    if (nativePokemonLocations.length > 0) {
+      return nativePokemonLocations.map((instance, index) => <PokemonCard
+        key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]} name={instance.pokemon.name} url={instance.pokemon.url} id={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
+        allMoves={this.state.moves}
+      />)
+    } else {
+      return <i>None found!</i>
+    }
   }
 
   getNonNativePokemonLocations = () => {
     let foundPokemonLocations =  this.state.pokemonLocations.filter(instance => instance.location.name === this.state.area)
     let unovaPokemonNames = this.state.data.map(pokemon => pokemon.pokemon_species.name)
     let nonNativePokemonLocations = foundPokemonLocations.filter(instance => !unovaPokemonNames.includes(instance.pokemon.name))
-    return nonNativePokemonLocations.map((instance, index) =>
-    <PokemonCard
-      key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
-      name={instance.pokemon.name}
-      url={instance.pokemon.url}
-      id={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
-      allMoves={this.state.moves}
-    />)
+    if (nonNativePokemonLocations.length > 0) {
+      return nonNativePokemonLocations.map((instance, index) =>
+      <PokemonCard
+        key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
+        name={instance.pokemon.name}
+        url={instance.pokemon.url}
+        id={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
+        allMoves={this.state.moves}
+      />)
+    } else {
+      return <i>None found!</i>
+    }
   }
 
   startQuery = (event) => {

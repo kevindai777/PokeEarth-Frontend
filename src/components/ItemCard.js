@@ -6,7 +6,8 @@ class ItemCard extends React.Component {
 
   state = {
     item: null,
-    favorites: null
+    favorites: null,
+    id: this.props.item.url.split('/')[this.props.item.url.split('/').length - 2]
   }
 
   componentDidMount() {
@@ -39,7 +40,7 @@ class ItemCard extends React.Component {
       },
       body: JSON.stringify({
         user_id: localStorage.user_id,
-        item_id: this.props.item.id
+        item_id: this.state.id
       })
     })
       .then(res => res.json())
@@ -49,7 +50,7 @@ class ItemCard extends React.Component {
   decideButton = () => {
     if (this.state.favorites) {
       let ids = this.state.favorites.map(item => item.item.id)
-      if (ids.includes(this.props.item.id)) {
+      if (ids.includes(parseInt(this.state.id))) {
         return false
       } else {
         return true
@@ -64,7 +65,7 @@ class ItemCard extends React.Component {
           this.state.item ?
           <div>
             <Link to={{
-                pathname: '/items' + '/' + this.props.item.id,
+                pathname: '/items' + '/' + this.state.id,
                 state: {
                   name: this.props.item.name,
                   description: this.state.item.effect_entries[0].effect
@@ -76,7 +77,7 @@ class ItemCard extends React.Component {
                 <img src={this.state.item.sprites.default} style={{width: '100px', height: '100px'}}/>
               </div>
             </Link>
-            {this.decideButton() ? <button style={{zIndex: '1'}} onClick={this.post}>Favorite!</button> : null }
+            {this.decideButton() ? <button style={{zIndex: '1'}} onClick={this.post}>Favorite!</button> : <p>Favorited!</p> }
           </div>
           :
           <LoadingPage/>

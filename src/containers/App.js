@@ -12,6 +12,7 @@ import Hoenn from '../components/Hoenn'
 import Sinnoh from '../components/Sinnoh'
 import Unova from '../components/Unova'
 import Kalos from '../components/Kalos'
+import Sevii from '../components/Sevii'
 import Login from '../components/Login'
 import SignUp from '../components/SignUp'
 import NoMatch from '../components/NoMatch'
@@ -100,6 +101,7 @@ class App extends React.Component {
             <Route exact path="/Sinnoh" render={() => <Sinnoh/>}/>
             <Route exact path="/Unova" render={() => <Unova/>}/>
             <Route exact path="/Kalos" render={() => <Kalos/>}/>
+            <Route exact path="/Sevii" render={() => <Sevii/>}/>
             <Route exact path="/pokemons/:id" component={PokemonDetails} />
             <Route exact path="/items/:id" component={ItemDetails} />
             <Route component={NoMatch} />
@@ -159,6 +161,11 @@ class App extends React.Component {
               <NavItem eventKey="kanto">
                 <NavText>
                   Kanto
+                </NavText>
+              </NavItem>
+              <NavItem eventKey="sevii">
+                <NavText>
+                  Sevii
                 </NavText>
               </NavItem>
               <NavItem eventKey="johto">

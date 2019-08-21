@@ -26,6 +26,7 @@
     "react-scrollable-anchor": "^0.6.1",
     "react-simple-infinite-scroll": "0.0.1",
     "react-timeline-scribble": "^1.0.14",
+    "semantic-ui-react": "^0.87.3",
     "smogon-usage-fetch": "^4.3.0"
   },
   "scripts": {
