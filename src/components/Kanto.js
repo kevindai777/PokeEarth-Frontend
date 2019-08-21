@@ -6,6 +6,12 @@ import { BarChart, PieChart } from 'react-chartkick'
 import 'chart.js'
 import { Search } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import {
+  AwesomeButton,
+  AwesomeButtonProgress,
+  AwesomeButtonSocial,
+} from 'react-awesome-button';
+import "react-awesome-button/dist/styles.css";
 
 class Kanto extends React.Component {
 
@@ -357,7 +363,7 @@ class Kanto extends React.Component {
   }
 
   determineImage = () => {
-    return <img src={`/images/kanto/${this.state.area}.png`} />
+    return <img src={`/images/kanto/${this.state.area}.png`} style={{position: 'relative'}}/>
   }
 
   createBars = () => {
@@ -385,11 +391,6 @@ class Kanto extends React.Component {
 
       return wholeArray.flat().map(arrayOfArrays =>
         <div className={arrayOfArrays[0][2]}>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
           <PieChart
             data={arrayOfArrays.map(array =>
               array.slice(0,2)
@@ -503,16 +504,121 @@ class Kanto extends React.Component {
   description = () => {
     switch (this.state.area) {
       case 'Kanto':
-        return "The first region."
+        return <p style={{marginLeft: '72px'}}>The first region. Located east of Johto. To the south are the Sevii Islands.</p>
       case 'pallet-town-area':
         return <p>A fairly new and quiet town. <br></br> It's a small and pretty place.</p>
       case 'kanto-route-1-area':
         return <p>A country road full of greenery <br></br> and rough paths.</p>
+      case 'viridian-city-area':
+        return <p>A beautiful city that is <br></br> enveloped in green year-round.</p>
+      case 'kanto-route-2-south-towards-viridian-city':
+        return <p>A path that winds and bends <br></br> from the forest's entrance.</p>
+      case 'viridian-forest-area':
+        return <p>A deep and sprawling forest that <br></br> extends around Viridian City.</p>
+      case 'pewter-city-area':
+        return <p>A quiet city nestled between <br></br> rugged mountains and rocks.</p>
+      case 'kanto-route-3-area':
+        return <p>A road where many rocks have fallen <br></br> from the sky to create craters.</p>
+      case 'mt-moon-1f':
+        return <p>A mystical mountain that is <br></br> known for its frequent meteor falls.</p>
+      case 'kanto-route-4-area':
+        return <p>A one-way road down a hill that has <br></br> a gentle slope and is fun to traverse.</p>
+      case 'cerulean-city-area':
+        return <p>A beautiful city with flowing <br></br> water and blooming flowers.</p>
+      case 'kanto-route-24-area':
+        return <p>A beautiful bridge that <br></br> stretches across a river.</p>
+      case 'kanto-route-25-area':
+        return <p>A path that winds through the forest <br></br> and comes out overlooking the sea.</p>
+      case 'kanto-route-9-area':
+        return <p>A road that forms a maze <br></br> crossing a small, rocky mountain.</p>
+      case 'rock-tunnel-1f':
+        return <p>A large natural tunnel. <br></br> It's pitch black, so a light source is required.</p>
+      case 'power-plant-area':
+        return <p>A power plant that was abandoned years ago, <br></br> though some of the machines still work.</p>
+      case 'kanto-route-10-area':
+        return <p>A road that passes along the canal <br></br> and comes out at the Power Plant.</p>
+      case 'lavender-town-area':
+        return <p>A small town covered in <br></br> a beautiful hue of purple.</p>
+      case 'kanto-route-8-area':
+        return <p>A short road that leads to the <br></br> blocked-off Underground Path.</p>
+      case 'saffron-city-area':
+        return <p>The biggest city in Kanto, <br></br> shining with a golden light.</p>
+      case 'kanto-route-5-area':
+        return <p>A placid sloping road connecting <br></br> to the Underground Path.</p>
+      case 'kanto-route-6-area':
+        return <p>A road running south of Saffron City <br></br> connecting to the Underground Path.</p>
+      case 'kanto-route-7-area':
+        return <p>A short road that leads to <br></br> the blocked-off Underground Path.</p>
+      case 'celadon-city-area':
+        return <p>A rich, rainbow colored city <br></br> where people and Pokémon gather.</p>
+      case 'kanto-route-16-area':
+        return <p>Links to the north side of Pokémon Road. <br></br> A route that is always bustling.</p>
+      case 'kanto-route-17-area':
+        return <p>An easy path of Cycling Road <br></br> running above the sea.</p>
+      case 'kanto-route-18-area':
+        return <p>The southern ending point of <br></br> Cycling Road.</p>
+      case 'fuchsia-city-area':
+        return <p>A historic village <br></br> that has become new.</p>
+      case 'kanto-route-11-area':
+        return <p>A grassy path with a gentle, <br></br> refreshing breeze.</p>
+      case 'kanto-route-12-area':
+        return <p>A bridge known for its fishing. <br></br> It's also called "Silence Bridge."</p>
+      case 'kanto-route-13-area':
+        return <p>A difficult, narrow path <br></br> where many Trainers await you.</p>
+      case 'kanto-route-14-area':
+        return <p>A pleasant coastal road where <br></br> the breeze blows and waves roar.</p>
+      case 'kanto-route-15-area':
+        return <p>A path that cuts through the row <br></br> of trees to come out on the coastline.</p>
+      case 'vermilion-city-area':
+        return <p>A southern city that is bathed <br></br> in orange by the setting sun.</p>
+      case 'digletts-cave-area':
+        return <p>A seemingly plain tunnel <br></br> that was dug by wild Diglett.</p>
+      case 'kanto-sea-route-19-area':
+        return <p>A coastal road littered with rocks <br></br> due to Cinnabar Island's volcano eruption.</p>
+      case 'kanto-sea-route-20-area':
+        return <p>A popular path with swimmers. <br></br> The Seafoam Islands are also here.</p>
+      case 'kanto-sea-route-21-area':
+        return <p>A coastal road where the only <br></br> threat might be the volcano on the horizon.</p>
+      case 'cinnabar-island-area':
+        return <p>A town used to be here until <br></br> it was swept away by an eruption.</p>
+      case 'seafoam-islands-1f':
+        return <p>Two small islands lightly <br></br> floating in the ocean.</p>
+      case 'kanto-route-22-area':
+        return <p>A path to Victory Road that <br></br> eventually becomes impassable.</p>
+      case 'kanto-route-23-area':
+        return <p>A mountain path where only <br></br> the strongest Trainers may pass.</p>
+      case 'kanto-route-26-area':
+        return <p>An unimaginably difficult mountain <br></br> road that gives the impression of a test.</p>
+      case 'kanto-route-27-area':
+        return <p>A road that crosses from Johto to <br></br> the Kanto region, like a new journey.</p>
+      case 'kanto-route-28-area':
+        return <p>A vacant and hidden mountain <br></br> road that continues to Mt. Silver.</p>
+      case 'kanto-victory-road-2-1f':
+        return <p>A road that tests Trainers <br></br> aiming at the Pokémon League.</p>
+      case 'indigo-plateau':
+        return <p>The fate of many Trainers <br></br> aiming for the top rests here.</p>
 
         break;
       default:
 
     }
+  }
+
+
+  post = () => {
+    fetch('http://localhost:3000/favorite_locations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: localStorage.user_id,
+        location_id:  this.state.pokemonLocations.filter(instance => instance.location.name === this.state.area)[0].location.id
+      })
+    })
+      .then(res => res.json())
+      .then(console.log)
   }
 
   render () {
@@ -522,23 +628,37 @@ class Kanto extends React.Component {
         <Link to="/sevii">Click here to go to the Sevii Islands</Link>
         <br></br>
         <FadeIn>
-          <canvas
-            style={{float: 'left', marginLeft: '65px'}}
-            className="map"
-            ref="canvas"
-            width={500}
-            height={500}
-            onClick={(event) => {this.getInfo(event)}}
-          />
+          <div style={{float: 'left', marginLeft: '65px'}}>
+            <canvas
+              className="map"
+              ref="canvas"
+              width={500}
+              height={500}
+              onClick={(event) => {this.getInfo(event)}}
+            />
+            <div className="graph">
+              <h1>Graphs</h1>
+              {this.state.strangeArray ? this.createBars() : null}
+            </div>
+          </div>
         </FadeIn>
 
         <FadeIn>
-          <div className="city-card" style={{width: '52%', marginTop: '-15px'}}>
+          <div className="city-card" style={{width: '64%', marginTop: '-2px'}}>
             <h1>{this.state.area}</h1>
             <br></br>
             <h2 style={{float: 'left', marginLeft: '40px'}}><i>{this.description()}</i></h2>
             <br></br>
             {this.determineImage()}
+            <br></br>
+            <br></br>
+            <AwesomeButtonProgress
+              type="primary"
+              size="medium"
+              action={(element, next) => {this.post(next); setTimeout(() => {next()}, 600)}}
+            >
+              Favorite!
+            </AwesomeButtonProgress>
             <br></br>
 
             <h1>Native to Kanto: </h1>
@@ -550,10 +670,6 @@ class Kanto extends React.Component {
             {this.state.pokemonLocations && this.state.data && this.state.moves ? this.getNonNativePokemonLocations() : <LoadingPage/>}
           </div>
         </FadeIn>
-
-        <div className="graph">
-          {this.state.strangeArray ? this.createBars() : null}
-        </div>
 
         <br></br>
 

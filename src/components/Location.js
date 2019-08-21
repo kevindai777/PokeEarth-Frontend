@@ -1,5 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import {
+  AwesomeButton,
+  AwesomeButtonProgress,
+  AwesomeButtonSocial,
+} from 'react-awesome-button';
+import "react-awesome-button/dist/styles.css";
 
 class Location extends React.Component {
 
@@ -169,7 +175,15 @@ class Location extends React.Component {
       if (ids.includes(this.state.foundId)) {
         return <p>Favorited!</p>
       } else if (!ids.includes(this.state.foundId)) {
-        return <button onClick={this.state.foundId ? this.post : null}>Favorite!</button>
+        return <div>
+          <AwesomeButtonProgress
+            type="secondary"
+            size="medium"
+            action={(element, next) => {this.post(next); setTimeout(() => {next()}, 600)}}
+          >
+            Favorite!
+          </AwesomeButtonProgress>
+        </div>
       }
     }
   }

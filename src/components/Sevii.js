@@ -5,6 +5,12 @@ import LoadingPage from './LoadingPage'
 import { BarChart, PieChart } from 'react-chartkick'
 import 'chart.js'
 import { Link } from 'react-router-dom'
+import {
+  AwesomeButton,
+  AwesomeButtonProgress,
+  AwesomeButtonSocial,
+} from 'react-awesome-button';
+import "react-awesome-button/dist/styles.css";
 
 class Sevii extends React.Component {
 
@@ -284,11 +290,6 @@ class Sevii extends React.Component {
 
       return wholeArray.flat().map(arrayOfArrays =>
         <div className={arrayOfArrays[0][2]}>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
           <PieChart
             data={arrayOfArrays.map(array =>
               array.slice(0,2)
@@ -401,17 +402,89 @@ class Sevii extends React.Component {
 
   description = () => {
     switch (this.state.area) {
-      case 'Kanto':
-        return "The first region."
-      case 'pallet-town-area':
-        return <p>A fairly new and quiet town. <br></br> It's a small and pretty place.</p>
-      case 'kanto-route-1-area':
-        return <p>A country road full of greenery <br></br> and rough paths.</p>
+      case 'Sevii':
+        return <p style={{marginLeft: '265px'}}>An archipelago of nine large islands. South of Kanto.</p>
+      case 'one-island-area':
+        return <p>A small town home to Bill, <br></br> who runs the Network Center.</p>
+      case 'treasure-beach-area':
+        return <p>A small area to <br></br> the south of One Island.</p>
+      case 'kindle-road-area':
+        return <p>A straight path north from One Island <br></br> famous for it's hot springs.</p>
+      case 'mt-ember-area':
+        return <p>An inactive volcano, but there are <br></br> reports that the peak blazes with fire at night.</p>
+      case 'two-island-area':
+        return <p>Commonly referred to as 'Friendship Island'. <br></br> Also home to the move relearner.</p>
+      case 'cape-brink-area':
+        return <p>A short, straightforward walk up a mountin to <br></br> the house of move tutors.</p>
+      case 'berry-forest-area':
+        return <p>A forest where berries grow wildly <br></br> in profusion, quickly replenishing those that fall off.</p>
+      case 'bond-bridge-area':
+        return <p>An area on Three Island that connects the <br></br> two neighboring islands together.</p>
+      case 'three-island-area':
+        return <p>Commonly referred to as 'Family Island'. <br></br> East of Two Island.</p>
+      case 'three-isle-port-area':
+        return <p>Home to a cave with a <br></br> multitude of Dunsparce.</p>
+      case 'four-island-area':
+        return <p>Commonly reffered to as 'Ice Island'. <br></br> Home to Lorelei of the Elite Four.</p>
+      case 'icefall-cave-1f':
+        return <p>A cave which is covered by water and ice that seems <br></br> like the end of the cave is connected to the ocean.</p>
+      case 'resort-gorgeous-area':
+        return <p>A route whose name is derived <br></br> from the resort in the center of the waterway.</p>
+      case 'lost-cave-room-1':
+        return <p>A bewildering cave off the coast. Some curious <br></br> thrill seekers have never emerged from it.</p>
+      case 'water-labyrinth-area':
+        return <p>A simple route composed predominantly of <br></br> a small maze made of sea rocks.</p>
+      case 'five-island-area':
+        return <p></p>
+      case 'five-isle-meadow-area':
+        return <p></p>
+      case 'memorial-pillar-area':
+        return <p></p>
+      case 'kanto-altering-cave-a':
+        return <p></p>
+      case 'outcast-island-area':
+        return <p></p>
+      case 'green-path-area':
+        return <p></p>
+      case 'pattern-bush-area':
+        return <p></p>
+      case 'water-path-area':
+        return <p></p>
+      case 'six-island-area':
+        return <p></p>
+      case 'ruin-valley-area':
+        return <p></p>
+      case 'trainer-tower-area':
+        return <p></p>
+      case 'seven-island-area':
+        return <p></p>
+      case 'canyon-entrance-area':
+        return <p></p>
+      case 'sevault-canyon-area':
+        return <p></p>
+      case 'tanoby-ruins-area':
+        return <p></p>
 
         break;
       default:
 
     }
+  }
+
+  post = () => {
+    fetch('http://localhost:3000/favorite_locations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: localStorage.user_id,
+        location_id:  this.state.pokemonLocations.filter(instance => instance.location.name === this.state.area)[0].location.id
+      })
+    })
+      .then(res => res.json())
+      .then(console.log)
   }
 
   render () {
@@ -420,24 +493,40 @@ class Sevii extends React.Component {
         <h1>Sevii Islands</h1>
         <Link to="/kanto">Click here to go back to Kanto</Link>
         <br></br>
-        <FadeIn>
-          <canvas
-            style={{float: 'left', marginLeft: '65px'}}
-            className="map"
-            ref="canvas"
-            width={375}
-            height={600}
-            onClick={(event) => {this.getInfo(event)}}
-          />
-        </FadeIn>
+
+        <div style={{float: 'left', marginLeft: '65px'}}>
+          <FadeIn>
+            <canvas
+              className="map"
+              ref="canvas"
+              width={375}
+              height={600}
+              onClick={(event) => {this.getInfo(event)}}
+            />
+            <div className="graph">
+              <h1>Graphs</h1>
+              {this.state.strangeArray ? this.createBars() : null}
+            </div>
+          </FadeIn>
+        </div>
+
 
         <FadeIn>
-          <div className="city-card" style={{width: '52%', marginTop: '-15px'}}>
+          <div className="city-card" style={{width: '64%', marginTop: '-5px'}}>
             <h1>{this.state.area}</h1>
             <br></br>
             <h2 style={{float: 'left', marginLeft: '40px'}}><i>{this.description()}</i></h2>
             <br></br>
             {this.determineImage()}
+            <br></br>
+            <br></br>
+            <AwesomeButtonProgress
+              type="primary"
+              size="medium"
+              action={(element, next) => {this.post(next); setTimeout(() => {next()}, 600)}}
+            >
+              Favorite!
+            </AwesomeButtonProgress>
             <br></br>
 
             <h1>Native to Kanto: </h1>
@@ -449,10 +538,6 @@ class Sevii extends React.Component {
             {this.state.pokemonLocations && this.state.data && this.state.moves ? this.getNonNativePokemonLocations() : <LoadingPage/>}
           </div>
         </FadeIn>
-
-        <div className="graph">
-          {this.state.strangeArray ? this.createBars() : null}
-        </div>
 
         <br></br>
 

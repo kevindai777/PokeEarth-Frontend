@@ -1,6 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import LoadingPage from './LoadingPage'
+import {
+  AwesomeButton,
+  AwesomeButtonProgress,
+  AwesomeButtonSocial,
+} from 'react-awesome-button';
+import "react-awesome-button/dist/styles.css";
 
 class ItemCard extends React.Component {
 
@@ -77,7 +83,24 @@ class ItemCard extends React.Component {
                 <img src={this.state.item.sprites.default} style={{width: '100px', height: '100px'}}/>
               </div>
             </Link>
-            {this.decideButton() ? <button style={{zIndex: '1'}} onClick={this.post}>Favorite!</button> : <p>Favorited!</p> }
+            {this.decideButton() ?
+              <AwesomeButtonProgress
+                type="secondary"
+                size="medium"
+                action={(element, next) =>
+                  {this.post(next);
+                    setTimeout(() => {
+                      next()
+                    }, 600)
+                  }
+                }
+                style={{zIndex: '1'}} 
+              >
+                Favorite!
+              </AwesomeButtonProgress>
+                :
+              <p>Favorited!</p>
+            }
           </div>
           :
           <LoadingPage/>

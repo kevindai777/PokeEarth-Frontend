@@ -34,7 +34,6 @@ class Encounter extends React.Component {
     if (this.state.encounters !== null) {
       return this.state.encounters.map(location => <Location name={location.location_area.name} id={this.props.id}/>)
     } else if (this.state.encounters === [] || this.state.encounters === null) {
-      console.log('hey')
       return "None to be found."
     }
   }

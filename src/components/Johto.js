@@ -441,10 +441,10 @@ class Johto extends React.Component {
 
   description = () => {
     switch (this.state.area) {
-      case 'Kanto':
-        return "The first region."
-      case 'pallet-town-area':
-        return <p>A fairly new and quiet town. <br></br> It's a small and pretty place.</p>
+      case 'johto-map':
+        return <p style={{marginLeft: '80px'}}>The second region. West of Kanto and famous for its simplistic lifestyle.</p>
+      case 'new-bark-town-area':
+        return <p>A town where the wind blows and <br></br> tells of impending change.</p>
       case 'kanto-route-1-area':
         return <p>A country road full of greenery <br></br> and rough paths.</p>
 
@@ -493,15 +493,8 @@ class Johto extends React.Component {
       }
       wholeArray.push(array)
 
-      console.log(wholeArray.flat())
-
       return wholeArray.flat().map(arrayOfArrays =>
         <div className={arrayOfArrays[0][2]}>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
           <PieChart
             data={arrayOfArrays.map(array =>
               array.slice(0,2)
@@ -518,17 +511,22 @@ class Johto extends React.Component {
       <div>
         <h1>Johto</h1>
         <br></br>
-        <canvas
-          style={{float: 'left', marginLeft: '64px'}}
-          className="map"
-          ref="canvas"
-          width={500}
-          height={500}
-          onClick={(event) => this.getInfo(event)}
-        />
+        <div style={{float: 'left', marginLeft: '65px'}}>
+          <canvas
+            className="map"
+            ref="canvas"
+            width={500}
+            height={500}
+            onClick={(event) => this.getInfo(event)}
+          />
+          <div className="graph">
+            <h1>Graphs</h1>
+            {this.state.strangeArray ? this.createBars() : null}
+          </div>
+        </div>
 
         <FadeIn>
-          <div className="city-card" style={{width: '52%', marginTop: '-15px'}}>
+          <div className="city-card" style={{width: '64%', marginTop: '-15px'}}>
             <h1>{this.state.area}</h1>
             <br></br>
             <h2 style={{float: 'left', marginLeft: '40px'}}><i>{this.description()}</i></h2>
@@ -545,10 +543,6 @@ class Johto extends React.Component {
             {this.state.pokemonLocations && this.state.data && this.state.moves ? this.getNonNativePokemonLocations() : <LoadingPage/>}
           </div>
         </FadeIn>
-
-        <div className="graph">
-          {this.state.strangeArray ? this.createBars() : null}
-        </div>
 
         <br></br>
 

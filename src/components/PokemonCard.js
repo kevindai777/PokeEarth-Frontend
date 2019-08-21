@@ -1,6 +1,12 @@
 import React from 'react'
 import LoadingPage from './LoadingPage'
 import { Link } from 'react-router-dom'
+import {
+  AwesomeButton,
+  AwesomeButtonProgress,
+  AwesomeButtonSocial,
+} from 'react-awesome-button';
+import "react-awesome-button/dist/styles.css";
 
 class PokemonCard extends React.Component {
 
@@ -12,11 +18,19 @@ class PokemonCard extends React.Component {
     type2: 'null',
     locationUrl: null,
     moves: null,
-    items: null
+    items: null,
+    favoritedPokemon: null
   }
 
   componentDidMount() {
     this.renderThisData()
+    fetch('http://localhost:3000/favorite_pokemons')
+      .then(res => res.json())
+      .then(instances =>
+        this.setState({
+          favoritedPokemon: instances
+        })
+      )
   }
 
   renderThisData = () => {
@@ -59,8 +73,36 @@ class PokemonCard extends React.Component {
             items: data.held_items
           }))
         }
-
       })
+  }
+
+  post = () => {
+    fetch('http://localhost:3000/favorite_pokemons', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: localStorage.user_id,
+        pokemon_id: this.props.id
+      })
+    })
+      .then(res => res.json())
+      .then(console.log)
+  }
+
+  inTeam = () => {
+    if (this.state.favoritedPokemon) {
+      let filteredPokemon = this.state.favoritedPokemon.filter(instance => parseInt(instance.user.id) === parseInt(localStorage.user_id))
+      console.log(filteredPokemon)
+      let pokemonNames = filteredPokemon.map(instance => instance.pokemon.name)
+      if (pokemonNames.includes(this.props.name)) {
+        return true
+      } else {
+        return false
+      }
+    }
   }
 
   render() {
@@ -94,6 +136,24 @@ class PokemonCard extends React.Component {
             {this.state.spriteUrl ? <img src={this.state.spriteUrl}/> : <LoadingPage />}
           </div>
         </Link>
+          {
+            this.inTeam() ?
+             <p>Added!</p>
+             :
+             <AwesomeButtonProgress
+               type="secondary"
+               size="medium"
+               action={(element, next) =>
+                 {this.post(next);
+                   setTimeout(() => {
+                     next()
+                   }, 600)
+                 }
+               }
+             >
+             Add to team!
+             </AwesomeButtonProgress>
+          }
       </div>
     )
   }

@@ -9,11 +9,13 @@ import AbilityDetails from './AbilityDetails'
 import FadeIn from 'react-fade-in'
 import { ButtonToolbar, Button } from 'react-bootstrap'
 import PokemonCard from './PokemonCard'
+import { Overlay } from 'react-overlays'
 
 class PokemonDetails extends React.Component {
 
   state = {
-    pokemons: null
+    pokemons: null,
+    show: true
   }
 
   componentWillMount() {
@@ -606,6 +608,10 @@ class PokemonDetails extends React.Component {
     }
   }
 
+  hoverType = () => {
+    console.log('hey')
+  }
+
   render() {
     return (
       <div>
@@ -679,8 +685,8 @@ class PokemonDetails extends React.Component {
         </b>
 
         <h1>Types:
-          <img src={this.getType1Image()} />
-          <img src={this.getType2Image()} />
+          <img src={this.getType1Image()} onMouseEnter={this.hoverType}/>
+          <img src={this.getType2Image()} onMouseEnter={this.hoverType}/>
         </h1>
 
         <h1>Evolves from:

@@ -32,6 +32,15 @@ class Profile extends React.Component {
           moves: moves
         })
       )
+    fetch('http://localhost:3000/favorite_pokemons')
+      .then(res => res.json())
+      .then(pokemons => {
+        let foundFavoritePokemon = pokemons.filter(instance => parseInt(instance.user.id) === parseInt(this.props.userId))
+        let pokemonArray = foundFavoritePokemon.map(instance => instance.pokemon)
+        this.setState({
+          favoritePokemons: pokemonArray
+        })
+      })
   }
 
   fetchFavoriteLocations = () => {
@@ -383,6 +392,18 @@ class Profile extends React.Component {
     }
   }
 
+  createTeam = () => {
+    return this.state.favoritePokemons.map(pokemon =>
+      <PokemonCard
+        key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+        name={pokemon.name}
+        url={pokemon.url}
+        id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+        allMoves={this.state.moves}
+      />
+    )
+  }
+
   render() {
     return (
       <div>
@@ -401,6 +422,14 @@ class Profile extends React.Component {
           :
           null
         }
+
+        <br></br>
+
+        Favorited Team:
+
+        <br></br>
+
+        {this.state.favoritePokemons ? this.createTeam() : null}
 
         <br></br>
 
