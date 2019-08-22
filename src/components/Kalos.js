@@ -6,6 +6,7 @@ import { BarChart, PieChart } from 'react-chartkick'
 import 'chart.js'
 import { Search } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import { ButtonToolbar, Button } from 'react-bootstrap'
 
 class Kalos extends React.Component {
 
@@ -381,11 +382,6 @@ class Kalos extends React.Component {
             area: 'kalos-route-13-area'
           })
           this.fetchMe(724)
-        } else if ((event.pageX - curleft) < 294 && (event.pageX - curleft) > 270 && (event.pageY - curtop) < 240 && (event.pageY - curtop) > 209) {
-          this.setState({
-            area: 'violet-city-area'
-          })
-          this.fetchMe(189)
         }
       }
     }
@@ -479,7 +475,14 @@ class Kalos extends React.Component {
   filterByLocation = () => {
     if (this.state.pokemonLocations) {
       let superFilteredPokemon = this.state.pokemonLocations.filter(instance => instance.location.name.includes(this.state.locationQuery))
-      return superFilteredPokemon.map((instance, index) =>
+
+      let kalosPokemonNames = this.state.kalosPokemon.map(pokemon => pokemon.name)
+
+      let evenMoreFiltered = superFilteredPokemon.filter(instance => kalosPokemonNames.includes(instance.pokemon.name))
+
+      const uniqueArray = evenMoreFiltered.filter((thing, index, self) => self.findIndex(t => t.pokemon.name === thing.pokemon.name) === index)
+
+      return uniqueArray.map((instance, index) =>
           <PokemonCard
             key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
             name={instance.pokemon.name}
@@ -493,12 +496,110 @@ class Kalos extends React.Component {
 
   description = () => {
     switch (this.state.area) {
-      case 'Kanto':
-        return "The first region."
-      case 'pallet-town-area':
-        return <p>A fairly new and quiet town. <br></br> It's a small and pretty place.</p>
-      case 'kanto-route-1-area':
-        return <p>A country road full of greenery <br></br> and rough paths.</p>
+      case 'Kalos':
+        return <p style={{marginLeft: '-10px'}}>The Sixth Region. Famous for it's high buildings and advanced technology.</p>
+      case 'vaniville-town-area':
+        return <p>Blooming buds covered in morning dew <br></br> exude hope for the future in this small town.</p>
+      case 'kalos-route-1-area':
+        return <p>A small and quiet country lane that <br></br> connects Vaniville Town and Aquacorde Town.</p>
+      case 'aquacorde-town-area':
+        return <p>A town that naturally sprang up as <br></br> people flocked to this pristine riverside.</p>
+      case 'kalos-route-2-area':
+        return <p>You'll find many Pokémon hiding among the tall <br></br> grass that grows in tufts along this trail.</p>
+      case 'santalune-forest-area':
+        return <p>The gentle light filtering through this sun-dappled forest <br></br> makes it a popular spot for nature walks.</p>
+      case 'kalos-route-3-area':
+        return <p>The little rises and hollows of this lush forest are a <br></br> favorite place for many kinds of Pokémon to play.</p>
+      case 'santalune-city-area':
+        return <p>Many beginning Trainers gather in this <br></br> friendly city to start a Pokémon journey.</p>
+      case 'kalos-route-22-area':
+        return <p>This lively path bustles with many Trainers and their <br></br> Pokémon, all gathered here to train themselves.</p>
+      case 'chamber-of-emptiness-area':
+        return <p>A mysterious void. It is said <br></br> that nothing can exist within it.</p>
+      case 'kalos-victory-road-unknown-area-322':
+        return <p>This treacherous path to the Pokémon League will <br></br> break the hearts of even the toughest Trainers.</p>
+      case 'kalos-route-21-area':
+        return <p>This is the path of the chosen, designed to hone the <br></br> stalwart Trainers who dare face the Pokémon League.</p>
+      case 'snowbelle-city-area':
+        return <p>They say the cold air flowing from the Pokémon Gym <br></br> is responsible for this city's frozen state.</p>
+      case 'kalos-route-20-area':
+        return <p>This path was designed to disturb the woods as little as possible, so it twists and turns among the trees.</p>
+      case 'pokemon-village-area':
+        return <p>Legends say a place exists where Pokémon live <br></br> in hiding, but no one has ever found it.</p>
+      case 'kalos-route-19-area':
+        return <p>This great valley can now be crossed thanks to its <br></br> long bridge, built with the help of many Pokémon.</p>
+      case 'couriway-town-area':
+        return <p>The railway brings people from great <br></br> distances to see the huge, majestic falls.</p>
+      case 'kalos-route-18-area':
+        return <p>This path is best known for its trolley, once <br></br> used for the coal mine, and the curious Inverse Battle house.</p>
+      case 'terminus-cave-unknown-area-343':
+        return <p>A coal mine that was closed a few years ago due <br></br> to rumors of a monster living deep within it.</p>
+      case 'anistar-city-area':
+        return <p>Some say the enigmatic device used <br></br> as a sundial came from outer space.</p>
+      case 'kalos-route-17-area':
+        return <p>Due to constant snowstorms and heavy snowfall, <br></br> humans have no hope of traversing this road on foot.</p>
+      case 'dendemille-town-area':
+        return <p>A rural town where Pokémon and windmills work <br></br> together to farm the land in a chilly latitude.</p>
+      case 'frost-cavern-unknown-area-313':
+        return <p>The drifting snow and impenetrable fog make this <br></br> cavern a place of fantastical illusions.</p>
+      case 'kalos-route-15-area':
+        return <p>This path has become a popular hangout for the <br></br> wild and directionless youths of Lumiose City.</p>
+      case 'lost-hotel-area':
+        return <p>This once-famous hotel clings to the shade of <br></br> its former glory after tragedy left it in ruins.</p>
+      case 'laverre-city-area':
+        return <p>An unearthly city created by those inspired by a <br></br> mysterious and ancient tree 1,500 years old.</p>
+      case 'poke-ball-factory-area':
+        return <p>An expansive factory where every Poké Ball <br></br> used in the Kalos region is produced.</p>
+      case 'kalos-route-14-area':
+        return <p>The lush trees and boggy swamps of this trail give <br></br> off an eerie vibe, even in broad daylight.</p>
+      case 'kalos-route-16-area':
+        return <p>This rustic path beside the glittering metropolis of <br></br> Lumiose City is a well-known fishing spot.</p>
+      case 'lumiose-city-area':
+        return <p>A dazzling metropolis of art and artifice, <br></br> located in the very heart of the Kalos region.</p>
+      case 'kalos-route-4-area':
+        return <p>This famed path's perfectly designed and executed gardens <br></br> are its highlight and a special point of pride.</p>
+      case 'kalos-route-5-area':
+        return <p>Roller Skaters from across the Kalos region gather <br></br> on this hilly path to demonstrate their best skills.</p>
+      case 'camphrier-town-area':
+        return <p>This ancient town was once famous for the <br></br> long-neglected manor home of a noble family.</p>
+      case 'kalos-route-7-area':
+        return <p>The longest single road in the Kalos region runs <br></br> straight alongside one of its greatest rivers.</p>
+      case 'kalos-route-6-area':
+        return <p>This tree-lined path was once covered with grass <br></br> as tall as a man, but it was cleared by the palace.</p>
+      case 'parfum-palace-area':
+        return <p>A luxurious palace constructed 300 years ago by a <br></br> king who wished to display his power to all.</p>
+      case 'connecting-cave-area':
+        return <p>This cave linking Route 7 and Cyllage City is <br></br> notable for its great hordes of Zubat.</p>
+      case 'cyllage-city-area':
+        return <p>A city nestled between the cliffs and the sea, <br></br> overlooked by steep Bicycle racecourses.</p>
+      case 'kalos-route-8-area':
+        return <p>This is a road of great contrasts, from <br></br> the harsh rock of the cliffs to the soft sands of the beach.</p>
+      case 'ambrette-town-area':
+        return <p>This town was known only for its aquarium until <br></br> the discovery of rare Fossils really put it on the map.</p>
+      case 'kalos-route-9-area':
+        return <p>This rocky passage was created by retired <br></br> Rhyhorn racers who forged a path where there was none.</p>
+      case 'glittering-cave-unknown-area-303':
+        return <p>Lose all sense of direction as you wander though <br></br> this cave, where Luminous Moss glows emerald green.</p>
+      case 'kalos-route-10-area':
+        return <p>Countless stones line this mysterious path in such <br></br> numbers and arrays that it seems overwhelming.</p>
+      case 'geosenge-town-area':
+        return <p>A town lined with mysterious stones <br></br> and encircled by strange ruins of old.</p>
+      case 'kalos-route-11-area':
+        return <p>One can feel the power of the earth's interior from <br></br> the crystals that sprout along this mountain path.</p>
+      case 'reflection-cave-unknown-area-305':
+        return <p>The sheer faces of these rock walls reflect the <br></br> images of people and Pokémon like nature's mirror.</p>
+      case 'shalour-city-area':
+        return <p>The seaside home of the Tower of Mastery, <br></br> where the legend of mysterious stones lives on.</p>
+      case 'kalos-route-12-area':
+        return <p>Frolicking Skiddo can be seen and ridden at <br></br> the Baa de Mer Ranch, located beside the breezy sea.</p>
+      case 'azure-bay-area':
+        return <p>The deep blue ocean off Kalos's coast, where <br></br> Pokémon from distant lands are said to visit.</p>
+      case 'sea-spirits-den-area':
+        return <p>A pit in the shallows of Azure Bay thought to have <br></br> been from an ancient outpouring of energy.</p>
+      case 'coumarine-city-area':
+        return <p>An exclusive resort area made popular thanks <br></br> to its clear skies and mild atmosphere.</p>
+      case 'kalos-route-13-area':
+        return <p>Since no plants can grow in the red clay of this <br></br> great plain, it hosts the Power Plant instead.</p>
 
         break;
       default:
@@ -547,11 +648,6 @@ class Kalos extends React.Component {
 
       return wholeArray.flat().map(arrayOfArrays =>
         <div className={arrayOfArrays[0][2]}>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
           <PieChart
             data={arrayOfArrays.map(array =>
               array.slice(0,2)
@@ -563,22 +659,85 @@ class Kalos extends React.Component {
     }
   }
 
+  scrollToTop = () => {
+    var element = document.getElementById("top");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
+  scrollToGraph = () => {
+    var element = document.getElementById("graph");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
+  scrollToPokedex = () => {
+    var element = document.getElementById("pokedex");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
   render () {
     return (
       <div>
-        <h1>Kalos</h1>
+        <h1 id="top">Kalos</h1>
         <br></br>
-        <canvas
-          style={{float: 'left', marginLeft: '64px'}}
-          className="map"
-          ref="canvas"
-          width={520}
-          height={500}
-          onClick={(event) => this.getInfo(event)}
-        />
+        <div style={{float: 'left', marginLeft: '64px'}}>
+          <canvas
+            className="map"
+            ref="canvas"
+            width={520}
+            height={500}
+            onClick={(event) => this.getInfo(event)}
+          />
+        <div className="graph" id="graph">
+            <h2>Graphs for {this.state.area}</h2>
+            {this.state.strangeArray ? this.createBars() :
+            <div>
+              <i>Nothing here!</i>
+              <br></br>
+              <img src="images/charmander.gif"/>
+            </div>}
+          </div>
+        </div>
+
+        <div style={{position: 'fixed', marginLeft: '90%', marginTop: '-70px', zIndex: '1'}}>
+          <ButtonToolbar>
+            <Button
+              style={{width: '80%'}}
+              variant="primary"
+              onClick={this.scrollToTop}
+              block
+            >
+              Scroll to Top
+            </Button>
+            <Button
+              style={{width: '80%'}}
+              variant="success"
+              onClick={this.scrollToGraph}
+              block
+            >
+              Scroll to Graphs
+            </Button>
+            <Button
+              style={{width: '80%'}}
+              variant="warning"
+              onClick={this.scrollToPokedex}
+              block
+            >
+              Scroll to Pokedex
+            </Button>
+          </ButtonToolbar>
+        </div>
 
         <FadeIn>
-          <div className="city-card" style={{width: '52%', marginTop: '-15px'}}>
+          <div className="city-card" style={{width: '56.4%', marginTop: '-15px'}}>
             <h1>{this.state.area}</h1>
             <br></br>
             <h2 style={{float: 'left', marginLeft: '40px'}}><i>{this.description()}</i></h2>
@@ -596,13 +755,9 @@ class Kalos extends React.Component {
           </div>
         </FadeIn>
 
-        <div className="graph">
-          {this.state.strangeArray ? this.createBars() : null}
-        </div>
-
         <br></br>
 
-        <div className="kalos-pokemon">
+        <div className="kalos-pokemon" id="pokedex">
           <h1>Kalos Pokemon: </h1>
           <br></br>
 

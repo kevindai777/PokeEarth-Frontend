@@ -4,6 +4,7 @@ import PokemonCard from './PokemonCard.js'
 import LoadingPage from './LoadingPage.js'
 import { BarChart, PieChart } from 'react-chartkick'
 import 'chart.js'
+import { ButtonToolbar, Button } from 'react-bootstrap'
 
 class Unova extends React.Component {
   state = {
@@ -510,7 +511,7 @@ class Unova extends React.Component {
 
   filterByName = () => {
     if (this.state.data) {
-      let filteredPokemon = this.state.johtoPokemon.filter(pokemon => pokemon.name.includes(this.state.query))
+      let filteredPokemon = this.state.unovaPokemon.filter(pokemon => pokemon.name.includes(this.state.query))
       return filteredPokemon.map((pokemon, index) =>
           <PokemonCard
             key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
@@ -526,7 +527,14 @@ class Unova extends React.Component {
   filterByLocation = () => {
     if (this.state.pokemonLocations) {
       let superFilteredPokemon = this.state.pokemonLocations.filter(instance => instance.location.name.includes(this.state.locationQuery))
-      return superFilteredPokemon.map((instance, index) =>
+
+      let unovaPokemonNames = this.state.unovaPokemon.map(pokemon => pokemon.name)
+
+      let evenMoreFiltered = superFilteredPokemon.filter(instance => unovaPokemonNames.includes(instance.pokemon.name))
+
+      const uniqueArray = evenMoreFiltered.filter((thing, index, self) => self.findIndex(t => t.pokemon.name === thing.pokemon.name) === index)
+
+      return uniqueArray.map((instance, index) =>
           <PokemonCard
             key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
             name={instance.pokemon.name}
@@ -540,12 +548,140 @@ class Unova extends React.Component {
 
   description = () => {
     switch (this.state.area) {
-      case 'Kanto':
-        return "The first region."
-      case 'pallet-town-area':
-        return <p>A fairly new and quiet town. <br></br> It's a small and pretty place.</p>
-      case 'kanto-route-1-area':
-        return <p>A country road full of greenery <br></br> and rough paths.</p>
+      case 'unova-map':
+        return <p style={{marginLeft: '263px'}}>The fifth region. A Dream World exists parallel to it.</p>
+      case 'nuvema-town-area':
+        return <p>A rural town whose sea breezes <br></br> give the sense of something coming.</p>
+      case 'unova-route-1-area':
+        return <p>A small road by the shore, where <br></br> you can enjoy the seascape in peace.</p>
+      case 'accumula-town-area':
+        return <p>This town offers great views <br></br> due to its many hills.</p>
+      case 'unova-route-2-area':
+        return <p>A pastoral road where novice <br></br> Trainers challenge one another.</p>
+      case 'striaton-city-area':
+        return <p>Entry stairs built in memory of a <br></br> former home in a snowier climate.</p>
+      case 'unova-route-3-area':
+        return <p>A long winding road with <br></br> lots of ponds and tall grass.</p>
+      case 'nacrene-city-area':
+        return <p>A city established in restored <br></br> storehouses built 100 years ago.</p>
+      case 'pinwheel-forest-inside':
+        return <p>You can go through hollows <br></br> of fallen trees, too.</p>
+      case 'skyarrow-bridge-area':
+        return <p>The biggest, longest bridge in <br></br> Unova has four supporting towers.</p>
+      case 'castelia-city-area':
+        return <p>A big city with skyscrapers <br></br> piercing the clouds.</p>
+      case 'castelia-sewers-area':
+        return <p>Iron bars around the exits were <br></br> dismantled, drawing curious Trainers.</p>
+      case 'unova-route-4-area':
+        return <p>A sandstorm delayed the road <br></br> construction to connect two cities.</p>
+      case 'join-avenue-area':
+        return <p>A big avenue that keeps developing <br></br> as you communicate with more people.</p>
+      case 'nimbasa-city-area':
+        return <p>A bustling city of entertainment, <br></br> with many theme parks.</p>
+      case 'desert-resort-area':
+        return <p>It is a popular place for tourists, <br></br> but too harsh to be a resort.</p>
+      case 'relic-castle-a':
+        return <p>Ancient ruins with a glorious history, <br></br> buried in the sand as time went by.</p>
+      case 'unova-route-5-area':
+        return <p>A busy road where performers gather.</p>
+      case 'driftveil-drawbridge-area':
+        return <p>A drawbridge raises and lowers, <br></br> depending on the ship schedules.</p>
+      case 'driftveil-city-area':
+        return <p>A port town distributing many goods, <br></br> and a gateway to the Unova region.</p>
+      case 'cold-storage-area':
+        return <p>Once an area of warehouses, it has <br></br> been transformed to the Pokemon World Tournament.</p>
+      case 'clay-tunnel-area':
+        return <p>A tunnel created by Clay's constant <br></br> mining. It leads to Twist Mountain.</p>
+      case 'twist-mountain-1f':
+        return <p>It has a reputation as a mine <br></br> littered with valuable ore.</p>
+      case 'iccirus-city-area':
+        return <p>In winter, the city is covered <br></br> with snow as far as the eye can see.</p>
+      case 'unova-route-6-area':
+        return <p>A road with many trees for nature lovers.</p>
+      case 'chargestone-cave-1f':
+        return <p>A cave where electrically charged stones float.</p>
+      case 'mistralton-city-area':
+        return <p>Vegetables are grown by the <br></br> runway and transported by cargo plane.</p>
+      case 'unova-route-7-area':
+        return <p>Raised walkways help you <br></br> avoid the tall grass.</p>
+      case 'celestial-tower-2f':
+        return <p>A tall tower with a large bell whose <br></br> tones are said to purify the spirit.</p>
+      case 'unova-route-8-area':
+        return <p>It rains a lot here, and the <br></br> marshy swamp holds many Pokémon.</p>
+      case 'unova-route-11-area':
+        return <p>Limpid streams carved beautiful <br></br> scenery on this road.</p>
+      case 'moor-of-icirrus-area':
+        return <p>They say water collecting in hollows <br></br> on the flat land created the moor.</p>
+      case 'tubeline-bridge-area':
+        return <p>A sturdy steel bridge that won't <br></br> budge an inch when trains cross it.</p>
+      case 'unova-route-9-area':
+        return <p>This paved road attracts <br></br> those who love bikes.</p>
+      case 'opelucid-city-area':
+        return <p>A convenient city of rapid change, <br></br> showing no traces of the past.</p>
+      case 'village-bridge-area':
+        return <p>An old bridge that settlers of the <br></br> Unova region built and now live on.</p>
+      case 'unova-route-12-area':
+        return <p>A place of fun, where it's enjoyable <br></br> just walking over its gentle hills.</p>
+      case 'lacunosa-town-area':
+        return <p>A town where all honor old customs, <br></br> living as methodically as clockwork.</p>
+      case 'unova-route-13-area':
+        return <p>This seaside route is famous for <br></br> sandbars that cross the ocean.</p>
+      case 'undella-town-area':
+        return <p>A summer retreat with a beach full <br></br> of people who enjoy summer vacations.</p>
+      case 'unova-route-14-area':
+        return <p>A road covered with mist <br></br> from the waterfalls.</p>
+      case 'black-city-area':
+        return <p>A modern city of ongoing <br></br> development that draws people to it.</p>
+      case 'unova-route-15-area':
+        return <p>A road whose sharp cliffs <br></br> may scare some people off.</p>
+      case 'unova-route-16-area':
+        return <p>Many who visit Nimbasa City <br></br> drop by to take a break.</p>
+      case 'marvelous-bridge-area':
+        return <p>The most advanced bridge in Unova, <br></br> designed to soften any impact.</p>
+      case 'lostlorn-forest-area':
+        return <p>It was once known as a place <br></br> where people got lost for no reason.</p>
+      case 'unova-route-19-area':
+        return <p>A path formed at the foot of <br></br> mountains. It has a gradual slope.</p>
+      case 'floccesy-town-area':
+        return <p>The town is famous for a clock tower <br></br> that tells of the town's beginnings.</p>
+      case 'unova-route-20-area':
+        return <p>In autumn, fallen leaves accumulate <br></br> and hide the ground beneath.</p>
+      case 'virbank-city-area':
+        return <p>A city often covered by clouds and <br></br> smoke, with very active residents.</p>
+      case 'floccesy-ranch-inner':
+        return <p>Before long, the area became a <br></br> ranch as Pokémon and people gathered.</p>
+      case 'virbank-complex-inner':
+        return <p>A complex that is designed so <br></br> Pokémon can work there easily.</p>
+      case 'unova-route-17-area':
+        return <p>The fast current here <br></br> makes it difficult to surf.</p>
+      case 'unova-route-18-area':
+        return <p>Some researchers believe it was <br></br> once contiguous with Desert Resort.</p>
+      case 'undella-bay-area':
+        return <p>A world-famous sea <br></br> of shining waves.</p>
+      case 'seaside-cave-1f':
+        return <p>A rock that became passable <br></br> due to wind, waves, and Pokémon.</p>
+      case 'unova-route-21-area':
+        return <p>Many rocks make swimming difficult. <br></br> Proud swimmers come to show off.</p>
+      case 'humilau-city-area':
+        return <p>A resort city where buildings float <br></br> in the waves and look like islands.</p>
+      case 'unova-route-22-area':
+        return <p>A lot of ups and downs and ledges <br></br> make the route a natural maze.</p>
+      case 'giant-chasm-area':
+        return <p>Legend says that if you approach <br></br> this big chasm, disasters surely follow.</p>
+      case 'unova-route-23-area':
+        return <p>A mountain path of no <br></br> return with overwhelming cliffs.</p>
+      case 'unova-victory-road-unknown-area-53':
+        return <p>These forking paths are the last <br></br> obstacle before the Pokémon League!</p>
+      case 'unova-pokemon-league-area':
+        return <p>Only Trainers who win at all <br></br> the Pokémon Gyms may challenge it.</p>
+      case 'unova-route-10-area':
+        return <p>A road leading to the Badge Check <br></br> Gates, chock full of showoffs.</p>
+      case 'marine-tube-area':
+        return <p>An undersea tunnel built <br></br> using cutting-edge technology.</p>
+      case 'pokestar-studios-area':
+        return <p>Pokéstar Studios, where <br></br> great movies are produced.</p>
+      case 'aspertia-city-area':
+        return <p>A city at the foot of high mountains <br></br> where you can see all of Unova.</p>
 
         break;
       default:
@@ -610,25 +746,88 @@ class Unova extends React.Component {
     }
   }
 
+  scrollToTop = () => {
+    var element = document.getElementById("top");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
+  scrollToGraph = () => {
+    var element = document.getElementById("graph");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
+  scrollToPokedex = () => {
+    var element = document.getElementById("pokedex");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
   render () {
     return (
       <div>
-        <h1>Unova</h1>
+        <h1 id="top">Unova</h1>
         <br></br>
-        <canvas
-          style={{float: 'left', marginLeft: '64px'}}
-          className="map"
-          ref="canvas"
-          width={500}
-          height={500}
-          onClick={(event) => this.getInfo(event)}
-        />
+        <div style={{float: 'left', marginLeft: '64px'}}>
+          <canvas
+            className="map"
+            ref="canvas"
+            width={500}
+            height={500}
+            onClick={(event) => this.getInfo(event)}
+          />
+        <div className="graph" id="graph">
+            <h2>Graphs for {this.state.area}</h2>
+            {this.state.strangeArray ? this.createBars() :
+            <div>
+              <i>Nothing here!</i>
+              <br></br>
+              <img src="images/charmander.gif"/>
+            </div>}
+          </div>
+        </div>
+
+        <div style={{position: 'fixed', marginLeft: '90%', marginTop: '-70px', zIndex: '1'}}>
+          <ButtonToolbar>
+            <Button
+              style={{width: '80%'}}
+              variant="primary"
+              onClick={this.scrollToTop}
+              block
+            >
+              Scroll to Top
+            </Button>
+            <Button
+              style={{width: '80%'}}
+              variant="success"
+              onClick={this.scrollToGraph}
+              block
+            >
+              Scroll to Graphs
+            </Button>
+            <Button
+              style={{width: '80%'}}
+              variant="warning"
+              onClick={this.scrollToPokedex}
+              block
+            >
+              Scroll to Pokedex
+            </Button>
+          </ButtonToolbar>
+        </div>
 
         <FadeIn>
-          <div className="city-card" style={{width: '52%', marginTop: '-15px'}}>
+          <div className="city-card" style={{width: '58%', marginTop: '-10px'}}>
             <h1>{this.state.area}</h1>
             <br></br>
-            <h2 style={{float: 'left', marginLeft: '40px'}}><i>{this.description()}</i></h2>
+            <h2 style={{float: 'left', marginLeft: '-180px'}}><i>{this.description()}</i></h2>
             <br></br>
             {this.determineImage()}
             <br></br>
@@ -643,13 +842,9 @@ class Unova extends React.Component {
           </div>
         </FadeIn>
 
-        <div className="graph">
-          {this.state.strangeArray ? this.createBars() : null}
-        </div>
-
         <br></br>
 
-        <div className="unova-pokemon">
+        <div className="unova-pokemon" id="pokedex">
           <h1>Unova Pokemon: </h1>
           <br></br>
 

@@ -11,6 +11,7 @@ import {
   AwesomeButtonSocial,
 } from 'react-awesome-button';
 import "react-awesome-button/dist/styles.css";
+import { ButtonToolbar, Button } from 'react-bootstrap'
 
 class Sevii extends React.Component {
 
@@ -388,7 +389,14 @@ class Sevii extends React.Component {
   filterByLocation = () => {
     if (this.state.pokemonLocations) {
       let superFilteredPokemon = this.state.pokemonLocations.filter(instance => instance.location.name.includes(this.state.locationQuery))
-      return superFilteredPokemon.map((instance, index) =>
+
+      let kantoPokemonNames = this.state.data.map(pokemon => pokemon.name)
+
+      let evenMoreFiltered = superFilteredPokemon.filter(instance => kantoPokemonNames.includes(instance.pokemon.name))
+
+      const uniqueArray = superFilteredPokemon.filter((thing, index, self) => self.findIndex(t => t.pokemon.name === thing.pokemon.name) === index)
+
+      return uniqueArray.map((instance, index) =>
           <PokemonCard
             key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
             name={instance.pokemon.name}
@@ -487,10 +495,34 @@ class Sevii extends React.Component {
       .then(console.log)
   }
 
+  scrollToTop = () => {
+    var element = document.getElementById("top");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
+  scrollToGraph = () => {
+    var element = document.getElementById("graph");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
+  scrollToPokedex = () => {
+    var element = document.getElementById("pokedex");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
   render () {
     return (
       <div className="kanto">
-        <h1>Sevii Islands</h1>
+        <h1 id="top">Sevii Islands</h1>
         <Link to="/kanto">Click here to go back to Kanto</Link>
         <br></br>
 
@@ -503,19 +535,53 @@ class Sevii extends React.Component {
               height={600}
               onClick={(event) => {this.getInfo(event)}}
             />
-            <div className="graph">
-              <h1>Graphs</h1>
-              {this.state.strangeArray ? this.createBars() : null}
+          <div className="graph" id="graph">
+              <h2>Graphs for {this.state.area}</h2>
+              {this.state.strangeArray ? this.createBars() :
+              <div>
+                <i>Nothing here!</i>
+                <br></br>
+                <img src="images/charmander.gif"/>
+              </div>}
             </div>
           </FadeIn>
         </div>
 
+        <div style={{position: 'fixed', marginLeft: '90%', marginTop: '-70px', zIndex: '1'}}>
+          <ButtonToolbar>
+            <Button
+              style={{width: '80%'}}
+              variant="primary"
+              onClick={this.scrollToTop}
+              block
+            >
+              Scroll to Top
+            </Button>
+            <Button
+              style={{width: '80%'}}
+              variant="success"
+              onClick={this.scrollToGraph}
+              block
+            >
+              Scroll to Graphs
+            </Button>
+            <Button
+              style={{width: '80%'}}
+              variant="warning"
+              onClick={this.scrollToPokedex}
+              block
+            >
+              Scroll to Pokedex
+            </Button>
+          </ButtonToolbar>
+        </div>
+
 
         <FadeIn>
-          <div className="city-card" style={{width: '64%', marginTop: '-5px'}}>
+          <div className="city-card" style={{width: '66%', marginTop: '-5px'}}>
             <h1>{this.state.area}</h1>
             <br></br>
-            <h2 style={{float: 'left', marginLeft: '40px'}}><i>{this.description()}</i></h2>
+            <h2 style={{float: 'left', marginLeft: '-120px'}}><i>{this.description()}</i></h2>
             <br></br>
             {this.determineImage()}
             <br></br>
@@ -541,7 +607,7 @@ class Sevii extends React.Component {
 
         <br></br>
 
-        <div className="kanto-pokemon">
+        <div className="kanto-pokemon" id="pokedex">
           <h1>Kanto Pokemon: </h1>
           <br></br>
 

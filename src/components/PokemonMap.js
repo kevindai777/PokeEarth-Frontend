@@ -85,6 +85,7 @@ class PokemonMap extends React.Component {
       <div>
 
         <h1>Pokemon Earth</h1>
+
         <br></br>
 
         <FadeIn>
@@ -104,7 +105,7 @@ class PokemonMap extends React.Component {
 
         {
           this.state.funFacts ?
-          <h1>{this.state.funFacts[Math.floor((Math.random() * this.state.funFacts.length))].description}</h1>
+          <h2 style={{marginLeft: '64px'}}>{this.state.funFacts[Math.floor((Math.random() * this.state.funFacts.length))].description}</h2>
           :
           null
         }

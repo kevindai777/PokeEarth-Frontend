@@ -151,6 +151,13 @@ class PokemonDetails extends React.Component {
           pokemons: allPokemons
         }, () => this.getEvolutionData())
       )
+    fetch('https://pokeapi.co/api/v2/pokemon-species/' + this.props.location.state.id)
+      .then(res => res.json())
+      .then(response =>
+        this.setState({
+          genus: response.genera[2].genus
+        })
+      )
   }
 
   state = {
@@ -662,6 +669,16 @@ class PokemonDetails extends React.Component {
         </div>
 
         <h1 id="top">{this.props.location.state.name}</h1>
+        <h3>
+          <i>
+          {
+            this.state.genus
+            ?
+            "The" + " " + this.state.genus 
+            : null
+          }
+          </i>
+        </h3>
         <img src={this.props.location.state.spriteUrl}/>
         <h1 id="superAbilities">
           Abilities:

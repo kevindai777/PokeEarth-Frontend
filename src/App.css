@@ -25,6 +25,10 @@
 
 /* Regions */
 
+/* body {
+  background-color: #ECF370
+} */
+
 .card {
   width: 20%;
   display: inline-block;
@@ -61,15 +65,19 @@
 }
 
 .hoenn-pokemon {
-  margin-top: 700px;
+  margin-top: 1800px;
 }
 
 .sinnoh-pokemon {
-  margin-top: 600px;
+  margin-top: 1800px;
 }
 
 .unova-pokemon {
-  margin-top: 600px;
+  margin-top: 1800px;
+}
+
+.kalos-pokemon {
+  margin-top: 1800px;
 }
 
 .css-1jv1kel {
@@ -203,6 +211,55 @@ ul.css-1b3lipl {
 --button-anchor-border: 2px solid #5bbd3a;
 }
 
+/* Stuff */
+
+svg.intro {
+  background: linear-gradient(135deg, #aa3bb1, #582a7e);
+  max-width: 800px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 30px 50px -20px rgb(46, 6, 66);
+
+  .text {
+    display: none;
+  }
+  &.go {
+    .text {
+      font-family: Arial, sans-serif;
+      font-size: 20px;
+      text-transform: uppercase;
+      display: block;
+    }
+    .text-stroke {
+      fill: none;
+      stroke: #51256f;
+      stroke-width: 2.8px;
+      stroke-dashoffset: -900;
+      stroke-dasharray: 900;
+      stroke-linecap: butt;
+      stroke-linejoin: round;
+      animation: dash 2.5s ease-in-out forwards;
+    }
+    .text-stroke:nth-child(2) {
+      animation-delay: .3s;
+    }
+    .text-stroke:nth-child(3) {
+      animation-delay: .9s;
+    }
+    .text-stroke-2 {
+      stroke: #f6bdfa;
+      animation-delay: 1.2s;
+    }
+    .text-stroke:nth-child(5) {
+      animation-delay: 1.5s;
+    }
+    .text-stroke:nth-child(6) {
+      animation-delay: 1.8s;
+    }
+  }
+}
 
 @keyframes App-logo-spin {
   from {

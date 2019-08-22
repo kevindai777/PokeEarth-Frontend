@@ -4,6 +4,7 @@ import PokemonCard from './PokemonCard.js'
 import LoadingPage from './LoadingPage.js'
 import { BarChart, PieChart } from 'react-chartkick'
 import 'chart.js'
+import { ButtonToolbar, Button } from 'react-bootstrap'
 
 
 class Johto extends React.Component {
@@ -329,6 +330,16 @@ class Johto extends React.Component {
             area: 'sprout-tower-2f'
           })
           this.fetchMe(253)
+        } else if ((event.pageX - curleft) < 496 && (event.pageX - curleft) > 485 && (event.pageY - curtop) < 410 && (event.pageY - curtop) > 376) {
+          this.setState({
+            area: 'tohjo-falls-area'
+          })
+          this.fetchMe(316)
+        } else if ((event.pageX - curleft) < 216 && (event.pageX - curleft) > 200 && (event.pageY - curtop) < 138 && (event.pageY - curtop) > 115) {
+          this.setState({
+            area: 'burned-tower-1f'
+          })
+          this.fetchMe(212)
         } else if ((event.pageX - curleft) < 294 && (event.pageX - curleft) > 270 && (event.pageY - curtop) < 240 && (event.pageY - curtop) > 209) {
           this.setState({
             area: 'violet-city-area'
@@ -410,7 +421,7 @@ class Johto extends React.Component {
   }
 
   filterByName = () => {
-    if (this.state.data) {
+    if (this.state.johtoPokemon) {
       let filteredPokemon = this.state.johtoPokemon.filter(pokemon => pokemon.name.includes(this.state.query))
       return filteredPokemon.map((pokemon, index) =>
           <PokemonCard
@@ -427,7 +438,14 @@ class Johto extends React.Component {
   filterByLocation = () => {
     if (this.state.pokemonLocations) {
       let superFilteredPokemon = this.state.pokemonLocations.filter(instance => instance.location.name.includes(this.state.locationQuery))
-      return superFilteredPokemon.map((instance, index) =>
+
+      let johtoPokemonNames = this.state.johtoPokemon.map(pokemon => pokemon.name)
+
+      let evenMoreFiltered = superFilteredPokemon.filter(instance => johtoPokemonNames.includes(instance.pokemon.name))
+
+      const uniqueArray = evenMoreFiltered.filter((thing, index, self) => self.findIndex(t => t.pokemon.name === thing.pokemon.name) === index)
+
+      return uniqueArray.map((instance, index) =>
           <PokemonCard
             key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
             name={instance.pokemon.name}
@@ -442,11 +460,89 @@ class Johto extends React.Component {
   description = () => {
     switch (this.state.area) {
       case 'johto-map':
-        return <p style={{marginLeft: '80px'}}>The second region. West of Kanto and famous for its simplistic lifestyle.</p>
+        return <p style={{marginLeft: '-20px'}}>The second region. West of Kanto and famous for its simplistic lifestyle.</p>
       case 'new-bark-town-area':
         return <p>A town where the wind blows and <br></br> tells of impending change.</p>
-      case 'kanto-route-1-area':
-        return <p>A country road full of greenery <br></br> and rough paths.</p>
+      case 'johto-route-29-area':
+        return <p>A road that begins a journey. <br></br> The road smells like freshly cut grass.</p>
+      case 'johto-route-30-area':
+        return <p>A grassy path where you can <br></br> battle other young Trainers.</p>
+      case 'cherrygrove-city-area':
+        return <p>A city where you can smell <br></br> small flowers and a sea breeze.</p>
+      case 'johto-route-31-area':
+        return <p>A short, nostalgic path winding through nature.</p>
+      case 'violet-city-area':
+        return <p>This old village is still surrounded <br></br> by trees and other scenery.</p>
+      case 'dark-cave-violet-city-entrance':
+        return <p>A dark, difficult-to-navigate tunnel <br></br> that runs beneath the Johto region.</p>
+      case 'johto-route-32-area':
+        return <p>A path crossed by the Magnet <br></br> Train bridge--nature meets technology.</p>
+      case 'union-cave-1f':
+        return <p>Deep underground, it's connected <br></br> to the ocean. The water flows here.</p>
+      case 'johto-route-33-area':
+        return <p>A difficult and always rainy <br></br> path that comes out in a cave.</p>
+      case 'azalea-town-area':
+        return <p>A town where people and Pokémon <br></br> live together in simple harmony.</p>
+      case 'ilex-forest-area':
+        return <p>A large forest full of trees <br></br> that are used to make charcoal.</p>
+      case 'johto-route-34-area':
+        return <p>A lush, green path, even though <br></br> it's right next to a city.</p>
+      case 'goldenrod-city-area':
+        return <p>A developing city where people <br></br> and Pokémon come and go as they like.</p>
+      case 'johto-route-35-area':
+        return <p>A bright path with a lake that's <br></br> easy on the eyes and easy to traverse.</p>
+      case 'johto-route-36-area':
+        return <p>A green and densely overgrown <br></br> path that forks in two directions.</p>
+      case 'ruins-of-alph-outside':
+        return <p>A place where you can <br></br> find a former adventure.</p>
+      case 'national-park-area':
+        return <p>A spacious and beautiful park. <br></br> It's connected to the Pokéathlon Dome.</p>
+      case 'johto-route-37-area':
+        return <p>A popular route for Trainers, <br></br> marked by three Apricorn trees.</p>
+      case 'ecruteak-city-area':
+        return <p>A city that even now bears <br></br> the marks of its history.</p>
+      case 'johto-route-38-area':
+        return <p>A path that weaves through trees <br></br> and comes out at a farm.</p>
+      case 'johto-route-39-area':
+        return <p>A downhill path that passes <br></br> through a grassy and breezy plain.</p>
+      case 'olivine-city-area':
+        return <p>A city where you can hear <br></br> the melody of the sea.</p>
+      case 'johto-sea-route-40-area':
+        return <p>You can hear the waves on this path <br></br> from west Olivine City to the sea.</p>
+      case 'johto-sea-route-41-area':
+        return <p>A rough spot in the sea <br></br> where whirlpools block your path.</p>
+      case 'cianwood-city-area':
+        return <p>A beachside city that has <br></br> benefitted greatly from the sea.</p>
+      case 'johto-route-42-area':
+        return <p>A small path opened at the base of <br></br> challenging Mt. Mortar with multiple entrances to it.</p>
+      case 'mt-mortar-1f':
+        return <p>A naturally large cavern <br></br> that is incredibly spacious.</p>
+      case 'mahogany-city-area':
+        return <p>A town with a suspicious air to it. <br></br> It's a hiding place for ninjas.</p>
+      case 'johto-route-43-area':
+        return <p>A woodland path that comes out <br></br> at a lake. Beware the greedy gate.</p>
+      case 'johto-route-44-area':
+        return <p>A wonderful path with a few <br></br> pleasant springs and abundant greenery.</p>
+      case 'ice-path-1f':
+        return <p>A cave that connects Route 44 <br></br> to Blackthorn City.</p>
+      case 'blackthorn-city-area':
+        return <p>A mysterious mountain village <br></br> cut into a rock face.</p>
+      case 'lake-of-rage-area':
+        return <p>A huge lake full of clear, blue water.</p>
+      case 'dragons-den-area':
+        return <p>A cave found below Blackthorn City <br></br> known to be home to elite dragon trainers.</p>
+      case 'johto-route-45-area':
+        return <p>A winding road by a river, <br></br> but called "Mountain Road."</p>
+      case 'johto-route-46-area':
+        return <p>A way home that runs from the <br></br> base of the mountains to the plains.</p>
+      case 'johto-route-47-area':
+        return <p>A road on a cliff that strikes fear <br></br> in the hearts of those who dare to pass.</p>
+      case 'mt-silver-outside':
+        return <p>A hallowed mountain that rises <br></br> between the Johto and Kanto regions.</p>
+      case 'tohjo-falls-area':
+        return <p>The Tohjo waterfall that links <br></br> the Kanto and Johto regions.</p>
+      case 'burned-tower-1f':
+        return <p>A tower that was hit by lightning, <br></br> and subsequently caught fire and burned.</p>
 
         break;
       default:
@@ -506,10 +602,34 @@ class Johto extends React.Component {
     }
   }
 
+  scrollToTop = () => {
+    var element = document.getElementById("top");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
+  scrollToGraph = () => {
+    var element = document.getElementById("graph");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
+  scrollToPokedex = () => {
+    var element = document.getElementById("pokedex");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
   render () {
     return (
       <div>
-        <h1>Johto</h1>
+        <h1 id="top">Johto</h1>
         <br></br>
         <div style={{float: 'left', marginLeft: '65px'}}>
           <canvas
@@ -519,14 +639,48 @@ class Johto extends React.Component {
             height={500}
             onClick={(event) => this.getInfo(event)}
           />
-          <div className="graph">
-            <h1>Graphs</h1>
-            {this.state.strangeArray ? this.createBars() : null}
+        <div className="graph" id="graph">
+            <h2>Graphs for {this.state.area}</h2>
+            {this.state.strangeArray ? this.createBars() :
+            <div>
+              <i>Nothing here!</i>
+              <br></br>
+              <img src="images/charmander.gif"/>
+            </div>}
           </div>
         </div>
 
+        <div style={{position: 'fixed', marginLeft: '90%', marginTop: '-70px', zIndex: '1'}}>
+          <ButtonToolbar>
+            <Button
+              style={{width: '80%'}}
+              variant="primary"
+              onClick={this.scrollToTop}
+              block
+            >
+              Scroll to Top
+            </Button>
+            <Button
+              style={{width: '80%'}}
+              variant="success"
+              onClick={this.scrollToGraph}
+              block
+            >
+              Scroll to Graphs
+            </Button>
+            <Button
+              style={{width: '80%'}}
+              variant="warning"
+              onClick={this.scrollToPokedex}
+              block
+            >
+              Scroll to Pokedex
+            </Button>
+          </ButtonToolbar>
+        </div>
+
         <FadeIn>
-          <div className="city-card" style={{width: '64%', marginTop: '-15px'}}>
+          <div className="city-card" style={{width: '58%', marginTop: '-15px'}}>
             <h1>{this.state.area}</h1>
             <br></br>
             <h2 style={{float: 'left', marginLeft: '40px'}}><i>{this.description()}</i></h2>
@@ -546,7 +700,7 @@ class Johto extends React.Component {
 
         <br></br>
 
-        <div className="johto-pokemon">
+        <div className="johto-pokemon" id="pokedex">
           <h1>Johto Pokemon: </h1>
           <br></br>
 

@@ -411,7 +411,7 @@ class Profile extends React.Component {
 
         <br></br>
 
-        Here's your favorited locations:
+        <h3><i>Here's your favorited locations:</i></h3>
         <br></br>
         {this.state.favorites ? null : this.fetchFavoriteLocations()}
         {
@@ -425,7 +425,7 @@ class Profile extends React.Component {
 
         <br></br>
 
-        Favorited Team:
+        <h3><i>Favorited Team: </i></h3>
 
         <br></br>
 
@@ -433,13 +433,13 @@ class Profile extends React.Component {
 
         <br></br>
 
-        Looks like you've been hanging around <Link to={this.state.favorites && !this.state.region ? '/' + this.getMostRegion() : null}>
+        <h3>Looks like you've been hanging around <Link to={this.state.favorites && !this.state.region ? '/' + this.getMostRegion() : null}>
           {this.state.favorites && this.state.region ? this.state.region : null}
-        </Link> alot...
+        </Link> alot... </h3>
 
         <br></br>
 
-        Check out some of these Pokemon from that region!
+        Check out some of these Pokemon from the same region!
 
         <br></br>
 
@@ -450,7 +450,7 @@ class Profile extends React.Component {
         <br></br>
         <br></br>
 
-        Here's your favorited items:
+        <h3><i>Here's your favorited items:</i></h3>
         <br></br>
         {this.state.itemFavorites ? null : this.fetchFavoriteItems()}
         {

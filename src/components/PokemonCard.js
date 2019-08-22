@@ -95,13 +95,22 @@ class PokemonCard extends React.Component {
   inTeam = () => {
     if (this.state.favoritedPokemon) {
       let filteredPokemon = this.state.favoritedPokemon.filter(instance => parseInt(instance.user.id) === parseInt(localStorage.user_id))
-      console.log(filteredPokemon)
       let pokemonNames = filteredPokemon.map(instance => instance.pokemon.name)
       if (pokemonNames.includes(this.props.name)) {
         return true
       } else {
         return false
       }
+    }
+  }
+
+  delete = () => {
+    if (this.state.favoritedPokemon) {
+      let id = this.state.favoritedPokemon.filter(instance => parseInt(instance.user.id) === parseInt(localStorage.user_id) && parseInt(instance.pokemon.id) === parseInt(this.props.id))[0].id
+      fetch(`http://localhost:3000/favorite_pokemons/${id}`, {
+        method: 'DELETE'
+      })
+        .then(console.log)
     }
   }
 
@@ -138,7 +147,19 @@ class PokemonCard extends React.Component {
         </Link>
           {
             this.inTeam() ?
-             <p>Added!</p>
+            <AwesomeButtonProgress
+              type="secondary"
+              size="medium"
+              action={(element, next) =>
+                {this.delete(next);
+                  setTimeout(() => {
+                    next()
+                  }, 600)
+                }
+              }
+            >
+            Delete!
+            </AwesomeButtonProgress>
              :
              <AwesomeButtonProgress
                type="secondary"

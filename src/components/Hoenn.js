@@ -4,6 +4,7 @@ import PokemonCard from './PokemonCard.js'
 import LoadingPage from './LoadingPage.js'
 import { BarChart, PieChart } from 'react-chartkick'
 import 'chart.js'
+import { ButtonToolbar, Button } from 'react-bootstrap'
 
 class Hoenn extends React.Component {
 
@@ -292,7 +293,7 @@ class Hoenn extends React.Component {
           this.fetchMe(411)
         } else if ((event.pageX - curleft) < 271 && (event.pageX - curleft) > 248 && (event.pageY - curtop) < 148 && (event.pageY - curtop) > 128) {
           this.setState({
-            area: 'fortree-city'
+            area: 'fortree-city-area'
           })
           this.fetchMe(10000)
         } else if ((event.pageX - curleft) < 288 && (event.pageX - curleft) > 271 && (event.pageY - curtop) < 204 && (event.pageY - curtop) > 127) {
@@ -307,7 +308,7 @@ class Hoenn extends React.Component {
           this.fetchMe(436)
         } else if ((event.pageX - curleft) < 228 && (event.pageX - curleft) > 196 && (event.pageY - curtop) < 301 && (event.pageY - curtop) > 262) {
           this.setState({
-            area: 'mauville-city'
+            area: 'mauville-city-area'
           })
           this.fetchMe(10000)
         } else if ((event.pageX - curleft) < 195 && (event.pageX - curleft) > 147 && (event.pageY - curtop) < 282 && (event.pageY - curtop) > 261) {
@@ -317,7 +318,7 @@ class Hoenn extends React.Component {
           this.fetchMe(409)
         } else if ((event.pageX - curleft) < 147 && (event.pageX - curleft) > 133 && (event.pageY - curtop) < 282 && (event.pageY - curtop) > 261) {
           this.setState({
-            area: 'verdanturf-town'
+            area: 'verdanturf-town-area'
           })
           this.fetchMe(10000)
         } else if ((event.pageX - curleft) < 105 && (event.pageX - curleft) > 59 && (event.pageY - curtop) < 262 && (event.pageY - curtop) > 240) {
@@ -347,7 +348,7 @@ class Hoenn extends React.Component {
           this.fetchMe(404)
         } else if ((event.pageX - curleft) < 164 && (event.pageX - curleft) > 149 && (event.pageY - curtop) < 210 && (event.pageY - curtop) > 189) {
           this.setState({
-            area: 'lavaridge-town'
+            area: 'lavaridge-town-area'
           })
           this.fetchMe(10000)
         } else if ((event.pageX - curleft) < 196 && (event.pageX - curleft) > 135 && (event.pageY - curtop) < 150 && (event.pageY - curtop) > 127) {
@@ -357,7 +358,7 @@ class Hoenn extends React.Component {
           this.fetchMe(405)
         } else if ((event.pageX - curleft) < 133 && (event.pageX - curleft) > 103 && (event.pageY - curtop) < 150 && (event.pageY - curtop) > 127) {
           this.setState({
-            area: 'fallarbor-town'
+            area: 'fallarbor-town-area'
           })
           this.fetchMe(10000)
         } else if ((event.pageX - curleft) < 103 && (event.pageX - curleft) > 62 && (event.pageY - curtop) < 150 && (event.pageY - curtop) > 127) {
@@ -382,7 +383,7 @@ class Hoenn extends React.Component {
           this.fetchMe(356)
         } else if ((event.pageX - curleft) < 59 && (event.pageX - curleft) > 27 && (event.pageY - curtop) < 281 && (event.pageY - curtop) > 240) {
           this.setState({
-            area: 'rustboro-city'
+            area: 'rustboro-city-area'
           })
           this.fetchMe(10000)
         }  else if ((event.pageX - curleft) < 70 && (event.pageX - curleft) > 26 && (event.pageY - curtop) < 377 && (event.pageY - curtop) > 352) {
@@ -473,11 +474,6 @@ class Hoenn extends React.Component {
 
       return wholeArray.flat().map(arrayOfArrays =>
         <div className={arrayOfArrays[0][2]}>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
           <PieChart
             data={arrayOfArrays.map(array =>
               array.slice(0,2)
@@ -489,23 +485,277 @@ class Hoenn extends React.Component {
     }
   }
 
+  startQuery = (event) => {
+    this.setState({
+      query: event.target.value
+    })
+  }
+
+  startLocationQuery = (event) => {
+    this.setState({
+      locationQuery: event.target.value
+    })
+  }
+
+  checkQuery = () => {
+    if (this.state.query && !this.state.locationQuery) {
+      return this.filterByName()
+    } else if (!this.state.query && this.state.locationQuery) {
+      return this.filterByLocation()
+    } else {
+      if (this.state.hoennPokemon) {
+        return this.state.hoennPokemon.map((pokemon, index) =>
+            <PokemonCard
+              key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+              name={pokemon.name}
+              url={pokemon.url}
+              id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+              allMoves={this.state.moves}
+            />)
+      } else {
+        return <LoadingPage/>
+      }
+    }
+  }
+
+  filterByName = () => {
+    if (this.state.hoennPokemon) {
+      let filteredPokemon = this.state.hoennPokemon.filter(pokemon => pokemon.name.includes(this.state.query))
+      return filteredPokemon.map((pokemon, index) =>
+          <PokemonCard
+            key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+            name={pokemon.name}
+            url={pokemon.url}
+            id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+            allMoves={this.state.moves}
+          />
+      )
+    }
+  }
+
+  filterByLocation = () => {
+    if (this.state.pokemonLocations) {
+      let superFilteredPokemon = this.state.pokemonLocations.filter(instance => instance.location.name.includes(this.state.locationQuery))
+
+      let hoennPokemonNames = this.state.hoennPokemon.map(pokemon => pokemon.name)
+
+      let evenMoreFiltered = superFilteredPokemon.filter(instance => hoennPokemonNames.includes(instance.pokemon.name))
+
+      const uniqueArray = evenMoreFiltered.filter((thing, index, self) => self.findIndex(t => t.pokemon.name === thing.pokemon.name) === index)
+
+      return uniqueArray.map((instance, index) =>
+          <PokemonCard
+            key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
+            name={instance.pokemon.name}
+            url={instance.pokemon.url}
+            id={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
+            allMoves={this.state.moves}
+          />
+      )
+    }
+  }
+
+  description = () => {
+    switch (this.state.area) {
+      case 'Hoenn':
+        return <p style={{marginLeft: '-20px'}}>The third region. Famous for its large bodies of water.</p>
+      case 'littleroot-town-area':
+        return <p>Basking amid vibrant nature, this simple <br></br> town is not shaded with any one hue.</p>
+      case 'hoenn-route-101-area':
+        return <p>This grassy path running between Littleroot Town <br></br> and Oldale Town is perfect for doing fieldwork.</p>
+      case 'hoenn-route-102-area':
+        return <p>Many Trainers gather on this route in the <br></br> hope of encountering Pokémon in the wild.</p>
+      case 'oldale-town-area':
+        return <p>A town where the contrast between colorful flowers <br></br> and deep, verdant forests is most beautiful.</p>
+      case 'hoenn-route-103-area':
+        return <p>On weekends and holidays, fishing enthusiasts flock <br></br> to every section of coastline on this seaside route.</p>
+      case 'petalburg-city-area':
+        return <p>A whiff of salt is always in the air in <br></br> this city, which is skirted by the ocean shore.</p>
+      case 'rustboro-city-area':
+        return <p>This city is the main hub of industry in the Hoenn region, <br></br> with the Devon Corporation as its beating heart.</p>
+      case 'hoenn-route-104-area':
+        return <p>This path, rich with water and colorful plant life, <br></br> runs north and south of Petalburg Woods.</p>
+      case 'hoenn-route-105-area':
+        return <p>This water route boasts gentle currents, which makes <br></br> it safe for even poor swimmers to bask in.</p>
+      case 'dewford-town-area':
+        return <p>New trends are always the rage among <br></br> the inhabitants of this small island town.</p>
+      case 'hoenn-route-106-area':
+        return <p>This is the site of serious battles between Fishermen <br></br> of the seaside area and the wild Pokémon of the seas.</p>
+      case 'slateport-city-area':
+        return <p>People from many different regions gather <br></br> and mingle in this bustling port city.</p>
+      case 'hoenn-route-107-area':
+        return <p>The local children of Dewford Town practice long-distance <br></br> swimming in the waters of this aquatic route.</p>
+      case 'hoenn-route-108-area':
+        return <p>People come swimming from as far away as the <br></br> Kalos region to see the site of Sea Mauville.</p>
+      case 'hoenn-route-109-area':
+        return <p>People and Pokémon alike enjoy <br></br> ocean swims in this water route.</p>
+      case 'hoenn-route-110-area':
+        return <p>A timeworn path where nature remains untouched. <br></br> Above it on this route stretches the huge Cycling Road.</p>
+      case 'hoenn-route-111-area':
+        return <p>This expansive route includes a desert where <br></br> sandstorms rage unceasingly and a mountain pass.</p>
+      case 'mauville-city-area':
+        return <p>This large city is located in the heart of the Hoenn <br></br> region, at the crossroads of its nostalgic past and new technology.</p>
+      case 'hoenn-route-112-area':
+        return <p>This route is popular among Trainers because it <br></br> offers the chance to stroll while gazing up at Mt. Chimney.</p>
+      case 'hoenn-route-113-area':
+        return <p>The tall grass on this route is painted a dusty <br></br> gray by the volcanic ash that pours from Mt. Chimney.</p>
+      case 'lavaridge-town-area':
+        return <p>A popular spot in the Hoenn region, thanks <br></br> to its hot springs, said to cure any ailment.</p>
+      case 'hoenn-route-114-area':
+        return <p>This mountain path to Meteor Falls is so long <br></br> and arduous that even Hikers have difficulty tackling it.</p>
+      case 'meteor-falls-area':
+        return <p>This waterfall is said to have been the site of a <br></br> meteor shower. An ancient people once made their home here.</p>
+      case 'fallarbor-town-area':
+        return <p>A town formed by scholars who <br></br> gather to research meteorites.</p>
+      case 'hoenn-route-115-area':
+        return <p>This trail to Rustboro City was broken <br></br> by people who lived at Meteor Falls long ago.</p>
+      case 'hoenn-route-116-area':
+        return <p>A path that many workers take on their daily <br></br> commute between Rustboro City and Rusturf Tunnel.</p>
+      case 'rusturf-tunnel-area':
+        return <p>This stone tunnel links together Rustboro and Verdanturf. <br></br> Its name was chosen as a mixture of the two.</p>
+      case 'verdanturf-town-area':
+        return <p>Thanks to the prevailing wind pattern, this <br></br> town is always kept clear of falling volcanic ash.</p>
+      case 'hoenn-route-117-area':
+        return <p>A path where many Trainers gather to raise <br></br> their Pokémon and train them for battle.</p>
+      case 'fortree-city-area':
+        return <p>The people and the Pokémon of this city <br></br> follow nature's cues to rise each morning and end each day.</p>
+      case 'hoenn-route-118-area':
+        return <p>This seaside route brings together the <br></br> east and west sides of the Hoenn region.</p>
+      case 'hoenn-route-119-area':
+        return <p>If you are not prepared for it, the harsh conditions of <br></br> this tropical rain forest will defeat you in less than five minutes.</p>
+      case 'hoenn-route-120-area':
+        return <p>Pokémon that can camouflage themselves <br></br> hide in the rich wilds along this route.</p>
+      case 'hoenn-route-121-area':
+        return <p>This road leads to both the Safari Zone and Mt. Pyre. <br></br> Many people set out along this route from Lilycove City.</p>
+      case 'hoenn-safari-zone-expansion-north':
+        return <p>This amusement area provides a rich environment <br></br> in which to catch many different kinds of Pokémon.</p>
+      case 'lilycove-city-area':
+        return <p>This tourist destination is undergoing a revival, <br></br> thanks to the popularity of its Pokémon Contest Spectaculars.</p>
+      case 'hoenn-route-122-area':
+        return <p>People make their way to Mt. Pyre over this <br></br> water route, reliving many precious memories as they traverse it.</p>
+      case 'hoenn-route-123-area':
+        return <p>This route offers a convenient path back to Mauville <br></br> City from Mt. Pyre, but be aware that it is a one-way road.</p>
+      case 'hoenn-route-124-area':
+        return <p>This great stretch of ocean connects <br></br> the cities of Lilycove, Mossdeep, and Sootopolis.</p>
+      case 'hoenn-route-125-area':
+        return <p>Small children are allowed to play in the <br></br> waters of this sea route as far as Shoal Cave—but no further!</p>
+      case 'mossdeep-city-area':
+        return <p>Research is underway day and night in this city, <br></br> all in the hope of understanding the distant reaches of space.</p>
+      case 'hoenn-route-126-area':
+        return <p>Even a pro swimmer would need three entire days <br></br> to circuit around the crater containing Sootopolis City.</p>
+      case 'hoenn-route-127-area':
+        return <p>With no place to stop and rest in these waters, it <br></br> is very hard for a swimmer to make it across this route.</p>
+      case 'hoenn-route-128-area':
+        return <p>The ocean floor beneath this water route <br></br> is rumored to contain an undiscovered ruin.</p>
+      case 'sootopolis-city-area':
+        return <p>This city, which rises from the crater of a great <br></br> meteoroid crash, can only be reached through the sea or from the sky.</p>
+      case 'hoenn-route-129-area':
+        return <p>Many Pokémon Trainers visit this route to train <br></br> their Pokémon before challenging the Pokémon League.</p>
+      case 'hoenn-route-130-area':
+        return <p>This route was once a big topic of conversation due <br></br> to a strange island that seemed to appear and then disappear.</p>
+      case 'hoenn-route-131-area':
+        return <p>It is the custom in Pacifidlog Town <br></br> to swim a lap around this route before breakfast.</p>
+      case 'hoenn-route-132-area':
+        return <p>The children of Pacifidlog Town are said to be such <br></br> strong swimmers that they frolic and play in these fierce currents.</p>
+      case 'pacifidlog-town-area':
+        return <p>This town first came into being as a floating <br></br> storehouse used by people living on the ocean's surface.</p>
+      case 'hoenn-route-133-area':
+        return <p>Trainers gather in this stretch of sea in <br></br> search of something beyond its fierce currents.</p>
+      case 'ever-grande-city-area':
+        return <p>This city is blanketed in a profusion of colorful <br></br> blooms. It plays host to the grand Pokémon League.</p>
+      case 'hoenn-victory-road-1f':
+        return <p>This challenging path forces Trainers who hope to <br></br> overcome the Pokémon League to first surpass their own limits.</p>
+      case 'mt-pyre-1f':
+        return <p>The mountain is where spirits of Pokémon have <br></br> rested and will always rest: past, present, and future.</p>
+
+        break;
+      default:
+
+    }
+  }
+
+  scrollToTop = () => {
+    var element = document.getElementById("top");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
+  scrollToGraph = () => {
+    var element = document.getElementById("graph");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
+  scrollToPokedex = () => {
+    var element = document.getElementById("pokedex");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
   render () {
     return (
       <div>
-        <h1>Hoenn</h1>
+        <h1 id="top">Hoenn</h1>
         <br></br>
-        <canvas
-          style={{float: 'left', marginLeft: '64px'}}
-          className="map"
-          ref="canvas"
-          width={700}
-          height={640}
-          onClick={(event) => this.getInfo(event)}
-        />
+        <div style={{float: 'left', marginLeft: '64px'}}>
+          <canvas
+            className="map"
+            ref="canvas"
+            width={700}
+            height={640}
+            onClick={(event) => this.getInfo(event)}
+          />
+        <div className="graph" id="graph">
+            <h2>Graphs for {this.state.area}</h2>
+            {this.state.strangeArray ? this.createBars() :
+            <div>
+              <i>Nothing here!</i>
+              <br></br>
+              <img src="images/charmander.gif"/>
+            </div>}
+          </div>
+        </div>
+
+        <div style={{position: 'fixed', marginLeft: '90%', marginTop: '-70px', zIndex: '1'}}>
+          <ButtonToolbar>
+            <Button
+              style={{width: '80%'}}
+              variant="primary"
+              onClick={this.scrollToTop}
+              block
+            >
+              Scroll to Top
+            </Button>
+            <Button
+              style={{width: '80%'}}
+              variant="success"
+              onClick={this.scrollToGraph}
+              block
+            >
+              Scroll to Graphs
+            </Button>
+            <Button
+              style={{width: '80%'}}
+              variant="warning"
+              onClick={this.scrollToPokedex}
+              block
+            >
+              Scroll to Pokedex
+            </Button>
+          </ButtonToolbar>
+        </div>
 
         <FadeIn>
-          <div className="city-card">
-            {this.state.area}
+          <div className="city-card" style={{width: '44%', marginTop: '-10px'}}>
+            <h1>{this.state.area}</h1>
+            <br></br>
+            <h2 style={{float: 'left', marginLeft: '40px'}}><i>{this.description()}</i></h2>
             <br></br>
             {this.determineImage()}
             <br></br>
@@ -520,26 +770,20 @@ class Hoenn extends React.Component {
           </div>
         </FadeIn>
 
-        <div className="graph">
-          {this.state.strangeArray ? this.createBars() : null}
-        </div>
-
-        <div className="hoenn-pokemon">
+        <div className="hoenn-pokemon" id="pokedex">
           <h1>Hoenn Pokemon: </h1>
-          {
-            this.state.hoennPokemon && this.state.moves ?
-            this.state.hoennPokemon.map((pokemon, index) =>
-                <PokemonCard
-                  key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
-                  name={pokemon.name}
-                  url={pokemon.url}
-                  id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
-                  allMoves={this.state.moves}
-                />
-            )
-             :
-             <LoadingPage/>
-          }
+          <br></br>
+          <h3>Search By Name:</h3>
+          <input onChange={(event) => this.startQuery(event)}></input>
+
+          <br></br>
+
+          <h3>Search By Location:</h3>
+          <input onChange={(event) => this.startLocationQuery(event)}></input>
+
+          <br></br>
+
+          {this.state.hoennPokemon && this.state.pokemonLocations && this.state.moves ? this.checkQuery() : <LoadingPage/>}
         </div>
       </div>
     )

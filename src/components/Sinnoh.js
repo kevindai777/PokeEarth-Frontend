@@ -4,6 +4,7 @@ import PokemonCard from './PokemonCard.js'
 import LoadingPage from './LoadingPage.js'
 import { BarChart, PieChart } from 'react-chartkick'
 import 'chart.js'
+import { ButtonToolbar, Button } from 'react-bootstrap'
 
 class Sinnoh extends React.Component {
 
@@ -489,6 +490,8 @@ class Sinnoh extends React.Component {
 
   createBars = () => {
     if (this.state.strangeArray) {
+
+      console.log(this.state.strangeArray)
       let array = []
       let wholeArray = []
       let method = this.state.strangeArray[0][2]
@@ -508,15 +511,8 @@ class Sinnoh extends React.Component {
       }
       wholeArray.push(array)
 
-      console.log(wholeArray.flat())
-
       return wholeArray.flat().map(arrayOfArrays =>
         <div className={arrayOfArrays[0][2]}>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
           <PieChart
             data={arrayOfArrays.map(array =>
               array.slice(0,2)
@@ -528,25 +524,298 @@ class Sinnoh extends React.Component {
     }
   }
 
+  startQuery = (event) => {
+    this.setState({
+      query: event.target.value
+    })
+  }
+
+  startLocationQuery = (event) => {
+    this.setState({
+      locationQuery: event.target.value
+    })
+  }
+
+  checkQuery = () => {
+    if (this.state.query && !this.state.locationQuery) {
+      return this.filterByName()
+    } else if (!this.state.query && this.state.locationQuery) {
+      return this.filterByLocation()
+    } else if (!this.state.query && !this.state.locationQuery) {
+      if (this.state.sinnohPokemon) {
+        return this.state.sinnohPokemon.map((pokemon, index) =>
+            <PokemonCard
+              key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+              name={pokemon.name}
+              url={pokemon.url}
+              id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+              allMoves={this.state.moves}
+            />)
+      } else {
+        return <LoadingPage/>
+      }
+    }
+  }
+
+  filterByName = () => {
+    if (this.state.sinnohPokemon) {
+      let filteredPokemon = this.state.sinnohPokemon.filter(pokemon => pokemon.name.includes(this.state.query))
+      return filteredPokemon.map((pokemon, index) =>
+          <PokemonCard
+            key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+            name={pokemon.name}
+            url={pokemon.url}
+            id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
+            allMoves={this.state.moves}
+          />
+      )
+    }
+  }
+
+  filterByLocation = () => {
+    if (this.state.pokemonLocations) {
+      let superFilteredPokemon = this.state.pokemonLocations.filter(instance => instance.location.name.includes(this.state.locationQuery))
+
+      let sinnohPokemonNames = this.state.sinnohPokemon.map(pokemon => pokemon.name)
+
+      let evenMoreFiltered = superFilteredPokemon.filter(instance => sinnohPokemonNames.includes(instance.pokemon.name))
+
+      const uniqueArray = evenMoreFiltered.filter((thing, index, self) => self.findIndex(t => t.pokemon.name === thing.pokemon.name) === index)
+
+      return uniqueArray.map((instance, index) =>
+          <PokemonCard
+            key={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
+            name={instance.pokemon.name}
+            url={instance.pokemon.url}
+            id={instance.pokemon.url.split('/')[instance.pokemon.url.split('/').length - 2]}
+            allMoves={this.state.moves}
+          />
+      )
+    }
+  }
+
+  description = () => {
+    switch (this.state.area) {
+      case 'sinnoh-map':
+        return <p style={{marginLeft: '5px'}}>The fourth region. Famous for the large canyon Mt. Coronet that runs through the middle.</p>
+      case 'twinleaf-town-area':
+        return <p>A small town with the fresh scent <br></br> of new leaves in the air.</p>
+      case 'sinnoh-route-201-area':
+        return <p>A small path through a lush, green, wooded area. <br></br> The densely grown trees give off a thick aroma.</p>
+      case 'lake-verity-before-galactic-intervention':
+        return <p>One of the lakes that is symbolic of the water-rich <br></br> Sinnoh Region. There is an odd legend associated with it.</p>
+      case 'sinnoh-route-202-area':
+        return <p>A winding path that twists through grassy fields. <br></br> Young Trainers like to test their battle skills here.</p>
+      case 'sandgem-town-area':
+        return <p>A sandy town that is located right next to a beach. <br></br> It is redolent with the salty scent of the sea.</p>
+      case 'rustboro-city-area':
+        return <p>This city is the main hub of industry in the Hoenn region, <br></br> with the Devon Corporation as its beating heart.</p>
+      case 'sinnoh-route-219-area':
+        return <p>A beautiful white-sand beach only five seconds on foot <br></br> from Sandgem Town. A pleasant breeze flows from the sea.</p>
+      case 'sinnoh-sea-route-220-area':
+        return <p>The sea here is perfect for swimming, with gentle winds <br></br> and tides. There are sandbars for resting too.</p>
+      case 'sinnoh-route-221-area':
+        return <p>A straight path hemmed by green grass and sparse stands of trees.</p>
+      case 'pal-park-area':
+        return <p>This used to be the location of the <br></br> Safari Zone, but is now the Pal Park.</p>
+      case 'jubilife-city-area':
+        return <p>The most modernized city in the Sinnoh <br></br> region. It is bustling with people on the go.</p>
+      case 'sinnoh-route-204-south-towards-jubilife-city':
+        return <p>A charming natural path that wanders <br></br> past many ponds and groves of trees.</p>
+      case 'sinnoh-route-218-area':
+        return <p>Despite its shortness, this road is revered by fishing <br></br> enthusiasts as a great, yet little known, fishing spot.</p>
+      case 'sinnoh-route-205-south-towards-floaroma-town':
+        return <p>A quietly following stream and hilly terrain with <br></br> one-way ledges make this a fun area for adventure.</p>
+      case 'eterna-forest-area':
+        return <p>A forest enveloped in chilly air. Thick stands <br></br> of trees turn the forest into a natural maze.</p>
+      case 'fuego-ironworks-area':
+        return <p>The ironworks refines iron ore mined from <br></br> Mt. Coronet to make iron and to manufacture mechanical parts.</p>
+      case 'canalave-city-area':
+        return <p>A port city that is bisected by a canal. <br></br> It has a distinctly exotic air of foreign culture.</p>
+      case 'eterna-city-area':
+        return <p>An old city that shows fading and <br></br> almost-forgotten vestiges of ancient history.</p>
+      case 'sinnoh-route-206-area':
+        return <p>Smoothly paved in asphalt, the Cycling Road is heavenly for bicycle lovers.</p>
+      case 'floaroma-town-area':
+        return <p>A town of flower lovers, Floaroma Town is <br></br> always perfumed with the sweet scent of flowers.</p>
+      case 'sinnoh-route-207-area':
+        return <p>Located at the foot of Mt. Coronet, <br></br> this road is carved into the rugged, rocky terrain.</p>
+      case 'oreburgh-gate-area':
+        return <p>Once one gets through the tunnel, <br></br> the city of Oreburgh is just a stone's throw away.</p>
+      case 'oreburgh-city-area':
+        return <p>A vibrant and energetic mining town that <br></br> is blessed with a precious natural resource.</p>
+      case 'oreburgh-mine-1f':
+        return <p>A mine south of the oreburgh city, <br></br> providing its leading energy source.</p>
+      case 'sinnoh-route-203-area':
+        return <p>Despite being so close to a big town, <br></br> this path retains its relaxed, natural atmosphere.</p>
+      case 'sinnoh-route-208-area':
+        return <p>A lush field of grass spreads from Mt. Coronets <br></br> sheer rock face, creating a vista of contrasts.</p>
+      case 'mt-coronet-cave':
+        return <p>A sacred mountain that is capped the year round <br></br> with snow. A gigantic maze sprawls inside it.</p>
+      case 'hearthome-city-area':
+        return <p>This friendly city started as a place where <br></br> people and Pokémon gathered, then grew into a center of commerce.</p>
+      case 'sinnoh-route-209-area':
+        return <p>The streams forded by this path wind past copses <br></br> and grassy patches in a serene and soothing manner.</p>
+      case 'solaceon-town-area':
+        return <p>The temperate climate makes this town a relaxed and casual place <br></br> for people and Pokémon to live in.</p>
+      case 'sinnoh-route-210-south-towards-solaceon-town':
+        return <p>This narrow route is lined with deep, tall grass <br></br> that tickles the noses of people straying off the path.</p>
+      case 'sinnoh-route-210-west-towards-celestic-town':
+        return <p>This narrow route is lined with deep, tall grass <br></br> that tickles the noses of people straying off the path.</p>
+      case 'celestic-town-area':
+        return <p>A tiny town that preserves the history <br></br> of Sinnoh and the old ways of life.</p>
+      case 'sinnoh-route-212-east-towards-pastoria-city':
+        return <p>A tall, sturdy wall surrounds an expansive estate <br></br> that takes up nearly half of the road space.</p>
+      case 'sinnoh-route-212-north-towards-hearthome-city':
+        return <p>A tall, sturdy wall surrounds an expansive estate <br></br> that takes up nearly half of the road space.</p>
+      case 'pastoria-city-area':
+        return <p>This city was originally founded to protect the Great Marsh. <br></br> It has grown naturally over the years.</p>
+      case 'sinnoh-route-213-area':
+        return <p>Offshore boulders form a jetty that becalms waves reaching <br></br> the beach. A resort hotel overlooks the water.</p>
+      case 'lake-valor-area':
+        return <p>One of the lakes that is symbolic of the water-rich Sinnoh <br></br> Region. There is an odd legend associated with it.</p>
+      case 'sinnoh-route-214-area':
+        return <p>The road joining Veilstone City and a lake is <br></br> described as either "wildly natural" or simply "a mess."</p>
+      case 'sinnoh-route-215-area':
+        return <p>This area is always inundated by heavy rainfall. <br></br> Only hardy Trainers that can take the rain gather here.</p>
+      case 'spring-path-area':
+        return <p>The fourth lake of Sinnoh that was kept secret. <br></br> Beneath the lake's surface is a cave where dimensions are distorted.</p>
+      case 'veilstone-city-area':
+        return <p>This city was made by carving out steep, rocky mountains. <br></br> Its isolation limits its contact with other cities.</p>
+      case 'sinnoh-route-216-area':
+        return <p>This mountainous road leads from Mt. Coronet. <br></br> Its constant snowfall and deep snowdrifts impede travelers.</p>
+      case 'sinnoh-route-217-area':
+        return <p>Snow blows down from Mt. Coronet and grows into a <br></br> harsh, ceaseless blizzard. Be prepared for the worst.</p>
+      case 'lake-acuity-area':
+        return <p>One of the lakes that is symbolic of the water-rich Sinnoh <br></br> Region. There is an odd legend associated with it. </p>
+      case 'snowpoint-city-area':
+        return <p>A winter wonderland of a city where stout <br></br> trees and buildings are blanketed in thick snow.</p>
+      case 'sinnoh-route-222-area':
+        return <p>A sandy beach extends from the road. The beach <br></br> is busy with avid Fishermen happily casting at the water's edge.</p>
+      case 'sinnoh-sea-route-223-area':
+        return <p>A marine route that requires travelers to <br></br> navigate around jutting rocks and sandbars.</p>
+      case 'sunyshore-city-area':
+        return <p>A port city that was built around the bay portion <br></br> of the cape. It is criss-crossed by elevated walkways.</p>
+      case 'sinnoh-pokemon-league-area':
+        return <p>Trainers seeking to become the best arrive <br></br> here after enduring a long and grueling journey.</p>
+      case 'sinnoh-route-224-area':
+        return <p>With grass fields, rocky outcroppings, the sea, <br></br> and sandbars, this area is like a miniature of the Sinnoh Region.</p>
+      case 'seabreak-path-area':
+        return <p>A straight path bounded by the sea on both <br></br> sides. It leads to the Flower Paradise.</p>
+      case 'flower-paradise-area':
+        return <p>A speck of an island far from any civilization. <br></br> It is covered in an abundance of flowers.</p>
+      case 'survival-area-area':
+        return <p>A city where hot-blooded Trainers gather <br></br> to work out and hone their battling skills.</p>
+      case 'sinnoh-route-225-area':
+        return <p>The path makes its way up and down among <br></br> rocky outcroppings. It is physically challenging.</p>
+      case 'fight-area-area':
+        return <p>A tiny port town where Trainers who <br></br> love battling more than eating gather.</p>
+      case 'sinnoh-sea-route-226-area':
+        return <p>A path that winds precariously along sheer cliffs that <br></br> go right to the edge of the sea's pounding waves.</p>
+      case 'sinnoh-route-227-area':
+        return <p>A rugged and steep mountain path where vision <br></br> is limited by steadily falling volcanic ash.</p>
+      case 'stark-mountain-area':
+        return <p>A rugged, seemingly indestructible rock mountain that <br></br> is thickly blanketed by the volcanic ash it spews.</p>
+      case 'sinnoh-route-228-area':
+        return <p>This rough path is harshly raked by a horizontally <br></br> blowing sandstorm driven by strong winds off the sea.</p>
+      case 'sinnoh-route-229-area':
+        return <p>A seaside path that makes its way <br></br> through wildly growing trees and plants.</p>
+      case 'sinnoh-sea-route-230-area':
+        return <p>A sea route that stretches from west to east. <br></br> There is an island that is rich with plant life along the way.</p>
+      case 'resort-area-area':
+        return <p>A city that attracts Trainers who know there <br></br> are other ways of enjoying Pokémon than battling.</p>
+
+        break;
+      default:
+
+    }
+  }
+
+  scrollToTop = () => {
+    var element = document.getElementById("top");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
+  scrollToGraph = () => {
+    var element = document.getElementById("graph");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
+  scrollToPokedex = () => {
+    var element = document.getElementById("pokedex");
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    })
+  }
+
   render () {
     return (
       <div>
-        <h1>Sinnoh</h1>
+        <h1 id="top">Sinnoh</h1>
         <br></br>
-        <FadeIn>
-          <canvas
-            style={{float: 'left', marginLeft: '64px'}}
-            className="map"
-            ref="canvas"
-            width={650}
-            height={550}
-            onClick={(event) => this.getInfo(event)}
-          />
-        </FadeIn>
+        <div style={{float: 'left', marginLeft: '64px'}}>
+          <FadeIn>
+            <canvas
+              className="map"
+              ref="canvas"
+              width={650}
+              height={550}
+              onClick={(event) => this.getInfo(event)}
+            />
+          </FadeIn>
+          <div className="graph" id="graph">
+            <h2 style={{fontSize: '140%'}}>Graphs for {this.state.area}</h2>
+            {this.state.strangeArray ? this.createBars() :
+              <div>
+                <i>Nothing here!</i>
+                <br></br>
+                <img src="images/charmander.gif"/>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div style={{position: 'fixed', marginLeft: '90%', marginTop: '-70px', zIndex: '1'}}>
+          <ButtonToolbar>
+            <Button
+              style={{width: '80%'}}
+              variant="primary"
+              onClick={this.scrollToTop}
+              block
+            >
+              Scroll to Top
+            </Button>
+            <Button
+              style={{width: '80%'}}
+              variant="success"
+              onClick={this.scrollToGraph}
+              block
+            >
+              Scroll to Graphs
+            </Button>
+            <Button
+              style={{width: '80%'}}
+              variant="warning"
+              onClick={this.scrollToPokedex}
+              block
+            >
+              Scroll to Pokedex
+            </Button>
+          </ButtonToolbar>
+        </div>
 
         <FadeIn>
-          <div className="city-card">
-            {this.state.area}
+          <div className="city-card" style={{width: '48%', marginTop: '-10px'}}>
+            <h1>{this.state.area}</h1>
+            <br></br>
+            <h2 style={{float: 'left', marginLeft: '40px'}}><i>{this.description()}</i></h2>
             <br></br>
             {this.determineImage()}
             <br></br>
@@ -560,26 +829,21 @@ class Sinnoh extends React.Component {
           </div>
         </FadeIn>
 
-        <div className="graph">
-          {this.state.strangeArray ? this.createBars() : null}
-        </div>
-
-        <div className="sinnoh-pokemon">
+        <div className="sinnoh-pokemon" id="pokedex">
           <h1>Sinnoh Pokemon: </h1>
-          {
-            this.state.sinnohPokemon ?
-            this.state.sinnohPokemon.map((pokemon, index) =>
-                <PokemonCard
-                  key={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
-                  name={pokemon.name}
-                  url={pokemon.url}
-                  id={pokemon.url.split('/')[pokemon.url.split('/').length - 2]}
-                  allMoves={this.state.moves}
-                />
-            )
-            :
-            <LoadingPage/>
-          }
+            <br></br>
+
+            <h3>Search By Name:</h3>
+            <input onChange={(event) => this.startQuery(event)}></input>
+
+            <br></br>
+
+            <h3>Search By Location:</h3>
+            <input onChange={(event) => this.startLocationQuery(event)}></input>
+
+            <br></br>
+
+            {this.state.sinnohPokemon && this.state.pokemonLocations && this.state.moves ? this.checkQuery() : <LoadingPage/>}
         </div>
       </div>
     )
