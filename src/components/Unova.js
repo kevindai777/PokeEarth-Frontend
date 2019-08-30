@@ -5,6 +5,12 @@ import LoadingPage from './LoadingPage.js'
 import { BarChart, PieChart } from 'react-chartkick'
 import 'chart.js'
 import { ButtonToolbar, Button } from 'react-bootstrap'
+import {
+  AwesomeButton,
+  AwesomeButtonProgress,
+  AwesomeButtonSocial,
+} from 'react-awesome-button';
+import "react-awesome-button/dist/styles.css";
 
 class Unova extends React.Component {
   state = {
@@ -86,9 +92,6 @@ class Unova extends React.Component {
         curtop += obj.offsetTop
       }
       while (obj = obj.offsetParent) {
-        console.log("X", event.pageX - curleft)
-        console.log("Y", event.pageY - curtop)
-        console.log("------------------------")
         if ((event.pageX - curleft) < 465 && (event.pageX - curleft) > 443 && (event.pageY - curtop) < 489 && (event.pageY - curtop) > 456) {
           this.setState({
             area: 'nuvema-town-area'
@@ -770,6 +773,21 @@ class Unova extends React.Component {
     })
   }
 
+  post = () => {
+    fetch('http://localhost:3000/favorite_locations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: localStorage.user_id,
+        location_id:  this.state.pokemonLocations.filter(instance => instance.location.name === this.state.area)[0].location.id
+      })
+    })
+      .then(res => res.json())
+  }
+
   render () {
     return (
       <div>
@@ -830,6 +848,15 @@ class Unova extends React.Component {
             <h2 style={{float: 'left', marginLeft: '-180px'}}><i>{this.description()}</i></h2>
             <br></br>
             {this.determineImage()}
+            <br></br>
+            <br></br>
+            <AwesomeButtonProgress
+              type="primary"
+              size="medium"
+              action={(element, next) => {this.post(next); setTimeout(() => {next()}, 600)}}
+            >
+              Favorite!
+            </AwesomeButtonProgress>
             <br></br>
 
             <h1>Native to Unova: </h1>

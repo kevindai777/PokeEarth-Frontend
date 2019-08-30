@@ -221,7 +221,6 @@ class PokemonContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props.pokemons)
     return (
       <div>
         {this.state.moves ? this.renderCards() : null}

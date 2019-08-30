@@ -5,6 +5,12 @@ import LoadingPage from './LoadingPage.js'
 import { BarChart, PieChart } from 'react-chartkick'
 import 'chart.js'
 import { ButtonToolbar, Button } from 'react-bootstrap'
+import {
+  AwesomeButton,
+  AwesomeButtonProgress,
+  AwesomeButtonSocial,
+} from 'react-awesome-button';
+import "react-awesome-button/dist/styles.css";
 
 
 class Johto extends React.Component {
@@ -88,8 +94,6 @@ class Johto extends React.Component {
         curtop += obj.offsetTop
       }
       while (obj = obj.offsetParent) {
-        console.log("X", event.pageX - curleft)
-        console.log("Y", event.pageY - curtop)
         if ((event.pageX - curleft) < 456 && (event.pageX - curleft) > 437 && (event.pageY - curtop) < 408 && (event.pageY - curtop) > 382) {
           this.setState({
             area: 'new-bark-town-area'
@@ -626,6 +630,21 @@ class Johto extends React.Component {
     })
   }
 
+  post = () => {
+    fetch('http://localhost:3000/favorite_locations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: localStorage.user_id,
+        location_id:  this.state.pokemonLocations.filter(instance => instance.location.name === this.state.area)[0].location.id
+      })
+    })
+      .then(res => res.json())
+  }
+
   render () {
     return (
       <div>
@@ -686,6 +705,15 @@ class Johto extends React.Component {
             <h2 style={{float: 'left', marginLeft: '40px'}}><i>{this.description()}</i></h2>
             <br></br>
             {this.determineImage()}
+            <br></br>
+            <br></br>
+            <AwesomeButtonProgress
+              type="primary"
+              size="medium"
+              action={(element, next) => {this.post(next); setTimeout(() => {next()}, 600)}}
+            >
+              Favorite!
+            </AwesomeButtonProgress>
             <br></br>
 
             <h1>Native to Johto: </h1>

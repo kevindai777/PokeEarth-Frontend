@@ -33,9 +33,6 @@ class PokemonMap extends React.Component {
         curtop += obj.offsetTop
       }
       while (obj = obj.offsetParent) {
-        console.log("X", event.pageX - curleft)
-        console.log("Y", event.pageY - curtop)
-        console.log("--------------------------")
         if ((event.pageX - curleft) < 562 && (event.pageX - curleft) > 388 && (event.pageY - curtop) < 413 && (event.pageY - curtop) > 285) {
           this.setState({
             region: 'kanto'

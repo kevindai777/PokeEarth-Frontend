@@ -50,7 +50,6 @@ class ItemCard extends React.Component {
       })
     })
       .then(res => res.json())
-      .then(console.log)
   }
 
   decideButton = () => {
@@ -94,7 +93,7 @@ class ItemCard extends React.Component {
                     }, 600)
                   }
                 }
-                style={{zIndex: '1'}} 
+                style={{zIndex: '1'}}
               >
                 Favorite!
               </AwesomeButtonProgress>

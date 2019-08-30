@@ -165,7 +165,6 @@ class Location extends React.Component {
         })
       })
         .then(res => res.json())
-        .then(console.log)
     }
   }
 

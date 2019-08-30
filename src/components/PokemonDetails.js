@@ -615,10 +615,6 @@ class PokemonDetails extends React.Component {
     }
   }
 
-  hoverType = () => {
-    console.log('hey')
-  }
-
   render() {
     return (
       <div>
@@ -674,7 +670,7 @@ class PokemonDetails extends React.Component {
           {
             this.state.genus
             ?
-            "The" + " " + this.state.genus 
+            "The" + " " + this.state.genus
             : null
           }
           </i>
@@ -702,8 +698,8 @@ class PokemonDetails extends React.Component {
         </b>
 
         <h1>Types:
-          <img src={this.getType1Image()} onMouseEnter={this.hoverType}/>
-          <img src={this.getType2Image()} onMouseEnter={this.hoverType}/>
+          <img src={this.getType1Image()}/>
+          <img src={this.getType2Image()}/>
         </h1>
 
         <h1>Evolves from:

@@ -104,9 +104,6 @@ class Kanto extends React.Component {
         curtop += obj.offsetTop
       }
       while (obj = obj.offsetParent) {
-        console.log("X", event.pageX - curleft)
-        console.log("Y", event.pageY-curtop)
-        console.log("-------------------------")
         if ((event.pageX - curleft) < 140 && (event.pageX - curleft) > 120 && (event.pageY - curtop) < 436 && (event.pageY - curtop) > 413) {
           this.setState({
             area: 'cinnabar-island-area'
@@ -624,7 +621,6 @@ class Kanto extends React.Component {
       })
     })
       .then(res => res.json())
-      .then(console.log)
   }
 
   scrollToTop = () => {

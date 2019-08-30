@@ -7,6 +7,12 @@ import 'chart.js'
 import { Search } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { ButtonToolbar, Button } from 'react-bootstrap'
+import {
+  AwesomeButton,
+  AwesomeButtonProgress,
+  AwesomeButtonSocial,
+} from 'react-awesome-button';
+import "react-awesome-button/dist/styles.css";
 
 class Kalos extends React.Component {
 
@@ -109,9 +115,6 @@ class Kalos extends React.Component {
         curtop += obj.offsetTop
       }
       while (obj = obj.offsetParent) {
-        console.log("X", event.pageX - curleft)
-        console.log("Y", event.pageY - curtop)
-        console.log("-----------------------")
         if ((event.pageX - curleft) < 358 && (event.pageX - curleft) > 333 && (event.pageY - curtop) < 450 && (event.pageY - curtop) > 414) {
           this.setState({
             area: 'vaniville-town-area'
@@ -683,6 +686,21 @@ class Kalos extends React.Component {
     })
   }
 
+  post = () => {
+    fetch('http://localhost:3000/favorite_locations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: localStorage.user_id,
+        location_id:  this.state.pokemonLocations.filter(instance => instance.location.name === this.state.area)[0].location.id
+      })
+    })
+      .then(res => res.json())
+  }
+
   render () {
     return (
       <div>
@@ -744,6 +762,16 @@ class Kalos extends React.Component {
             <br></br>
             {this.determineImage()}
             <br></br>
+            <br></br>
+            <AwesomeButtonProgress
+              type="primary"
+              size="medium"
+              action={(element, next) => {this.post(next); setTimeout(() => {next()}, 600)}}
+            >
+              Favorite!
+            </AwesomeButtonProgress>
+            <br></br>
+
 
             <h1>Native to Kalos: </h1>
             <br></br>

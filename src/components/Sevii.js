@@ -103,9 +103,6 @@ class Sevii extends React.Component {
         curtop += obj.offsetTop
       }
       while (obj = obj.offsetParent) {
-        console.log("X", event.pageX - curleft)
-        console.log("Y", event.pageY-curtop)
-        console.log("-------------------------")
         if ((event.pageX - curleft) < 46 && (event.pageX - curleft) > 33 && (event.pageY - curtop) < 122 && (event.pageY - curtop) > 112) {
           this.setState({
             area: 'one-island-area'
@@ -286,8 +283,6 @@ class Sevii extends React.Component {
           }
       }
       wholeArray.push(array)
-
-      console.log(wholeArray.flat())
 
       return wholeArray.flat().map(arrayOfArrays =>
         <div className={arrayOfArrays[0][2]}>
@@ -492,7 +487,6 @@ class Sevii extends React.Component {
       })
     })
       .then(res => res.json())
-      .then(console.log)
   }
 
   scrollToTop = () => {
@@ -517,6 +511,21 @@ class Sevii extends React.Component {
       block: 'start',
       behavior: 'smooth'
     })
+  }
+
+  post = () => {
+    fetch('http://localhost:3000/favorite_locations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: localStorage.user_id,
+        location_id:  this.state.pokemonLocations.filter(instance => instance.location.name === this.state.area)[0].location.id
+      })
+    })
+      .then(res => res.json())
   }
 
   render () {

@@ -5,6 +5,12 @@ import LoadingPage from './LoadingPage.js'
 import { BarChart, PieChart } from 'react-chartkick'
 import 'chart.js'
 import { ButtonToolbar, Button } from 'react-bootstrap'
+import {
+  AwesomeButton,
+  AwesomeButtonProgress,
+  AwesomeButtonSocial,
+} from 'react-awesome-button';
+import "react-awesome-button/dist/styles.css";
 
 class Sinnoh extends React.Component {
 
@@ -71,9 +77,6 @@ class Sinnoh extends React.Component {
         curtop += obj.offsetTop
       }
       while (obj = obj.offsetParent) {
-        console.log("X", event.pageX - curleft)
-        console.log("Y", event.pageY - curtop)
-        console.log("--------------------")
         if ((event.pageX - curleft) < 88 && (event.pageX - curleft) > 70 && (event.pageY - curtop) < 516 && (event.pageY - curtop) > 494) {
           this.setState({
             area: 'twinleaf-town-area'
@@ -490,8 +493,6 @@ class Sinnoh extends React.Component {
 
   createBars = () => {
     if (this.state.strangeArray) {
-
-      console.log(this.state.strangeArray)
       let array = []
       let wholeArray = []
       let method = this.state.strangeArray[0][2]
@@ -755,6 +756,21 @@ class Sinnoh extends React.Component {
     })
   }
 
+  post = () => {
+    fetch('http://localhost:3000/favorite_locations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: localStorage.user_id,
+        location_id:  this.state.pokemonLocations.filter(instance => instance.location.name === this.state.area)[0].location.id
+      })
+    })
+      .then(res => res.json())
+  }
+
   render () {
     return (
       <div>
@@ -818,6 +834,15 @@ class Sinnoh extends React.Component {
             <h2 style={{float: 'left', marginLeft: '40px'}}><i>{this.description()}</i></h2>
             <br></br>
             {this.determineImage()}
+            <br></br>
+            <br></br>
+            <AwesomeButtonProgress
+              type="primary"
+              size="medium"
+              action={(element, next) => {this.post(next); setTimeout(() => {next()}, 600)}}
+            >
+              Favorite!
+            </AwesomeButtonProgress>
             <br></br>
             <h1>Native to Sinnoh: </h1>
             <br></br>

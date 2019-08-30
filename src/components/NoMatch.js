@@ -11,9 +11,6 @@ class NoMatch extends React.Component {
         curtop += obj.offsetTop
       }
       while (obj = obj.offsetParent) {
-        console.log("X", event.pageX - curleft)
-        console.log("Y", event.pageY-curtop)
-        console.log("-------------------------")
         if ((event.pageX - curleft) < 469 && (event.pageX - curleft) > 329 && (event.pageY - curtop) < 535 && (event.pageY - curtop) > 495) {
           this.props.history.goBack()
         }
@@ -24,7 +21,6 @@ class NoMatch extends React.Component {
 
 
   render() {
-    console.log(this.props.history)
     return(
       <div>
         <img src="/images/snorlax.gif" className="snorlax" onClick={(event) => this.getInfo(event)} style={{marginTop: '5%'}}/>

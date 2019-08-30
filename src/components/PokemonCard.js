@@ -89,7 +89,6 @@ class PokemonCard extends React.Component {
       })
     })
       .then(res => res.json())
-      .then(console.log)
   }
 
   inTeam = () => {
@@ -110,7 +109,6 @@ class PokemonCard extends React.Component {
       fetch(`http://localhost:3000/favorite_pokemons/${id}`, {
         method: 'DELETE'
       })
-        .then(console.log)
     }
   }
 
