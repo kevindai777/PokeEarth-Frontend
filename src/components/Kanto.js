@@ -704,7 +704,7 @@ class Kanto extends React.Component {
         </div>
 
         <FadeIn>
-          <div className="city-card" style={{width: '58%', marginTop: '-2px'}}>
+          <div className="city-card" style={{width: '50%', marginTop: '-2px'}}>
             <h1>{this.state.area}</h1>
             <br></br>
             <h2 style={{float: 'left', marginLeft: '40px'}}><i>{this.description()}</i></h2>

@@ -768,7 +768,7 @@ class Hoenn extends React.Component {
         </div>
 
         <FadeIn>
-          <div className="city-card" style={{width: '44%', marginTop: '-10px'}}>
+          <div className="city-card" style={{width: '38%', marginTop: '-10px'}}>
             <h1>{this.state.area}</h1>
             <br></br>
             <h2 style={{float: 'left', marginLeft: '40px'}}><i>{this.description()}</i></h2>

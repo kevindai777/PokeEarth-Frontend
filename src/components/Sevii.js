@@ -587,7 +587,7 @@ class Sevii extends React.Component {
 
 
         <FadeIn>
-          <div className="city-card" style={{width: '66%', marginTop: '-5px'}}>
+          <div className="city-card" style={{width: '60%', marginTop: '-5px'}}>
             <h1>{this.state.area}</h1>
             <br></br>
             <h2 style={{float: 'left', marginLeft: '-120px'}}><i>{this.description()}</i></h2>

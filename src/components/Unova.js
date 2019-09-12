@@ -842,7 +842,7 @@ class Unova extends React.Component {
         </div>
 
         <FadeIn>
-          <div className="city-card" style={{width: '58%', marginTop: '-10px'}}>
+          <div className="city-card" style={{width: '52%', marginTop: '-10px'}}>
             <h1>{this.state.area}</h1>
             <br></br>
             <h2 style={{float: 'left', marginLeft: '-180px'}}><i>{this.description()}</i></h2>
