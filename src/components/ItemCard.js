@@ -28,7 +28,7 @@ class ItemCard extends React.Component {
           item: item
         })
       )
-    fetch('http://localhost:3000/favorite_items')
+    fetch('https://vast-citadel-58007.herokuapp.com/favorite_items')
       .then(res => res.json())
       .then(items =>
         this.setState({
@@ -38,7 +38,7 @@ class ItemCard extends React.Component {
   }
 
   post = () => {
-    fetch('http://localhost:3000/favorite_items', {
+    fetch('https://vast-citadel-58007.herokuapp.com/favorite_items', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -68,7 +68,7 @@ class PokemonMap extends React.Component {
   }
 
   getFacts = () => {
-    fetch('http://localhost:3000/facts')
+    fetch('https://vast-citadel-58007.herokuapp.com/facts')
       .then(res => res.json())
       .then(facts =>
         this.setState({

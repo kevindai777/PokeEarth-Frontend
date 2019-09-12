@@ -28,14 +28,14 @@ class Kalos extends React.Component {
   }
 
   componentWillMount() {
-    fetch('http://localhost:3000/pokemon_locations/kalos')
+    fetch('https://vast-citadel-58007.herokuapp.com/pokemon_locations/kalos')
       .then(res => res.json())
       .then(locations =>
         this.setState({
           pokemonLocations: locations
         })
       )
-    fetch('http://localhost:3000/moves')
+    fetch('https://vast-citadel-58007.herokuapp.com/moves')
       .then(res => res.json())
       .then(moves =>
         this.setState({
@@ -687,7 +687,7 @@ class Kalos extends React.Component {
   }
 
   post = () => {
-    fetch('http://localhost:3000/favorite_locations', {
+    fetch('https://vast-citadel-58007.herokuapp.com/favorite_locations', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

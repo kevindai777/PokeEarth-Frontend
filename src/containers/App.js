@@ -37,7 +37,7 @@ class App extends React.Component {
     const user_id = localStorage.user_id
 
     if (user_id) {
-      fetch("http://localhost:3000/auto_login", {
+      fetch("https://vast-citadel-58007.herokuapp.com/auto_login", {
         headers: {
           "Authorization": user_id
         }

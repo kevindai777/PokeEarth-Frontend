@@ -10,7 +10,7 @@ class ItemDetails extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/moves')
+    fetch('https://vast-citadel-58007.herokuapp.com/moves')
       .then(res => res.json())
       .then(moves =>
         this.setState({
@@ -40,7 +40,7 @@ class ItemDetails extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/pokemon_items')
+    fetch('https://vast-citadel-58007.herokuapp.com/pokemon_items')
       .then(res => res.json())
       .then(pokemonItems =>
         this.setState({

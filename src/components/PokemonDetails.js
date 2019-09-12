@@ -137,14 +137,14 @@ class PokemonDetails extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/moves')
+    fetch('https://vast-citadel-58007.herokuapp.com/moves')
       .then(res => res.json())
       .then(moves =>
         this.setState({
           moves: moves
         })
       )
-    fetch('http://localhost:3000/pokemons')
+    fetch('https://vast-citadel-58007.herokuapp.com/pokemons')
       .then(res => res.json())
       .then(allPokemons =>
         this.setState({

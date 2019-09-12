@@ -24,7 +24,7 @@ class PokemonCard extends React.Component {
 
   componentDidMount() {
     this.renderThisData()
-    fetch('http://localhost:3000/favorite_pokemons')
+    fetch('https://vast-citadel-58007.herokuapp.com/favorite_pokemons')
       .then(res => res.json())
       .then(instances =>
         this.setState({
@@ -77,7 +77,7 @@ class PokemonCard extends React.Component {
   }
 
   post = () => {
-    fetch('http://localhost:3000/favorite_pokemons', {
+    fetch('https://vast-citadel-58007.herokuapp.com/favorite_pokemons', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ class PokemonCard extends React.Component {
   delete = () => {
     if (this.state.favoritedPokemon) {
       let id = this.state.favoritedPokemon.filter(instance => parseInt(instance.user.id) === parseInt(localStorage.user_id) && parseInt(instance.pokemon.id) === parseInt(this.props.id))[0].id
-      fetch(`http://localhost:3000/favorite_pokemons/${id}`, {
+      fetch(`https://vast-citadel-58007.herokuapp.com/favorite_pokemons/${id}`, {
         method: 'DELETE'
       })
     }

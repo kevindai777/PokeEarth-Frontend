@@ -62,7 +62,7 @@ class Location extends React.Component {
           kalos: region.locations
         })
       )
-    fetch('http://localhost:3000/locations')
+    fetch('https://vast-citadel-58007.herokuapp.com/locations')
       .then(res => res.json())
       .then(data => {
         let foundLocationId = data.filter(location => location.name === this.props.name)[0].id
@@ -72,7 +72,7 @@ class Location extends React.Component {
           regionId: foundRegionId
         })
       })
-    fetch('http://localhost:3000/favorite_locations')
+    fetch('https://vast-citadel-58007.herokuapp.com/favorite_locations')
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -153,7 +153,7 @@ class Location extends React.Component {
     if (!localStorage.user_id) {
       alert("Login first!")
     } else {
-      fetch('http://localhost:3000/favorite_locations', {
+      fetch('https://vast-citadel-58007.herokuapp.com/favorite_locations', {
         method: 'POST',
         headers: {
           "Content-Type": 'application/json',

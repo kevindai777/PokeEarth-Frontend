@@ -21,7 +21,7 @@ class Encounter extends React.Component {
           encounters: data
         })
       )
-    fetch("http://localhost:3000/locations")
+    fetch("https://vast-citadel-58007.herokuapp.com/locations")
       .then(res => res.json())
       .then(data =>
         this.setState({

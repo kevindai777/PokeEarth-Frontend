@@ -9,7 +9,7 @@ class PokemonContainer extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/moves')
+    fetch('https://vast-citadel-58007.herokuapp.com/moves')
       .then(res => res.json())
       .then(moves =>
         this.setState({
@@ -19,7 +19,7 @@ class PokemonContainer extends React.Component {
   }
 
   fetchKanto = () => {
-    fetch('http://localhost:3000/pokemons/kanto')
+    fetch('https://vast-citadel-58007.herokuapp.com/pokemons/kanto')
       .then(res => res.json())
       .then(pokemons =>
         this.setState({
@@ -29,7 +29,7 @@ class PokemonContainer extends React.Component {
   }
 
   fetchJohto = () => {
-    fetch('http://localhost:3000/pokemons/johto')
+    fetch('https://vast-citadel-58007.herokuapp.com/pokemons/johto')
       .then(res => res.json())
       .then(pokemons =>
         this.setState({
@@ -39,7 +39,7 @@ class PokemonContainer extends React.Component {
   }
 
   fetchHoenn = () => {
-    fetch('http://localhost:3000/pokemons/hoenn')
+    fetch('https://vast-citadel-58007.herokuapp.com/pokemons/hoenn')
       .then(res => res.json())
       .then(pokemons =>
         this.setState({
@@ -49,7 +49,7 @@ class PokemonContainer extends React.Component {
   }
 
   fetchSinnoh = () => {
-    fetch('http://localhost:3000/pokemons/sinnoh')
+    fetch('https://vast-citadel-58007.herokuapp.com/pokemons/sinnoh')
       .then(res => res.json())
       .then(pokemons =>
         this.setState({
@@ -59,7 +59,7 @@ class PokemonContainer extends React.Component {
   }
 
   fetchUnova = () => {
-    fetch('http://localhost:3000/pokemons/unova')
+    fetch('https://vast-citadel-58007.herokuapp.com/pokemons/unova')
       .then(res => res.json())
       .then(pokemons =>
         this.setState({
@@ -69,7 +69,7 @@ class PokemonContainer extends React.Component {
   }
 
   fetchKalos = () => {
-    fetch('http://localhost:3000/pokemons/kalos')
+    fetch('https://vast-citadel-58007.herokuapp.com/pokemons/kalos')
       .then(res => res.json())
       .then(pokemons =>
         this.setState({
@@ -79,7 +79,7 @@ class PokemonContainer extends React.Component {
   }
 
   fetchAlola = () => {
-    fetch('http://localhost:3000/pokemons/alola')
+    fetch('https://vast-citadel-58007.herokuapp.com/pokemons/alola')
       .then(res => res.json())
       .then(pokemons =>
         this.setState({

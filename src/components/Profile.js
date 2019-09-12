@@ -14,7 +14,7 @@ class Profile extends React.Component {
   }
 
   componentWillMount() {
-    fetch("http://localhost:3000/users")
+    fetch("https://vast-citadel-58007.herokuapp.com/users")
       .then(res => res.json())
       .then(users => {
         let foundUser = users.filter(user => parseInt(user.id) === parseInt(this.props.userId))[0]
@@ -25,14 +25,14 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/moves')
+    fetch('https://vast-citadel-58007.herokuapp.com/moves')
       .then(res => res.json())
       .then(moves =>
         this.setState({
           moves: moves
         })
       )
-    fetch('http://localhost:3000/favorite_pokemons')
+    fetch('https://vast-citadel-58007.herokuapp.com/favorite_pokemons')
       .then(res => res.json())
       .then(pokemons => {
         let foundFavoritePokemon = pokemons.filter(instance => parseInt(instance.user.id) === parseInt(this.props.userId))
@@ -44,7 +44,7 @@ class Profile extends React.Component {
   }
 
   fetchFavoriteLocations = () => {
-    fetch("http://localhost:3000/favorite_locations")
+    fetch("https://vast-citadel-58007.herokuapp.com/favorite_locations")
       .then(res => res.json())
       .then(response => {
         let foundFavorites = response.filter(location => parseInt(location.user.id) === parseInt(this.props.userId))
@@ -55,7 +55,7 @@ class Profile extends React.Component {
   }
 
   fetchFavoriteItems = () => {
-    fetch("http://localhost:3000/favorite_items")
+    fetch("https://vast-citadel-58007.herokuapp.com/favorite_items")
       .then(res => res.json())
       .then(response => {
         let foundFavorites = response.filter(item => parseInt(item.user.id) === parseInt(this.props.userId))
@@ -119,7 +119,7 @@ class Profile extends React.Component {
   createPokemonState = () => {
     if (this.state.favorites && this.state.moves && this.state.region) {
       if (this.state.region === 'Kanto') {
-        fetch('http://localhost:3000/pokemons/kanto')
+        fetch('https://vast-citadel-58007.herokuapp.com/pokemons/kanto')
           .then(res => res.json())
           .then(pokemons => {
             this.setState({
@@ -128,7 +128,7 @@ class Profile extends React.Component {
             })
           })
       } else if (this.state.region === 'Johto') {
-        fetch('http://localhost:3000/pokemons/johto')
+        fetch('https://vast-citadel-58007.herokuapp.com/pokemons/johto')
           .then(res => res.json())
           .then(pokemons => {
             this.setState({
@@ -137,7 +137,7 @@ class Profile extends React.Component {
             })
           })
       } else if (this.state.region === 'Hoenn') {
-        fetch('http://localhost:3000/pokemons/hoenn')
+        fetch('https://vast-citadel-58007.herokuapp.com/pokemons/hoenn')
           .then(res => res.json())
           .then(pokemons => {
             this.setState({
@@ -146,7 +146,7 @@ class Profile extends React.Component {
             })
           })
       } else if (this.state.region === 'Sinnoh') {
-        fetch('http://localhost:3000/pokemons/sinnoh')
+        fetch('https://vast-citadel-58007.herokuapp.com/pokemons/sinnoh')
           .then(res => res.json())
           .then(pokemons => {
             this.setState({
@@ -155,7 +155,7 @@ class Profile extends React.Component {
             })
           })
       } else if (this.state.region === 'Unova') {
-        fetch('http://localhost:3000/pokemons/unova')
+        fetch('https://vast-citadel-58007.herokuapp.com/pokemons/unova')
           .then(res => res.json())
           .then(pokemons => {
             this.setState({
@@ -164,7 +164,7 @@ class Profile extends React.Component {
             })
           })
       } else if (this.state.region === 'Kalos') {
-        fetch('http://localhost:3000/pokemons/kalos')
+        fetch('https://vast-citadel-58007.herokuapp.com/pokemons/kalos')
           .then(res => res.json())
           .then(pokemons => {
             this.setState({
